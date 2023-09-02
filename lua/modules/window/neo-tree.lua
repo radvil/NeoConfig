@@ -47,7 +47,7 @@ return {
   },
 
   config = function(_, opts)
-    local icons = require("nvim.icons")
+    local icons = require("common.icons")
     local i = function(icon)
       return string.format("%s ", icon)
     end
