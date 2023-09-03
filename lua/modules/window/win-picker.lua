@@ -5,23 +5,23 @@ M.event = "VeryLazy"
 M.config = function()
   local picker = require("window-picker")
   local filetypes = {
-    "noice",
-    "flash_prompt",
-    "WhichKey",
-    "lazy",
-    "lspinfo",
-    "mason",
-    "neo-tree-popup",
-    "notify",
-    "oil",
-    "prompt",
-    "TelescopePrompt",
     "TelescopeResults",
+    "TelescopePrompt",
+    "neo-tree-popup",
     "DressingInput",
+    "flash_prompt",
     "cmp_menu",
-    "noice",
     "neo-tree",
+    "WhichKey",
     "Outline",
+    "prompt",
+    "lspinfo",
+    "notify",
+    "mason",
+    "noice",
+    "noice",
+    "lazy",
+    "oil",
   }
 
   picker.setup({
