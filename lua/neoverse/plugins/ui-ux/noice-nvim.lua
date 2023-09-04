@@ -10,24 +10,24 @@ return {
   -- stylua: ignore
   keys = {
     {
-      "<leader>lu",
+      "<leader>ul",
       function()
-        local activated = require("neoverse.state").noice
-        require("noice")[activated and "disable" or "enable"]()
-        local msg = activated and "Noice UX » Disabled" or "Noice UX » Enabled"
-        local lvl = activated and vim.log.levels.WARN or vim.log.levels.INFO
+        local next = not require("neoverse.state").noice
+        require("noice")[next and "enable" or "disable"]()
+        local msg = next and "Noice UX » Enabled" or "Noice UX » Disabled"
+        local lvl = next and vim.log.levels.INFO or vim.log.levels.WARN
+        require("neoverse.state").noice = next
         vim.notify(msg, lvl)
-        require("neoverse.state").noice = not activated
       end,
-      desc = "Noice » Toggle",
+      desc = "Logger » Toggle Noice",
     },
     { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
     { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, expr = true, desc = "Noice » Scroll backward", mode = {"i", "n", "s"} },
     { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Noice » Redirect cmdline" },
-    { "<leader>ll", function() require("noice").cmd("last") end, desc = "Noice » Last message" },
-    { "<leader>lh", function() require("noice").cmd("history") end, desc = "Noice » History" },
-    { "<leader>la", function() require("noice").cmd("all") end, desc = "Noice » All" },
-    { "<leader>ld", function() require("noice").cmd("dismiss") end, desc = "Noice » Dismiss All" },
+    { "<leader>ll", function() require("noice").cmd("last") end, desc = "Logger » Noice last message" },
+    { "<leader>lh", function() require("noice").cmd("history") end, desc = "Logger » Noice message history" },
+    { "<leader>la", function() require("noice").cmd("all") end, desc = "Logger » All noice messages" },
+    { "<leader>ld", function() require("noice").cmd("dismiss") end, desc = "Logger » Dismiss noice messages" },
   },
 
   ---@param opts NoiceConfig
