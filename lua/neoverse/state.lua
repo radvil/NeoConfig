@@ -1,7 +1,4 @@
----@class state NeoVerseState
-local state = {
+return {
   smooth_cursor = true,
   barbecue = true,
 }
-
-return state
