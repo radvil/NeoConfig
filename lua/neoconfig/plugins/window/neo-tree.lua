@@ -18,7 +18,6 @@ return {
           end
         else
           require("neo-tree.command").execute({
-            -- TODO: adjust utilities
             dir = require("neoconfig.common.utils").get_root(),
             toggle = true,
           })
