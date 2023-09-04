@@ -7,6 +7,12 @@ local defaults = {
   darkmode = true,
   transparent = false,
 
+  statusline = {
+    theme = "auto",
+    enabled = true,
+    global = false,
+  },
+
   ---@type string|fun()
   colorscheme = function()
     require("tokyonight").load()
@@ -47,16 +53,22 @@ local defaults = {
 
   --TODO: reformat icons options
   icons = {
-    diagnostics = {
+    Diagnostics = {
       Error = " ",
       Warn = " ",
       Hint = " ",
       Info = " ",
     },
-    git = {
-      added = " ",
-      modified = " ",
-      removed = " ",
+    Git = {
+      Added = "",
+      Deleted = "",
+      Modified = "",
+      Renamed = "",
+      Staged = "",
+      Unstaged = "󰅗",
+      Untracked = "",
+      Conflict = "",
+      Ignored = "",
     },
     kinds = {
       Array = " ",
