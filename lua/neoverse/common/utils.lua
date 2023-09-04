@@ -21,11 +21,8 @@ function M.buf_has_keymaps(mappings, mode, bufnr)
   return ret
 end
 
--- returns the root directory based on:
--- * lsp workspace folders
--- * lsp root_dir
--- * root pattern of filename of the current buffer
--- * root pattern of cwd
+local root_pattern_fallback = { ".git", "lua" }
+
 ---@return string
 function M.get_root()
   ---@type string?
@@ -41,7 +38,7 @@ function M.get_root()
       end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
       for _, p in ipairs(paths) do
         local rp = vim.loop.fs_realpath(p)
-        if path:find(rp, 1, true) then
+        if path:find(rp or 0, 1, true) then
           roots[#roots + 1] = rp
         end
       end
@@ -55,7 +52,7 @@ function M.get_root()
   if not root then
     path = path and vim.fs.dirname(path) or vim.loop.cwd()
     ---@type string?
-    root = vim.fs.find(M.root_patterns, { path = path, upward = true })[1]
+    root = vim.fs.find(root_pattern_fallback, { path = path, upward = true })[1]
     root = root and vim.fs.dirname(root) or vim.loop.cwd()
   end
   ---@cast root string
