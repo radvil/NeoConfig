@@ -3,8 +3,9 @@ return {
   "glepnir/dashboard-nvim",
   event = "VimEnter",
   enabled = function()
-    return require("neoverse.config").dashboard.enabled
-      and require("neoverse.config").dashboard.provider == "dashboard-nvim"
+    local plugin = require("lazy.core.config").spec.plugins["neoverse"]
+    local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+    return opts.dashboard.enabled and opts.dashboard.provider == "dashboard-nvim"
   end,
   opts = {
     theme = "hyper",
