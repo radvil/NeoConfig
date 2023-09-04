@@ -2,7 +2,6 @@
 return {
   "goolord/alpha-nvim",
   event = "VimEnter",
-  -- TODO: Alert user if persistence | telescope was not installed
   dependencies = { "folke/persistence.nvim" },
   opts = function()
     local db = require("alpha.themes.dashboard")

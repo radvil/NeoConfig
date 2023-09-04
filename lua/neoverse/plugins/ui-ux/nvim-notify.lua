@@ -14,7 +14,6 @@ local M = {
     opts.max_width = function()
       return math.floor(vim.o.columns * 0.36)
     end
-    -- TODO: set universal options
     if require("neoverse.config").transparent then
       opts.background_colour = "#000000"
     end

@@ -27,21 +27,18 @@ return {
   lazy = false,
   opts = function()
     local config = require("neoverse.config")
-    local variant = not config.darkmode and "day" or "moon"
     local opts = {
-      style = variant,
-      terminal_colors = true,
-      transparent = config.transparent,
-      hide_inactive_statusline = true,
-      transparent_sidebar = config.transparent,
-      dim_inactive = false,
+      style = "day",
       lualine_bold = true,
+      dim_inactive = false,
       sidebars = ft_windows,
+      terminal_colors = true,
+      hide_inactive_statusline = true,
+      transparent = config.transparent,
+      transparent_sidebar = config.transparent,
       styles = {
         comments = { italic = true },
         keywords = { italic = true },
-        sidebars = "dark",
-        floats = "dark",
       },
       on_colors = function(colors)
         if not config.transparent then
@@ -52,10 +49,17 @@ return {
       end,
     }
 
+    if config.darkmode then
+      opts.style = "moon"
+      opts.styles.sidebars = "dark"
+      opts.styles.floats = "dark"
+    end
+
     if config.transparent then
       opts.styles.sidebars = "transparent"
       opts.styles.floats = "transparent"
     end
+
     return opts
   end,
 }

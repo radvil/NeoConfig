@@ -33,7 +33,6 @@ return {
     local vscode_loader = require("luasnip.loaders.from_vscode")
     vscode_loader.lazy_load()
     vscode_loader.lazy_load({
-      -- TODO: set this to universal options
       paths = require("neoverse.config").snippet_dirs,
     })
   end,
