@@ -94,4 +94,14 @@ function M.on_lsp_attach(callback)
   })
 end
 
+---@param callback fun()
+function M.on_very_lazy(callback)
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "VeryLazy",
+    callback = function()
+      callback()
+    end,
+  })
+end
+
 return M
