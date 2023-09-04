@@ -6,7 +6,7 @@ return {
     "rcarriga/nvim-notify",
   },
   -- stylua: ignore
-  enabled = function() return not vim.g.neovide end,
+  enabled = function() return require("neoverse.state").noice end,
   -- stylua: ignore
   keys = {
     {
