@@ -3,8 +3,8 @@ return {
   "goolord/alpha-nvim",
   event = "VimEnter",
   enabled = function()
-    local config = require("neoverse.config").dashboard
-    return config.enabled and config.provider == "alpha-nvim"
+    return require("neoverse.config").dashboard.enabled
+      and require("neoverse.config").dashboard.provider == "alpha-nvim"
   end,
   dependencies = { "folke/persistence.nvim" },
   opts = function()

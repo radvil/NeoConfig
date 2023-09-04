@@ -3,8 +3,8 @@ return {
   "glepnir/dashboard-nvim",
   event = "VimEnter",
   enabled = function()
-    local config = require("neoverse.config").dashboard
-    return config.enabled and config.provider == "dashboard-nvim"
+    return require("neoverse.config").dashboard.enabled
+      and require("neoverse.config").dashboard.provider == "dashboard-nvim"
   end,
   opts = {
     theme = "hyper",
