@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "goolord/alpha-nvim",
-  event = "VeryLazy",
+  event = "VimEnter",
   dependencies = { "folke/persistence.nvim" },
   opts = function()
     local db = require("alpha.themes.dashboard")

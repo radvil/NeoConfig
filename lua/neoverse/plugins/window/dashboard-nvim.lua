@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "glepnir/dashboard-nvim",
-  event = "VeryLazy",
+  event = "VimEnter",
   opts = {
     theme = "hyper",
     shortcut_type = "number",
