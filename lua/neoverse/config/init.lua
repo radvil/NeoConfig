@@ -12,6 +12,9 @@ local defaults = {
   end,
 
   ---@type fun() | nil
+  before_config_init = nil,
+
+  ---@type fun() | nil
   after_config_init = nil,
 
   note_dir = vim.fn.expand("~") .. "/Documents/obsidian-vault",
@@ -101,16 +104,22 @@ local options = nil
 function M.bootstrap(opts)
   options = vim.tbl_deep_extend("force", defaults, opts or {})
 
-  if vim.fn.argc(-1) == 0 then
-    vim.api.nvim_create_autocmd("User", {
-      group = vim.api.nvim_create_augroup("NeoVerse", { clear = true }),
-      pattern = "VeryLazy",
-      callback = function()
-        M.after_config_init()
-      end,
-    })
-  else
-    M.after_config_init()
+  if M.before_config_init then
+    M.before_config_init()
+  end
+
+  if M.after_config_init then
+    if vim.fn.argc(-1) == 0 then
+      vim.api.nvim_create_autocmd("User", {
+        group = vim.api.nvim_create_augroup("NeoVerse", { clear = true }),
+        pattern = "VeryLazy",
+        callback = function()
+          M.after_config_init()
+        end,
+      })
+    else
+      M.after_config_init()
+    end
   end
 
   require("lazy.core.util").try(function()
