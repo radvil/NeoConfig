@@ -18,7 +18,8 @@ return {
           end
         else
           require("neo-tree.command").execute({
-            dir = require("minimal.util").get_root(),
+            -- TODO: adjust utilities
+            dir = require("neoconfig.common.util").get_root(),
             toggle = true,
           })
         end
@@ -47,7 +48,7 @@ return {
   },
 
   config = function(_, opts)
-    local icons = require("common.icons")
+    local icons = require("neoconfig.common.icons")
     local i = function(icon)
       return string.format("%s ", icon)
     end
