@@ -13,6 +13,27 @@ local defaults = {
   ---@type fun() | nil
   after_config_init = nil,
 
+  palette = {
+    bg = "#1E1E2E",
+    bg2 = "#2F334D",
+    fg = "#ffffff",
+    fg2 = "#c8d3f5",
+    blue = "#3e68d7",
+    blue2 = "#51AFEF",
+    cyan = "#0DB9D7",
+    green = "#6DD390",
+    orange = "#FF855A",
+    red = "#FF0000",
+    red2 = "#EC5F67",
+    pink = "#ff007c",
+    pink2 = "#E76EB1",
+    magenta = "#C678DD",
+    violet = "#A9A1E1",
+    gold = "#e0af68",
+    yellow = "#ffc777",
+    yellow2 = "#dbb67d",
+  },
+
   --TODO: reformat icons options
   icons = {
     diagnostics = {
