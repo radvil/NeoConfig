@@ -7,6 +7,12 @@ local defaults = {
   darkmode = true,
   transparent = false,
 
+  dashboard = {
+    enabled = true,
+    ---@type "alpha-nvim" | "dashboard-nvim"
+    provider = "alpha-nvim",
+  },
+
   bufferline = {
     enabled = true,
   },
