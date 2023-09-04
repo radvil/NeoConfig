@@ -9,9 +9,6 @@ end
 
 return {
   "nvim-lualine/lualine.nvim",
-  cond = function()
-    return require("neoverse.config").statusline.enabled
-  end,
   event = "VeryLazy",
   config = function()
     local config = require("neoverse.config")

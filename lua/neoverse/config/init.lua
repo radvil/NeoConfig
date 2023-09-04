@@ -9,7 +9,6 @@ local defaults = {
 
   statusline = {
     theme = "auto",
-    enabled = true,
     global = false,
   },
 
