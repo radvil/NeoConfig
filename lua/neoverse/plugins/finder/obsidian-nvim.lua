@@ -55,8 +55,7 @@ return {
     local obsidian = require("obsidian")
     obsidian.setup({
       mappings = {},
-      -- TODO: set this to universal options
-      dir = vim.fn.expand("~") .. "/Documents/obsidian-vault",
+      dir = require("neoverse.config").note_dir,
       finder = "telescope.nvim",
       completion = {
         nvim_cmp = true,

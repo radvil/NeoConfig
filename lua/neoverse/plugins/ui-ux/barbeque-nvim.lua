@@ -1,6 +1,3 @@
--- TODO: set this to universal options
-local activated = true
-
 return {
   "utilyre/barbecue.nvim",
   event = "VeryLazy",
@@ -13,9 +10,11 @@ return {
     {
       "<leader>ub",
       function()
+        local activated = require("neoverse.state").barbecue
         local lvl = activated and vim.log.levels.INFO or vim.log.levels.WARN
         local status = activated and "Enabled" or "Disabled"
         require("barbecue.ui").toggle(activated)
+        require("neoverse.state").barbecue = not activated
         vim.notify("Barbeque » " .. status, lvl)
       end,
       desc = "Toggle » Barbeque/Navic",
@@ -40,7 +39,7 @@ return {
     }, {
       group = vim.api.nvim_create_augroup("barbecue.updater", {}),
       callback = function()
-        if activated then
+        if require("neoverse.state").barbecue then
           require("barbecue.ui").update()
         end
       end,

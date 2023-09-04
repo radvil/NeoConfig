@@ -34,10 +34,7 @@ return {
     vscode_loader.lazy_load()
     vscode_loader.lazy_load({
       -- TODO: set this to universal options
-      paths = {
-        os.getenv("DOTFILES") .. "/nvim/assets/snippets/all",
-        os.getenv("DOTFILES") .. "/nvim/assets/snippets/angular",
-      },
+      paths = require("neoverse.config").snippet_dirs,
     })
   end,
 }

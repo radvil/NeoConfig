@@ -1,8 +1,3 @@
--- TODO: set global options
-local enabled = true
-local activated = true
-local transbg = true
-
 return {
   "folke/noice.nvim",
   event = "VeryLazy",
@@ -11,17 +6,18 @@ return {
     "rcarriga/nvim-notify",
   },
   -- stylua: ignore
-  enabled = function() return enabled end,
+  enabled = function() return not vim.g.neovide end,
   -- stylua: ignore
   keys = {
     {
       "<leader>lu",
       function()
+        local activated = require("neoverse.state").noice
         require("noice")[activated and "disable" or "enable"]()
-        activated = not activated
-        local msg = activated and "Noice UX » enabled" or "Noice UX » Disabled"
-        local lvl = activated and vim.log.levels.INFO or vim.log.levels.WARN
+        local msg = activated and "Noice UX » Disabled" or "Noice UX » Enabled"
+        local lvl = activated and vim.log.levels.WARN or vim.log.levels.INFO
         vim.notify(msg, lvl)
+        require("neoverse.state").noice = not activated
       end,
       desc = "Noice » Toggle",
     },
@@ -36,6 +32,7 @@ return {
 
   ---@param opts NoiceConfig
   config = function(_, opts)
+    local config = require("neoverse.config")
     opts = vim.tbl_deep_extend("force", opts or {}, {
       health = { checker = true },
       presets = {
@@ -146,7 +143,7 @@ return {
       opts.routes[2].view = "notify"
     end
 
-    if opts and not transbg then
+    if opts and not config.transparent then
       opts.presets.lsp_doc_border = {
         views = {
           hover = {

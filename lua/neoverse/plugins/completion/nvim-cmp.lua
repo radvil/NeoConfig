@@ -1,43 +1,3 @@
--- TODO: set this to universal options
-local transbg = true
-local kind_icons = {
-  Array = " ",
-  Boolean = " ",
-  Class = " ",
-  Color = " ",
-  Constant = " ",
-  Constructor = " ",
-  Copilot = " ",
-  Enum = " ",
-  EnumMember = " ",
-  Event = " ",
-  Field = " ",
-  File = " ",
-  Folder = " ",
-  Function = " ",
-  Interface = " ",
-  Key = " ",
-  Keyword = " ",
-  Method = " ",
-  Module = " ",
-  Namespace = " ",
-  Null = " ",
-  Number = " ",
-  Object = " ",
-  Operator = " ",
-  Package = " ",
-  Property = " ",
-  Reference = " ",
-  Snippet = " ",
-  String = " ",
-  Struct = " ",
-  Text = " ",
-  TypeParameter = " ",
-  Unit = " ",
-  Value = " ",
-  Variable = " ",
-}
-
 return {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
@@ -50,6 +10,7 @@ return {
   },
 
   opts = function()
+    local Config = require("neoverse.config")
     local cmp = require("cmp")
     local defaults = require("cmp.config.default")()
     local opts = {
@@ -92,7 +53,7 @@ return {
             buffer = " Buffer",
             path = " Path",
           }
-          vim_item.kind = kind_icons[item_kind]
+          vim_item.kind = Config.icons.kinds[item_kind]
           vim_item.menu = sources[entry.source.name]
           return vim_item
         end,
@@ -117,8 +78,7 @@ return {
       sorting = defaults.sorting,
     }
 
-    -- TODO: set universal option for this condition
-    if transbg then
+    if Config.transparent then
       opts.window = {
         documentation = cmp.config.window.bordered(),
         completion = cmp.config.window.bordered(),

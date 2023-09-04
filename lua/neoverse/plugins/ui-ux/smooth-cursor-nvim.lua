@@ -1,7 +1,3 @@
--- TODO: set universal options
-local active = true
-local transbg = true
-
 return {
   "gen740/SmoothCursor.nvim",
   event = "VeryLazy",
@@ -9,13 +5,14 @@ return {
     {
       "<leader>ms",
       function()
-        active = not active
-        if active then
+        if not require("neoverse.state").smooth_cursor then
           vim.cmd("SmoothCursorStart")
           vim.notify("Smooth cursor » enabled", vim.log.levels.INFO)
+          require("neoverse.state").smooth_cursor = true
         else
           vim.cmd("SmoothCursorStop")
           vim.notify("Smooth cursor » disabled", vim.log.levels.WARN)
+          require("neoverse.state").smooth_cursor = false
         end
       end,
       desc = "Toggle smooth cursor",
@@ -48,7 +45,7 @@ return {
       "qf",
     },
     disable_float_win = true,
-    autostart = active,
+    autostart = require("neoverse.state").smooth_cursor,
     intervals = 13,
     threshold = 1,
     cursor = "",
@@ -56,7 +53,11 @@ return {
     speed = 13,
     fancy = {
       enable = true,
-      head = { cursor = "▷", texthl = "SmoothCursor", linehl = not transbg and "CursorLine" or nil },
+      head = {
+        cursor = "▷",
+        texthl = "SmoothCursor",
+        linehl = not require("neoverse.config").transparent and "CursorLine" or nil,
+      },
       body = {
         { cursor = "", texthl = "SmoothCursorRed" },
         { cursor = "", texthl = "SmoothCursorOrange" },
