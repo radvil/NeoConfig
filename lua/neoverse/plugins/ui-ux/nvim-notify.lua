@@ -1,3 +1,6 @@
+---TODO: set to universal options
+local transbg = true
+
 ---@type LazySpec
 local M = {
   "rcarriga/nvim-notify",
@@ -7,13 +10,6 @@ local M = {
     --opts.render = "minimal"
     opts.merge = true
     opts.replace = true
-    -- TODO: set universal options
-    -- if minimal.transbg then
-    --   opts.background_colour = "#000000"
-    -- end
-    -- if minimal.dev then
-    --   opts.timeout = 10000
-    -- else
     opts.timeout = 1000
     opts.max_height = function()
       return math.floor(vim.o.lines * 0.75)
@@ -21,7 +17,10 @@ local M = {
     opts.max_width = function()
       return math.floor(vim.o.columns * 0.36)
     end
-    -- end
+    -- TODO: set universal options
+    if transbg then
+      opts.background_colour = "#000000"
+    end
     return opts
   end,
 
