@@ -14,12 +14,12 @@ return {
       function()
         local next = not require("neoverse.state").noice
         require("noice")[next and "enable" or "disable"]()
-        local msg = next and "Noice UX » Enabled" or "Noice UX » Disabled"
+        local msg = next and "Noice Logger + UX » Enabled" or "Noice Logger + UX » Disabled"
         local lvl = next and vim.log.levels.INFO or vim.log.levels.WARN
         require("neoverse.state").noice = next
         vim.notify(msg, lvl)
       end,
-      desc = "Logger » Toggle Noice",
+      desc = "Logger » Toggle Noice Logger/UX",
     },
     { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
     { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, expr = true, desc = "Noice » Scroll backward", mode = {"i", "n", "s"} },
