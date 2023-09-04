@@ -2,10 +2,6 @@
 return {
   "glepnir/dashboard-nvim",
   event = "VeryLazy",
-  enabled = function()
-    return require("neoverse.config").dashboard.enabled
-      and require("neoverse.config").dashboard.provider == "dashboard-nvim"
-  end,
   opts = {
     theme = "hyper",
     shortcut_type = "number",

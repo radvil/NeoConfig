@@ -2,10 +2,6 @@
 return {
   "goolord/alpha-nvim",
   event = "VeryLazy",
-  enabled = function()
-    local config = require("neoverse.config").dashboard
-    return config.enabled and config.provider == "alpha-nvim"
-  end,
   dependencies = { "folke/persistence.nvim" },
   opts = function()
     local db = require("alpha.themes.dashboard")
