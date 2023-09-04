@@ -74,15 +74,8 @@ function M.debug(msg)
   if not require("neoverse.config").dev then
     return
   end
-  local opts = {
-    severity = vim.log.levels.INFO,
-    title = "DEBUG",
-  }
-  local title = string.format("[%s]", opts.title)
-  vim.api.nvim_echo({
-    { title, "Debug" },
-    { " » " .. msg },
-  }, true, {})
+  local title = string.format("[%s]", "DEBUG")
+  vim.notify(msg, vim.log.levels.INFO, { title })
 end
 
 return M
