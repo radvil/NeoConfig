@@ -11,7 +11,6 @@ end
 return {
   "epwalsh/obsidian.nvim",
   lazy = false,
-  -- event = { "BufReadPre " .. minimal.note_vault .. "/**.md" },
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
     {
@@ -53,9 +52,9 @@ return {
   },
   config = function()
     local obsidian = require("obsidian")
-    obsidian.setup({
+    local config = require("neoverse.config")
+    local options = {
       mappings = {},
-      dir = require("neoverse.config").note_dir,
       finder = "telescope.nvim",
       completion = {
         nvim_cmp = true,
@@ -78,7 +77,17 @@ return {
         end
         return tostring(os.time()) .. "-" .. suffix
       end,
-    })
+    }
+
+    if type(config.note_dir) == "function" then
+      options.dir = config.note_dir()
+    elseif type(config.note_dir) == "string" then
+      options.dir = config.note_dir
+    else
+      options.dir = vim.fn.expand("~") .. "/obsidian-nvim-notes"
+    end
+
+    obsidian.setup(options)
 
     Kmap("gf", function()
       if obsidian.util.cursor_on_markdown_link() then

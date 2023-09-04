@@ -18,12 +18,11 @@ local defaults = {
   ---@type fun() | nil
   after_config_init = nil,
 
-  note_dir = vim.fn.expand("~") .. "/Documents/obsidian-vault",
+  ---@type (fun(): string) | string | nil
+  note_dir = nil,
 
-  snippet_dirs = {
-    os.getenv("DOTFILES") .. "/nvim/assets/snippets/all",
-    os.getenv("DOTFILES") .. "/nvim/assets/snippets/angular",
-  },
+  ---@type (fun(): table<string>) | table<string> | nil
+  snippet_dirs = {},
 
   palette = {
     bg = "#1E1E2E",
