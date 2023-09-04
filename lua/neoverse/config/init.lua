@@ -3,6 +3,7 @@ local M = {}
 
 ---@class NeoVerseOpts
 local defaults = {
+  darkmode = true,
   transparent = false,
 
   ---@type string|fun()
