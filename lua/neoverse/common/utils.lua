@@ -78,4 +78,9 @@ function M.debug(msg)
   vim.notify(msg, vim.log.levels.INFO, { title })
 end
 
+---@param plugin string
+function M.lazy_has(plugin)
+  return require("lazy.core.config").spec.plugins[plugin] ~= nil
+end
+
 return M
