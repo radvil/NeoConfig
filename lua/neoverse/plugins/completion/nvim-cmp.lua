@@ -1,4 +1,5 @@
 -- TODO: set this to universal options
+local transbg = true
 local kind_icons = {
   Array = " ",
   Boolean = " ",
@@ -117,12 +118,12 @@ return {
     }
 
     -- TODO: set universal option for this condition
-    -- if minimal.transbg then
-    --   opts.window = {
-    --     documentation = cmp.config.window.bordered(),
-    --     completion = cmp.config.window.bordered(),
-    --   }
-    -- end
+    if transbg then
+      opts.window = {
+        documentation = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered(),
+      }
+    end
 
     return opts
   end,
