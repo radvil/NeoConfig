@@ -7,10 +7,6 @@ local defaults = {
   darkmode = true,
   transparent = false,
 
-  bufferline = {
-    enabled = true,
-  },
-
   statusline = {
     theme = "auto",
     enabled = true,

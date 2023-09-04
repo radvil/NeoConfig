@@ -107,10 +107,6 @@ end
 return {
   "akinsho/nvim-bufferline.lua",
   event = "VeryLazy",
-  enabled = function()
-    return require("neoverse.config").bufferline.enabled
-  end,
-
   keys = function()
     local Kmap = function(lhs, cmd, desc)
       cmd = string.format("<cmd>BufferLine%s<cr>", cmd)
