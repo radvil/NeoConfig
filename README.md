@@ -1,1 +1,1 @@
-#NeoConfig
+#neoconfig
