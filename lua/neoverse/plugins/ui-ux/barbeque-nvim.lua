@@ -10,11 +10,11 @@ return {
     {
       "<leader>ub",
       function()
-        local activated = require("neoverse.state").barbecue
-        local lvl = activated and vim.log.levels.INFO or vim.log.levels.WARN
-        local status = activated and "Enabled" or "Disabled"
-        require("barbecue.ui").toggle(activated)
-        require("neoverse.state").barbecue = not activated
+        local next = not require("neoverse.state").barbecue
+        local lvl = next and vim.log.levels.INFO or vim.log.levels.WARN
+        local status = next and "Enabled" or "Disabled"
+        require("barbecue.ui").toggle(next)
+        require("neoverse.state").barbecue = next
         vim.notify("Barbeque » " .. status, lvl)
       end,
       desc = "Toggle » Barbeque/Navic",

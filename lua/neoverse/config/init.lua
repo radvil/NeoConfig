@@ -3,7 +3,7 @@ local M = {}
 
 ---@class NeoVerseOpts
 local defaults = {
-  dev = false,
+  dev = true,
   darkmode = true,
   transparent = false,
 
