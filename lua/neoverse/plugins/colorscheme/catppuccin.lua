@@ -14,7 +14,7 @@ M.config = function()
     transparent_background = config.transparent,
     term_colors = true,
     dim_inactive = {
-      enabled = config.transparent,
+      enabled = not config.transparent,
       percentage = 0.13,
       shade = "dark",
     },
@@ -84,11 +84,5 @@ M.config = function()
     end,
   })
 end
-
--- M.init = function()
---   if config == "catppuccin" then
---     vim.cmd.colorscheme("catppuccin")
---   end
--- end
 
 return M
