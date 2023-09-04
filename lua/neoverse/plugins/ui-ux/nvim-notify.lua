@@ -1,6 +1,3 @@
----TODO: set to universal options
-local transbg = true
-
 ---@type LazySpec
 local M = {
   "rcarriga/nvim-notify",
@@ -18,7 +15,7 @@ local M = {
       return math.floor(vim.o.columns * 0.36)
     end
     -- TODO: set universal options
-    if transbg then
+    if require("neoverse.config").transparent then
       opts.background_colour = "#000000"
     end
     return opts
