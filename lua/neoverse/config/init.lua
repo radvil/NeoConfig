@@ -7,16 +7,18 @@ local defaults = {
   darkmode = true,
   transparent = false,
 
+  bufferline = {
+    enabled = true,
+  },
+
   statusline = {
     theme = "auto",
     enabled = true,
     global = false,
   },
 
-  ---@type string|fun()
-  colorscheme = function()
-    require("tokyonight").load()
-  end,
+  ---@type string
+  colorscheme = "tokyonight",
 
   ---@type fun() | nil
   before_config_init = nil,
@@ -135,9 +137,7 @@ function M.bootstrap(opts)
   end
 
   require("lazy.core.util").try(function()
-    if type(M.colorscheme) == "function" then
-      M.colorscheme()
-    else
+    if M.colorscheme then
       vim.cmd.colorscheme(M.colorscheme)
     end
   end, {
