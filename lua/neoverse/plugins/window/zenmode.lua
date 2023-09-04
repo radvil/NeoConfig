@@ -21,7 +21,7 @@ return {
       width = 120,
       height = 1,
       options = {
-        foldcolumn = "1", -- 0 to disable fold columns
+        foldcolumn = "0",
         list = true, -- disable whitespace chars
       },
     },
