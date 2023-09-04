@@ -1,11 +1,10 @@
 ---@type LazySpec
 return {
   "glepnir/dashboard-nvim",
-  event = "VimEnter",
+  event = "VeryLazy",
   enabled = function()
-    local plugin = require("lazy.core.config").spec.plugins["neoverse"]
-    local opts = require("lazy.core.plugin").values(plugin, "opts", false)
-    return opts.dashboard.enabled and opts.dashboard.provider == "dashboard-nvim"
+    return require("neoverse.config").dashboard.enabled
+      and require("neoverse.config").dashboard.provider == "dashboard-nvim"
   end,
   opts = {
     theme = "hyper",

@@ -1,11 +1,10 @@
 ---@type LazySpec
 return {
   "goolord/alpha-nvim",
-  event = "VimEnter",
+  event = "VeryLazy",
   enabled = function()
-    local plugin = require("lazy.core.config").spec.plugins["neoverse"]
-    local opts = require("lazy.core.plugin").values(plugin, "opts", false)
-    return opts.dashboard.enabled and opts.dashboard.provider == "alpha-nvim"
+    local config = require("neoverse.config").dashboard
+    return config.enabled and config.provider == "alpha-nvim"
   end,
   dependencies = { "folke/persistence.nvim" },
   opts = function()
