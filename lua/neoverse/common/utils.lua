@@ -59,4 +59,15 @@ function M.get_root()
   return root
 end
 
+---@param ... any
+---@return any | nil
+function M.call(...)
+  local status, lib = pcall(require, ...)
+  if status then
+    return lib
+  else
+    return nil
+  end
+end
+
 return M
