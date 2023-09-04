@@ -1,1 +1,1 @@
-#neoconfig
+#neoverse

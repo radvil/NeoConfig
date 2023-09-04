@@ -18,7 +18,7 @@ return {
           end
         else
           require("neo-tree.command").execute({
-            dir = require("neoconfig.common.utils").get_root(),
+            dir = require("neoverse.common.utils").get_root(),
             toggle = true,
           })
         end
@@ -47,7 +47,7 @@ return {
   },
 
   config = function(_, opts)
-    local icons = require("neoconfig.common.icons")
+    local icons = require("neoverse.common.icons")
     local i = function(icon)
       return string.format("%s ", icon)
     end

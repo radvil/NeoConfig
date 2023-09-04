@@ -55,7 +55,7 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "*",
       callback = function()
-        if require("neoconfig.common.utils").buf_has_keymaps({ "<A-n>", "<A-p>" }) then
+        if require("neoverse.common.utils").buf_has_keymaps({ "<A-n>", "<A-p>" }) then
           pcall(vim.keymap.del, "n", "<A-n>", { buffer = true })
           pcall(vim.keymap.del, "n", "<A-p>", { buffer = true })
         end
