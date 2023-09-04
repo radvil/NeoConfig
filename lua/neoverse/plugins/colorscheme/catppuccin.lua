@@ -14,7 +14,7 @@ M.config = function()
     transparent_background = config.transparent,
     term_colors = true,
     dim_inactive = {
-      enabled = vim.g.neovide or not config.transparent,
+      enabled = config.transparent,
       percentage = 0.13,
       shade = "dark",
     },
