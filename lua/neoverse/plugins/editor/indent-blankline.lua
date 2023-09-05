@@ -31,6 +31,21 @@ return {
       "alpha",
       "help",
       "qf",
+
+      -- popup
+      "TelescopeResults",
+      "TelescopePrompt",
+      "neo-tree-popup",
+      "DressingInput",
+      "flash_prompt",
+      "cmp_menu",
+      "WhichKey",
+      "lspinfo",
+      "notify",
+      "noice",
+      "mason",
+      "lazy",
+      "oil",
     },
     context_patterns = {
       "class",
