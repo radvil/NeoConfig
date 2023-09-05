@@ -11,7 +11,7 @@ end
 return {
   "epwalsh/obsidian.nvim",
   lazy = false,
-  dependencies = { "nvim-lua/plenary.nvim" },
+  dependencies = "nvim-lua/plenary.nvim",
   keys = {
     {
       "<leader>nc",
@@ -96,5 +96,14 @@ return {
         return "gf"
       end
     end, "Follow link")
+  end,
+
+  init = function()
+    if require("neoverse.common.utils").call("which-key") then
+      require("which-key").register({
+        mode = "n",
+        ["<leader>n"] = { name = "Note(Obsidian)" },
+      })
+    end
   end,
 }
