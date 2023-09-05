@@ -1,10 +1,21 @@
 return {
-  "folke/noice.nvim",
-  event = "VeryLazy",
-  dependencies = {
-    "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
+  {
+    "folke/which-key.nvim",
+    opts = function(_, opts)
+      if require("neoverse.common.utils").lazy_has("noice.nvim") then
+        opts.defaults["<leader>l"] = { name = "Logger/Noice" }
+      end
+    end,
   },
+
+  {
+
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
   -- stylua: ignore
   enabled = function() return require("neoverse.state").noice end,
   -- stylua: ignore
@@ -30,145 +41,146 @@ return {
     { "<leader>ld", function() require("noice").cmd("dismiss") end, desc = "Logger » Dismiss noice messages" },
   },
 
-  ---@param opts NoiceConfig
-  config = function(_, opts)
-    local config = require("neoverse.config")
-    opts = vim.tbl_deep_extend("force", opts or {}, {
-      health = { checker = true },
-      presets = {
-        inc_rename = true,
-        long_message_to_split = true,
-        command_palette = false,
-        bottom_search = true,
-        lsp_doc_border = true,
-      },
-      messages = {
-        enabled = true,
-        view = "mini",
-        view_error = "mini",
-        view_warn = "notify",
-      },
-      lsp = {
-        progress = { enabled = false },
-        ---message shown by lsp servers
-        message = {
+    ---@param opts NoiceConfig
+    config = function(_, opts)
+      local config = require("neoverse.config")
+      opts = vim.tbl_deep_extend("force", opts or {}, {
+        health = { checker = true },
+        presets = {
+          inc_rename = true,
+          long_message_to_split = true,
+          command_palette = false,
+          bottom_search = true,
+          lsp_doc_border = true,
+        },
+        messages = {
           enabled = true,
           view = "mini",
+          view_error = "mini",
+          view_warn = "notify",
         },
-        ---override markdown rendering so that **cmp** and other plugins use **Treesitter**
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-        hover = {
-          enabled = true,
-          silent = true,
-        },
-        signature = {
-          enabled = true,
-          auto_open = {
+        lsp = {
+          progress = { enabled = false },
+          ---message shown by lsp servers
+          message = {
             enabled = true,
-            trigger = true,
-            luasnip = true,
-            throttle = 50,
+            view = "mini",
           },
-        },
-      },
-      views = {
-        ---display cmdline and popup menu together
-        cmdline_popup = {
-          position = {
-            col = "50%",
-            row = 5,
+          ---override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
           },
-          size = {
-            width = 60,
-            height = "auto",
-          },
-          border = {
-            style = "rounded",
-            padding = { 0, 1 },
-          },
-        },
-        popupmenu = {
-          relative = "editor",
-          border = {
-            style = "rounded",
-            padding = { 0, 1 },
-          },
-          position = {
-            col = "50%",
-            row = 8,
-          },
-          size = {
-            width = 60,
-            height = 10,
-          },
-        },
-      },
-      routes = {
-        ---show @recording as notify message
-        {
-          view = "notify",
-          filter = {
-            event = "msg_showmode",
-          },
-        },
-        {
-          view = "mini",
-          filter = {
-            event = "msg_show",
-            any = {
-              { find = "%d+L, %d+B" },
-              { find = "; after #%d+" },
-              { find = "; before #%d+" },
-            },
-          },
-        },
-      },
-      notify = {
-        enabled = true,
-        view = "notify",
-        opts = {
-          replace = true,
-          merge = true,
-        },
-      },
-    })
-
-    if opts and vim.g.neovide then
-      opts.messages.view = "notify"
-      opts.lsp.message.view = "notify"
-      opts.routes[2].view = "notify"
-    end
-
-    if opts and not config.transparent then
-      opts.presets.lsp_doc_border = {
-        views = {
           hover = {
-            border = {
-              style = "none",
+            enabled = true,
+            silent = true,
+          },
+          signature = {
+            enabled = true,
+            auto_open = {
+              enabled = true,
+              trigger = true,
+              luasnip = true,
+              throttle = 50,
             },
           },
         },
-      }
-      opts.views.cmdline_popup.border = {
-        style = "none",
-        padding = { 1, 2 },
-      }
-      opts.views.popupmenu.border = {
-        style = "none",
-        padding = { 1, 2 },
-      }
-      opts.views.cmdline_popup.win_options = {
-        winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-      }
-      opts.views.popupmenu.win_options = {
-        winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-      }
-    end
+        views = {
+          ---display cmdline and popup menu together
+          cmdline_popup = {
+            position = {
+              col = "50%",
+              row = 5,
+            },
+            size = {
+              width = 60,
+              height = "auto",
+            },
+            border = {
+              style = "rounded",
+              padding = { 0, 1 },
+            },
+          },
+          popupmenu = {
+            relative = "editor",
+            border = {
+              style = "rounded",
+              padding = { 0, 1 },
+            },
+            position = {
+              col = "50%",
+              row = 8,
+            },
+            size = {
+              width = 60,
+              height = 10,
+            },
+          },
+        },
+        routes = {
+          ---show @recording as notify message
+          {
+            view = "notify",
+            filter = {
+              event = "msg_showmode",
+            },
+          },
+          {
+            view = "mini",
+            filter = {
+              event = "msg_show",
+              any = {
+                { find = "%d+L, %d+B" },
+                { find = "; after #%d+" },
+                { find = "; before #%d+" },
+              },
+            },
+          },
+        },
+        notify = {
+          enabled = true,
+          view = "notify",
+          opts = {
+            replace = true,
+            merge = true,
+          },
+        },
+      })
 
-    require("noice").setup(opts)
-  end,
+      if opts and vim.g.neovide then
+        opts.messages.view = "notify"
+        opts.lsp.message.view = "notify"
+        opts.routes[2].view = "notify"
+      end
+
+      if opts and not config.transparent then
+        opts.presets.lsp_doc_border = {
+          views = {
+            hover = {
+              border = {
+                style = "none",
+              },
+            },
+          },
+        }
+        opts.views.cmdline_popup.border = {
+          style = "none",
+          padding = { 1, 2 },
+        }
+        opts.views.popupmenu.border = {
+          style = "none",
+          padding = { 1, 2 },
+        }
+        opts.views.cmdline_popup.win_options = {
+          winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+        }
+        opts.views.popupmenu.win_options = {
+          winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+        }
+      end
+
+      require("noice").setup(opts)
+    end,
+  },
 }
