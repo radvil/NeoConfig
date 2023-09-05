@@ -2,7 +2,8 @@ local function reset_presets_labels()
   local presets = require("which-key.plugins.presets")
 
   presets.operators["v"] = nil
-  presets.operators["gc"] = "Comments"
+  presets.operators["gc"] = "Comment » Linewise"
+  presets.operators["gb"] = "Comment » Blockwise"
   presets.operators["so"] = "Surround » Open/add"
   presets.operators["sd"] = "Surround » Delete"
   presets.operators["s]"] = "Surround » Find next"
@@ -77,7 +78,30 @@ return {
       },
       disable = {
         buftypes = { "terminal" },
-        filetypes = require("minimal.filetype").Excludes,
+        filetypes = {
+          "DiffviewFiles",
+          "NeogitStatus",
+          "Dashboard",
+          "dashboard",
+          "MundoDiff",
+          "NvimTree",
+          "neo-tree",
+          "Outline",
+          "prompt",
+          "Mundo",
+          "alpha",
+          "help",
+          "dbui",
+          "edgy",
+          "dirbuf",
+          "fugitive",
+          "fugitiveblame",
+          "gitcommit",
+          "Trouble",
+          "alpha",
+          "help",
+          "qf",
+        },
       },
       triggers_nowait = {
         "`",
@@ -87,9 +111,10 @@ return {
         '"',
         "<c-r>",
         "z=",
+        "s",
       },
       defaults = {
-        mode = { "n", "v" },
+        mode = { "n", "x" },
         ["g"] = { name = "Goto" },
         ["]"] = { name = "Next" },
         ["["] = { name = "Prev" },
@@ -102,7 +127,7 @@ return {
         ["<Leader>S"] = { name = "Session" },
         ["<Leader>f"] = { name = "Float" },
         ["<Leader>g"] = { name = "Git" },
-        ["<Leader>c"] = { name = "Coding" },
+        -- TODO: this doesn't work
         ["<Leader>u"] = { name = "Toggle" },
         ["<Leader>t"] = { name = "Tab" },
       },
@@ -114,7 +139,11 @@ return {
     end
 
     if Utils.lazy_has("noice.nvim") then
-      opts.defaults["<leader>n"] = { name = "Noice/Notify" }
+      opts.defaults["<leader>l"] = { name = "Logger/Noice" }
+    end
+
+    if Utils.lazy_has("nvim-lspconfig") then
+      opts.defaults["<leader>c"] = { name = "Coding" }
     end
 
     if Utils.lazy_has("mini.surround") then
