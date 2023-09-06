@@ -7,11 +7,6 @@ local defaults = {
   darkmode = true,
   transparent = false,
 
-  statusline = {
-    theme = "auto",
-    global = false,
-  },
-
   ---@type string
   colorscheme = "tokyonight",
 

@@ -9,15 +9,15 @@ end
 
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
+  lazy = false,
   config = function()
     local config = require("neoverse.config")
     local state = require("neoverse.state")
 
     require("lualine").setup({
       options = {
-        theme = config.statusline.theme,
-        globalstatus = config.statusline.global,
+        theme = "auto",
+        globalstatus = false,
         disabled_filetypes = {
           statusline = {
             "dashboard",
@@ -50,7 +50,7 @@ return {
           },
           {
             "filename",
-            path = config.statusline.global and state.barbecue and 1 or 0,
+            path = state.barbecue and 1 or 0,
             symbols = {
               modified = "💋",
               readonly = " ",
