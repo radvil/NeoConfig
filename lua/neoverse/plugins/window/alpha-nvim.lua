@@ -23,11 +23,11 @@ MMMMMMMMMMMMMMMMM.                             MMMMMMMMMMMMMMMMMM
     db.section.header.val = vim.split(logo, "\n")
     db.section.buttons.val = {
       db.button("s", "🕗" .. " Resume session", [[:lua require('persistence').load()<cr>]]),
-      db.button("o", "📁" .. " Recent files", ":Telescope oldfiles<cr>"),
+      db.button("r", "📁" .. " Recent files", ":Telescope oldfiles<cr>"),
       db.button("f", "🔭" .. " Find files", ":Telescope find_files<cr>"),
-      db.button("w", "🔎" .. " Search words", ":Telescope live_grep<cr>"),
-      db.button("t", "📌" .. " List all tasks", ":TodoTelescope<cr>"),
-      db.button("d", "🔧" .. " Config files", ":Dotfiles<cr>"),
+      db.button("w", "🔎" .. " Grep words", ":Telescope live_grep<cr>"),
+      db.button("n", "📌" .. " Find notes", ":NeoNotes<cr>"),
+      db.button("d", "🔧" .. " Config files", ":NeoDotfiles<cr>"),
       db.button("p", "📎" .. " Manage plugins", ":Lazy<cr>"),
       db.button("q", "⭕" .. " Quit session", ":qa<cr>"),
     }

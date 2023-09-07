@@ -49,7 +49,7 @@ return {
           icon = "🔧 ",
           desc = "Dotfiles",
           group = "@float",
-          action = [[Dotfiles]],
+          action = [[NeoDotfiles]],
           key = ".",
         },
         {
