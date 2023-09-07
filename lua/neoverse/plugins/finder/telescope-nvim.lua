@@ -47,7 +47,7 @@ function _G.NeoTelescope(builtin, opts)
         map("i", "<a-c>", function()
           local action_state = require("telescope.actions.state")
           local line = action_state.get_current_line()
-          M.telescope(
+          NeoTelescope(
             params.builtin,
             vim.tbl_deep_extend("force", {}, params.opts or {}, { cwd = false, default_text = line })
           )()
