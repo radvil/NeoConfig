@@ -42,7 +42,7 @@ return {
     {
       "<leader><cr>",
       ":Neotree buffers<cr>",
-      desc = "Neotree » Buffers",
+      desc = "Tree » Buffers",
     },
   },
 
