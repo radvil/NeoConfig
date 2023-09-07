@@ -40,6 +40,7 @@ return {
         "qf",
       },
     },
+    triggers = { "<leader>", "s" },
     triggers_nowait = {
       "`",
       "'",
