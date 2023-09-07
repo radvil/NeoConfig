@@ -73,7 +73,6 @@ return {
   },
 
   config = function(_, opts)
-    local NeoConfig = require("neoverse.config")
     local actions = require("telescope.actions")
     local basics = {
       ["<c-t>"] = actions.select_tab,
@@ -102,7 +101,7 @@ return {
         },
         layout_strategy = "horizontal",
         sorting_strategy = "ascending",
-        prompt_prefix = "🔭 ",
+        prompt_prefix = " 🔭 ",
         selection_caret = "👉",
         mappings = {
           ["i"] = vim.tbl_extend("force", basics, {
@@ -126,7 +125,7 @@ return {
       },
     })
 
-    if NeoConfig.transparent or NeoConfig.colorscheme == "tokyonight" then
+    if not string.match(vim.g.colors_name, "catppuccin") then
       opts.defaults.borderchars = {
         prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
         preview = { "─", " ", " ", " ", "─", "─", " ", " " },
