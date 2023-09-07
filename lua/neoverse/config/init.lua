@@ -7,7 +7,7 @@ local defaults = {
   darkmode = true,
   transparent = false,
 
-  ---@type string
+  ---@type string | function
   colorscheme = "tokyonight",
 
   ---@type fun() | nil
@@ -45,6 +45,11 @@ local defaults = {
 
   --TODO: reformat icons options
   icons = {
+    Mason = {
+      package_uninstalled = "◍ ",
+      package_installed = "",
+      package_pending = "",
+    },
     Diagnostics = {
       Error = " ",
       Warn = " ",
@@ -127,7 +132,9 @@ function M.bootstrap(opts)
   end
 
   require("lazy.core.util").try(function()
-    if M.colorscheme then
+    if type(M.colorscheme) == "function" then
+      M.colorscheme()
+    else
       vim.cmd.colorscheme(M.colorscheme)
     end
   end, {
