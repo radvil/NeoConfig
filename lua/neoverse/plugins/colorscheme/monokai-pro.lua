@@ -6,7 +6,7 @@ return {
     local config = require("neoverse.config")
     local opts = {
       ---@type "classic" | "octagon" | "pro" | "machine" | "ristretto" | "spectrum"
-      filter = "octagon",
+      filter = "pro",
       inc_search = "background",
       terminal_colors = true,
       devicons = true,
