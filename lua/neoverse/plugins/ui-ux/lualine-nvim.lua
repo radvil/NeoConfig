@@ -1,8 +1,7 @@
 local function fg(name)
   return function()
     ---@type {foreground?:number}?
-    ---@diagnostic disable-next-line: undefined-field
-    local hl = vim.api.nvim_get_hl_by_name(name, true)
+    local hl = vim.api.nvim_get_hl(vim.api.nvim_get_hl_id_by_name(name), {})
     return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
   end
 end
@@ -11,8 +10,8 @@ return {
   "nvim-lualine/lualine.nvim",
   lazy = false,
   config = function()
-    local config = require("neoverse.config")
-    local state = require("neoverse.state")
+    local Config = require("neoverse.config")
+    local State = require("neoverse.state")
 
     require("lualine").setup({
       options = {
@@ -33,10 +32,10 @@ return {
           {
             "diagnostics",
             symbols = {
-              error = config.icons.Diagnostics.Error,
-              warn = config.icons.Diagnostics.Warn,
-              info = config.icons.Diagnostics.Info,
-              hint = config.icons.Diagnostics.Hint,
+              error = Config.icons.Diagnostics.Error,
+              warn = Config.icons.Diagnostics.Warn,
+              info = Config.icons.Diagnostics.Info,
+              hint = Config.icons.Diagnostics.Hint,
             },
           },
           {
@@ -50,7 +49,7 @@ return {
           },
           {
             "filename",
-            path = state.barbecue and 1 or 0,
+            path = State.barbecue and 1 or 0,
             symbols = {
               modified = "💋",
               readonly = " ",
@@ -62,7 +61,7 @@ return {
               return require("nvim-navic").get_location()
             end,
             cond = function()
-              return package.loaded["nvim-navic"] and require("nvim-navic").is_available() and not state.barbecue
+              return package.loaded["nvim-navic"] and require("nvim-navic").is_available() and not State.barbecue
             end,
           },
         },
@@ -93,9 +92,9 @@ return {
           {
             "diff",
             symbols = {
-              added = config.icons.Git.Added .. " ",
-              modified = config.icons.Git.Modified .. " ",
-              removed = config.icons.Git.Deleted .. " ",
+              added = Config.icons.Git.Added .. " ",
+              modified = Config.icons.Git.Modified .. " ",
+              removed = Config.icons.Git.Deleted .. " ",
             },
           },
         },
