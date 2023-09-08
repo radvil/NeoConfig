@@ -134,9 +134,6 @@ return {
   end,
 
   opts = function(_, opts)
-    local Utils = require("neoverse.common.utils")
-    local Config = require("neoverse.config")
-
     vim.opt.mousemoveevent = true
 
     opts = vim.tbl_deep_extend("force", opts or {}, {
@@ -174,7 +171,10 @@ return {
       },
     })
 
-    if Utils.call("catppuccin") and Config.transparent and Config.colorscheme == "catppuccin" then
+    local Utils = require("neoverse.common.utils")
+    local Config = require("neoverse.config")
+
+    if Utils.call("catppuccin") and Config.transparent and string.match(vim.g.colors_name, "catppuccin") then
       opts.highlights = generate_bufferline_hls()
     end
 

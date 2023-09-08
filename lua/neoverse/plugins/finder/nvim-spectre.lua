@@ -3,11 +3,11 @@ return {
   config = true,
   keys = {
     {
-      "<Leader>sr",
+      "<Leader>fr",
       function()
         require("spectre").open()
       end,
-      desc = "Spectre » Search & replace",
+      desc = "Find and replace word",
     },
   },
 }

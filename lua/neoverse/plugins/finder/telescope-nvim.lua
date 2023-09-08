@@ -259,7 +259,7 @@ return {
         initial_mode = "normal",
         cwd = vim.loop.cwd(),
       }),
-      "Most recent used (cwd)"
+      "Recent files (cwd)"
     ),
 
     Kmap(
