@@ -38,6 +38,7 @@ return {
       "neo-tree-popup",
       "DressingInput",
       "flash_prompt",
+      "oil_preview",
       "cmp_menu",
       "WhichKey",
       "lspinfo",

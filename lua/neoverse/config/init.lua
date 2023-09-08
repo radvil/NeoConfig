@@ -110,6 +110,7 @@ local defaults = {
 ---@type NeoVerseOpts | nil
 local options = nil
 
+---@diagnostic disable-next-line: inject-field
 function M.bootstrap(opts)
   options = vim.tbl_deep_extend("force", defaults, opts or {})
 
