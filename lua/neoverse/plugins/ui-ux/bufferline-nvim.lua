@@ -106,7 +106,7 @@ end
 
 return {
   "akinsho/nvim-bufferline.lua",
-  event = "VeryLazy",
+  event = "BufReadPre",
   keys = function()
     local Kmap = function(lhs, cmd, desc)
       cmd = string.format("<cmd>BufferLine%s<cr>", cmd)
@@ -171,7 +171,7 @@ return {
       },
     })
 
-    local Utils = require("neoverse.common.utils")
+    local Utils = require("neoverse.utils")
     local Config = require("neoverse.config")
 
     if Utils.call("catppuccin") and Config.transparent and string.match(vim.g.colors_name, "catppuccin") then

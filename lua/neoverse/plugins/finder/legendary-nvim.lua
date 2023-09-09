@@ -13,7 +13,7 @@ return {
     require("legendary").setup({
       select_prompt = " Quick command/keymaps ",
       which_key = {
-        auto_register = require("neoverse.common.utils").call("which-key") or false,
+        auto_register = require("neoverse.utils").call("which-key") or false,
       },
       include_legendary_cmds = false,
       include_builtin = true,

@@ -18,7 +18,7 @@ return {
           end
         else
           require("neo-tree.command").execute({
-            dir = require("neoverse.common.utils").get_root(),
+            dir = require("neoverse.utils").get_root(),
             toggle = true,
           })
         end
@@ -47,7 +47,7 @@ return {
   },
 
   config = function(_, opts)
-    local icons = require("neoverse.common.icons")
+    local Icons = require("neoverse.config").icons
     local i = function(icon)
       return string.format("%s ", icon)
     end
@@ -56,22 +56,22 @@ return {
         with_markers = true,
         with_expanders = false,
         -- indent_marker = "┊",
-        expander_collapsed = icons.FoldClosed,
-        expander_expanded = icons.FoldOpened,
+        expander_collapsed = Icons.Folds.Collapsed,
+        expander_expanded = Icons.Folds.Expanded,
       },
       git_status = {
         symbols = {
           -- Change type
-          added = i(icons.AddedFilled),
-          deleted = i(icons.DeletedFilled),
-          modified = i(icons.Modified),
-          renamed = i(icons.Renamed),
+          added = i(Icons.Git.Added),
+          deleted = i(Icons.Git.Deleted),
+          modified = i(Icons.Git.Modified),
+          renamed = i(Icons.Git.Renamed),
           -- Status type
-          staged = i(icons.StagedFilled),
-          unstaged = i(icons.UnstagedFilled),
-          untracked = i(icons.Untracked),
-          conflict = i(icons.Conflict),
-          ignored = i(icons.Ignored),
+          staged = i(Icons.Git.Staged),
+          unstaged = i(Icons.Git.Unstaged),
+          untracked = i(Icons.Git.Untracked),
+          conflict = i(Icons.Git.Conflict),
+          ignored = i(Icons.Git.Ignored),
         },
       },
     }

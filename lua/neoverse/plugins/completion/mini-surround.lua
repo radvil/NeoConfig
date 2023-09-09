@@ -36,7 +36,7 @@ return {
   },
 
   init = function()
-    local Utils = require("neoverse.common.utils")
+    local Utils = require("neoverse.utils")
     if Utils.call("which-key") then
       require("which-key").register({
         mode = { "n", "x" },

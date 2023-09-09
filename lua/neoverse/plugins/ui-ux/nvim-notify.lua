@@ -21,7 +21,7 @@ local M = {
   end,
 
   init = function()
-    local util = require("neoverse.common.utils")
+    local util = require("neoverse.utils")
     if util.lazy_has("noice.nvim") then
       util.on_very_lazy(function()
         vim.notify = require("notify")

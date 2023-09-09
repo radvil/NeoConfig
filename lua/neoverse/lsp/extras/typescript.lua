@@ -77,7 +77,7 @@ return {
       },
       standalone_setups = {
         tsserver = function(_, opts)
-          require("neoverse.common.utils").on_lsp_attach(function(client, bufnr)
+          require("neoverse.utils").on_lsp_attach(function(client, bufnr)
             if client.name == "tsserver" then
               local map = function(lhs, name, desc)
                 vim.keymap.set("n", lhs, string.format("<cmd>Typescript%s<cr>", name), {

@@ -45,6 +45,10 @@ local defaults = {
 
   --TODO: reformat icons options
   icons = {
+    Folds = {
+      Collapsed = "",
+      Expanded = "",
+    },
     Mason = {
       package_uninstalled = "◍ ",
       package_installed = "",

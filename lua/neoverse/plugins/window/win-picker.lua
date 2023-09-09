@@ -1,6 +1,5 @@
 local M = {}
 M[1] = "s1n7ax/nvim-window-picker"
-M.event = "VeryLazy"
 
 M.config = function()
   local picker = require("window-picker")

@@ -72,7 +72,7 @@ return {
       standalone_setups = {
         angularls = function()
           ---@param client lsp.Client
-          require("neoverse.common.utils").on_lsp_attach(function(client)
+          require("neoverse.utils").on_lsp_attach(function(client)
             if client.name == "angularls" then
               client.server_capabilities.renameProvider = false
               cmd("t", getComponentsWithTemplateFile, "Goto component template file")

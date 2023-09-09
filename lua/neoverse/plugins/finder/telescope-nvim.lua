@@ -29,7 +29,7 @@ end
 function _G.NeoTelescope(builtin, opts)
   local params = { builtin = builtin, opts = opts }
   return function()
-    local NeoUtils = require("neoverse.common.utils")
+    local NeoUtils = require("neoverse.utils")
     builtin = params.builtin
     opts = params.opts
     ---@type table
@@ -61,7 +61,6 @@ end
 
 return {
   "nvim-telescope/telescope.nvim",
-  event = "VeryLazy",
   cmd = "Telescope",
 
   dependencies = {

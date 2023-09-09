@@ -2,7 +2,7 @@ return {
   {
     "folke/which-key.nvim",
     opts = function(_, opts)
-      if require("neoverse.common.utils").lazy_has("noice.nvim") then
+      if require("neoverse.utils").lazy_has("noice.nvim") then
         opts.defaults["<leader>l"] = { name = "Logger/Noice" }
       end
     end,
@@ -11,35 +11,35 @@ return {
   {
 
     "folke/noice.nvim",
-    event = "VeryLazy",
+    event = "BufReadPost",
     dependencies = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
     },
-  -- stylua: ignore
-  enabled = function() return require("neoverse.state").noice end,
-  -- stylua: ignore
-  keys = {
-    {
-      "<leader>ul",
-      function()
-        local next = not require("neoverse.state").noice
-        require("noice")[next and "enable" or "disable"]()
-        local msg = next and "Noice Logger + UX » Enabled" or "Noice Logger + UX » Disabled"
-        local lvl = next and vim.log.levels.INFO or vim.log.levels.WARN
-        require("neoverse.state").noice = next
-        vim.notify(msg, lvl)
-      end,
-      desc = "Logger » Toggle Noice Logger/UX",
+    -- stylua: ignore
+    enabled = function() return require("neoverse.state").noice end,
+    -- stylua: ignore
+    keys = {
+      {
+        "<leader>ul",
+        function()
+          local next = not require("neoverse.state").noice
+          require("noice")[next and "enable" or "disable"]()
+          local msg = next and "Noice Logger + UX » Enabled" or "Noice Logger + UX » Disabled"
+          local lvl = next and vim.log.levels.INFO or vim.log.levels.WARN
+          require("neoverse.state").noice = next
+          vim.notify(msg, lvl)
+        end,
+        desc = "Logger » Toggle Noice Logger/UX",
+      },
+      { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
+      { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, expr = true, desc = "Noice » Scroll backward", mode = {"i", "n", "s"} },
+      { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Noice » Redirect cmdline" },
+      { "<leader>ll", function() require("noice").cmd("last") end, desc = "Logger » Noice last message" },
+      { "<leader>lh", function() require("noice").cmd("history") end, desc = "Logger » Noice message history" },
+      { "<leader>la", function() require("noice").cmd("all") end, desc = "Logger » All noice messages" },
+      { "<leader>ld", function() require("noice").cmd("dismiss") end, desc = "Logger » Dismiss noice messages" },
     },
-    { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
-    { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, expr = true, desc = "Noice » Scroll backward", mode = {"i", "n", "s"} },
-    { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Noice » Redirect cmdline" },
-    { "<leader>ll", function() require("noice").cmd("last") end, desc = "Logger » Noice last message" },
-    { "<leader>lh", function() require("noice").cmd("history") end, desc = "Logger » Noice message history" },
-    { "<leader>la", function() require("noice").cmd("all") end, desc = "Logger » All noice messages" },
-    { "<leader>ld", function() require("noice").cmd("dismiss") end, desc = "Logger » Dismiss noice messages" },
-  },
 
     ---@param opts NoiceConfig
     config = function(_, opts)

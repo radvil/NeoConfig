@@ -22,7 +22,10 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
+      {
+        "roobert/tailwindcss-colorizer-cmp.nvim",
+        config = true,
+      },
     },
     opts = function(_, opts)
       if opts and opts.formatting then

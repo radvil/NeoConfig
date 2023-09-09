@@ -28,7 +28,7 @@ function M.get()
       {
         "K",
         function()
-          local ufo = require("neoverse.common.utils").call("ufo")
+          local ufo = require("neoverse.utils").call("ufo")
           if not ufo or not ufo.peekFoldedLinesUnderCursor() then
             vim.lsp.buf.hover()
           end
@@ -121,13 +121,13 @@ function M.on_attach(client, buffer)
   end -- OEL enable_defaults
 
   if client.server_capabilities["documentSymbolProvider"] then
-    if require("neoverse.common.utils").lazy_has("nvim-navic") then
+    if require("neoverse.utils").lazy_has("nvim-navic") then
       require("nvim-navic").attach(client, buffer)
     end
   end
 
   if client.server_capabilities.renameProvider then
-    if require("neoverse.common.utils").lazy_has("inc-rename.nvim") then
+    if require("neoverse.utils").lazy_has("inc-rename.nvim") then
       vim.keymap.set("n", "<leader>cr", function()
         return ":" .. require("inc_rename").config.cmd_name .. " " .. vim.fn.expand("<cword>")
       end, {
@@ -160,7 +160,7 @@ end
 function M.setup(opts)
   if not M._loaded then
     options = vim.tbl_deep_extend("force", options, opts or {}) or options
-    require("neoverse.common.utils").on_lsp_attach(M.on_attach)
+    require("neoverse.utils").on_lsp_attach(M.on_attach)
     M._loaded = true
   end
 end

@@ -1,7 +1,6 @@
 return {
   "radvil2/windows.nvim",
   dependencies = "anuvyklack/middleclass",
-  event = "VeryLazy",
 
   keys = {
     {

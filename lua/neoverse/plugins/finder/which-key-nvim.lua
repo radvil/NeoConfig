@@ -1,6 +1,5 @@
 return {
   "folke/which-key.nvim",
-  event = "VeryLazy",
   opts = {
     show_help = false,
     plugins = { spelling = true },
@@ -65,9 +64,9 @@ return {
       ["<Leader>S"] = { name = "Session" },
       ["<Leader>f"] = { name = "Float" },
       ["<Leader>g"] = { name = "Git" },
-      -- TODO: this doesn't work
       ["<Leader>u"] = { name = "Toggle" },
       ["<Leader>t"] = { name = "Tab" },
+      -- TODO: this doesn't work
       ["<leader>c"] = { name = "Coding" },
     },
   },

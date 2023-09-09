@@ -30,7 +30,7 @@ return {
         "<Leader>e",
         function()
           require("nvim-tree.api").tree.toggle({
-            path = require("neoverse.common.utils").get_root(),
+            path = require("neoverse.utils").get_root(),
           })
         end,
         desc = "NvimTree » Toggle (root)",
@@ -58,7 +58,7 @@ return {
     end,
 
     config = function()
-      local icons = require("neoverse.common.icons")
+      local Icons = require("neoverse.config").icons
 
       require("nvim-tree").setup({
         hijack_netrw = false,
@@ -87,10 +87,10 @@ return {
           enable = true,
           show_on_dirs = false,
           icons = {
-            warning = icons.Warn,
-            error = icons.Error,
-            hint = icons.Hint,
-            info = icons.Info,
+            warning = Icons.Diagnostics.Warn,
+            error = Icons.Diagnostics.Error,
+            hint = Icons.Diagnostics.Hint,
+            info = Icons.Diagnostics.Info,
           },
         },
         renderer = {
@@ -113,14 +113,13 @@ return {
             padding = " ",
             glyphs = {
               git = {
-                -- TODO: reformat all icons (some suffixed with "Filled")
-                untracked = icons.Untracked,
-                unstaged = icons.UnstagedFilled,
-                unmerged = icons.Modified,
-                renamed = icons.Renamed,
-                deleted = icons.DeletedFilled,
-                ignored = icons.Ignored,
-                staged = icons.StagedFilled,
+                untracked = Icons.Git.Untracked,
+                unstaged = Icons.Git.Unstaged,
+                unmerged = Icons.Git.Modified,
+                renamed = Icons.Git.Renamed,
+                deleted = Icons.Git.Deleted,
+                ignored = Icons.Git.Ignored,
+                staged = Icons.Git.Staged,
               },
             },
           },

@@ -115,7 +115,7 @@ M.config = function(_, opts)
     require("lspconfig.ui.windows").default_options.border = "rounded"
   end
 
-  if require("neoverse.common.utils").lazy_has("neoconf.nvim") then
+  if require("neoverse.utils").lazy_has("neoconf.nvim") then
     local plugin = require("lazy.core.config").spec.plugins["neoconf.nvim"]
     require("neoconf").setup(require("lazy.core.plugin").values(plugin, "opts", false))
   end
