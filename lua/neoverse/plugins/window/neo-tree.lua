@@ -90,6 +90,8 @@ return {
         ["<c-v>"] = "open_vsplit",
         ["<c-x>"] = "open_split",
         ["<c-t>"] = "open_tabnew",
+        ["<a-[>"] = "prev_source",
+        ["<a-]>"] = "next_source",
 
         ["h"] = "close_node",
         ["za"] = "toggle_node",
