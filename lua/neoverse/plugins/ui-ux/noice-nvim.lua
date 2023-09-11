@@ -44,7 +44,7 @@ return {
     ---@param opts NoiceConfig
     config = function(_, opts)
       local config = require("neoverse.config")
-      opts = vim.tbl_deep_extend("force", opts or {}, {
+      local defaults = {
         health = { checker = true },
         presets = {
           inc_rename = true,
@@ -146,7 +146,9 @@ return {
             merge = true,
           },
         },
-      })
+      }
+
+      opts = vim.tbl_deep_extend("force", defaults, opts or {}) or defaults
 
       if opts and vim.g.neovide then
         opts.messages.view = "notify"

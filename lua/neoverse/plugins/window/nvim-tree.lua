@@ -159,6 +159,7 @@ return {
               exclude = {
                 buftype = { "nofile", "terminal", "help" },
                 filetype = {
+                  -- popups
                   "noice",
                   "flash_prompt",
                   "WhichKey",
@@ -174,6 +175,7 @@ return {
                   "DressingInput",
                   "cmp_menu",
 
+                  -- windows
                   "NeogitStatus",
                   "prompt",
                   "Dashboard",
