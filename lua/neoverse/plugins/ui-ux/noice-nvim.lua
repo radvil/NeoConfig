@@ -11,7 +11,7 @@ return {
   {
 
     "folke/noice.nvim",
-    event = "BufReadPost",
+    event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
@@ -98,14 +98,14 @@ return {
               height = "auto",
             },
             border = {
-              style = "rounded",
+              style = "single",
               padding = { 0, 1 },
             },
           },
           popupmenu = {
             relative = "editor",
             border = {
-              style = "rounded",
+              style = "single",
               padding = { 0, 1 },
             },
             position = {

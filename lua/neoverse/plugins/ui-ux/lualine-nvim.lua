@@ -8,7 +8,7 @@ end
 
 return {
   "nvim-lualine/lualine.nvim",
-  lazy = false,
+  event = "VeryLazy",
   config = function()
     local Config = require("neoverse.config")
     local State = require("neoverse.state")
