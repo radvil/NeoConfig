@@ -8,13 +8,31 @@ local Kmap = function(lhs, rhs, desc)
   })
 end
 
+local create_note_with_title = function()
+  vim.ui.input({
+    prompt = "Note title: ",
+    completion = "file_in_path", -- :h command-completion
+    default = "",
+  }, function(value)
+    if not value then
+      vim.notify("Note creation canceled", vim.log.levels.WARN, {
+        title = "Obsidian",
+        icon = "󱙒 ",
+      })
+    else
+      vim.cmd("ObsidianNew " .. value)
+      -- no need extra notification here since obsidian.nvim has already handled this
+    end
+  end)
+end
+
 return {
   "epwalsh/obsidian.nvim",
   dependencies = "nvim-lua/plenary.nvim",
   keys = {
     {
       "<leader>nc",
-      ":ObsidianNew<cr>",
+      create_note_with_title,
       desc = "Obsidian » Create new note",
     },
     {
