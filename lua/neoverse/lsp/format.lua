@@ -54,12 +54,13 @@ function M.format(opts)
     M.notify(formatters)
   end
 
-  vim.lsp.buf.format(vim.tbl_deep_extend("force", {
+  local defaults = {
     bufnr = buf,
     filter = function(client)
       return vim.tbl_contains(client_ids, client.id)
     end,
-  }, options.params))
+  }
+  vim.lsp.buf.format(vim.tbl_deep_extend("force", defaults, options.params))
 end
 
 ---@param formatters LspFormatters

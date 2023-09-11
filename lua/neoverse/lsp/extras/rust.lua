@@ -131,8 +131,8 @@ return {
       },
       standalone_setups = {
         rust_analyzer = function(_, opts)
-          local rust_tools_opts = require("neoverse.utils").opts("rust-tools.nvim")
-          require("rust-tools").setup(vim.tbl_deep_extend("force", rust_tools_opts or {}, { server = opts }))
+          local defaults = require("neoverse.utils").opts("rust-tools.nvim") or {}
+          require("rust-tools").setup(vim.tbl_deep_extend("force", defaults, { server = opts }))
           return true
         end,
       },

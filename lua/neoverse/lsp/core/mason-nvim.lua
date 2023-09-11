@@ -11,7 +11,7 @@ return {
 
   config = function(_, opts)
     local NeoConfig = require("neoverse.config")
-    opts = vim.tbl_deep_extend("force", opts or {}, {
+    local defaults = {
       ui = {
         border = NeoConfig.transparent and "single" or "none",
         icons = NeoConfig.icons.Mason,
@@ -20,7 +20,8 @@ return {
         "stylua",
         "shfmt",
       },
-    })
+    }
+    opts = vim.tbl_deep_extend("force", defaults, opts or {}) or defaults
     require("mason").setup(opts)
     local registry = require("mason-registry")
     local function ensure_installed()
@@ -38,4 +39,3 @@ return {
     end
   end,
 }
-
