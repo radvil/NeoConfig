@@ -5,6 +5,7 @@ return {
   opts = {
     input = {
       border = "single",
+      relative = "editor",
       win_options = { winblend = 10 },
       mappings = {
         i = { ["<a-space>"] = "Close" },
