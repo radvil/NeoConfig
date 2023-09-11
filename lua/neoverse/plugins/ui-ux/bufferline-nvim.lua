@@ -136,7 +136,7 @@ return {
   opts = function(_, opts)
     vim.opt.mousemoveevent = true
 
-    opts = vim.tbl_deep_extend("force", opts or {}, {
+    local defaults = {
       options = {
         -- stylua: ignore
         close_command = function(n) require("mini.bufremove").delete(n, false) end,
@@ -169,7 +169,9 @@ return {
           },
         },
       },
-    })
+    }
+
+    opts = vim.tbl_deep_extend("force", defaults, opts or {})
 
     local Utils = require("neoverse.utils")
     local Config = require("neoverse.config")
