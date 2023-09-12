@@ -2,7 +2,7 @@
 return {
   "goolord/alpha-nvim",
   event = "VimEnter",
-  dependencies = { "folke/persistence.nvim" },
+  dependencies = "folke/persistence.nvim",
   opts = function()
     local db = require("alpha.themes.dashboard")
     local logo = [[

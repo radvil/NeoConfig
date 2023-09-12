@@ -6,9 +6,10 @@ M.name = "catppuccin"
 M.priority = 1000
 M.lazy = false
 
-M.config = function()
+M.config = function(_, opts)
   local Config = require("neoverse.config")
-  require("catppuccin").setup({
+  ---@type CatppuccinOptions
+  local NeoDefaults = {
     ---@type string
     flavour = vim.g.neovide and "macchiato" or "mocha",
     transparent_background = Config.transparent,
@@ -24,7 +25,7 @@ M.config = function()
         dim_dirname = true,
         bold_basename = false,
         dim_context = true,
-        alt_background = false,
+        alt_background = Config.transparent,
       },
       treesitter = true,
       dropbar = false,
@@ -82,7 +83,10 @@ M.config = function()
         },
       }
     end,
-  })
+  }
+
+  opts = vim.tbl_deep_extend("force", NeoDefaults, opts or {})
+  require("catppuccin").setup(opts)
 end
 
 return M

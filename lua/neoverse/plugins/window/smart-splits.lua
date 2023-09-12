@@ -5,7 +5,7 @@ return {
     local o = { title = "Window resize" }
     require("smart-splits").setup({
       log_level = "info",
-      ignored_buftypes = { "terminal" },
+      ignored_buftypes = { "terminal", "prompt" },
       cursor_follows_swapped_bufs = true,
       ignored_filetypes = {
         "TelescopeResults",

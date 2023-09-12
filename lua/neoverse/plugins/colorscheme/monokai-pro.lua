@@ -2,9 +2,9 @@ return {
   "loctvl842/monokai-pro.nvim",
   priority = 999,
   lazy = false,
-  opts = function()
-    local config = require("neoverse.config")
-    local opts = {
+  config = function(_, opts)
+    local Config = require("neoverse.config")
+    local NeoDefaults = {
       ---@type "classic" | "octagon" | "pro" | "machine" | "ristretto" | "spectrum"
       filter = "pro",
       inc_search = "background",
@@ -26,7 +26,7 @@ return {
         return {
           LazyNormal = { link = "Normal" },
           LspInlayHint = { link = "Comment" },
-          ZenBg = { bg = config.palette.bg },
+          ZenBg = { bg = Config.palette.bg },
           Visual = {
             bg = "#55435b",
           },
@@ -34,27 +34,29 @@ return {
             link = "Visual",
           },
           TelescopeMatching = {
-            fg = config.palette.yellow,
+            fg = Config.palette.yellow,
           },
           FlashCurrent = {
-            fg = config.palette.bg,
-            bg = config.palette.yellow,
+            fg = Config.palette.bg,
+            bg = Config.palette.yellow,
             bold = true,
           },
           FlashMatch = {
-            fg = config.palette.bg2,
-            bg = config.palette.blue2,
+            fg = Config.palette.bg2,
+            bg = Config.palette.blue2,
           },
           FlashLabel = {
-            fg = config.palette.fg,
-            bg = config.palette.pink,
+            fg = Config.palette.fg,
+            bg = Config.palette.pink,
             bold = true,
           },
         }
       end,
     }
 
-    if config.transparent then
+    opts = vim.tbl_deep_extend("force", NeoDefaults, opts or {})
+
+    if Config.transparent then
       opts.transparent_background = true
       opts.background_clear = {
         "toggleterm",
@@ -72,6 +74,6 @@ return {
       }
     end
 
-    return opts
+    require("monokai-pro").setup(opts)
   end,
 }

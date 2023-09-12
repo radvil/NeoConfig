@@ -1,6 +1,7 @@
 return {
   {
     "folke/which-key.nvim",
+    optional = true,
     opts = function(_, opts)
       if require("neoverse.utils").lazy_has("noice.nvim") then
         opts.defaults["<leader>l"] = { name = "Logger/Noice" }

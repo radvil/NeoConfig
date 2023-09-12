@@ -25,41 +25,44 @@ return {
   "folke/tokyonight.nvim",
   priority = 999,
   lazy = false,
-  opts = function()
-    local config = require("neoverse.config")
-    local opts = {
+  config = function(_, opts)
+    local Config = require("neoverse.config")
+
+    local NeoDefaults = {
       style = "day",
       lualine_bold = true,
       dim_inactive = false,
       sidebars = ft_windows,
       terminal_colors = true,
       hide_inactive_statusline = true,
-      transparent = config.transparent,
-      transparent_sidebar = config.transparent,
+      transparent = Config.transparent,
+      transparent_sidebar = Config.transparent,
       styles = {
         comments = { italic = true },
         keywords = { italic = true },
       },
       on_colors = function(colors)
-        if not config.transparent then
+        if not Config.transparent then
           colors.border = "#12131D"
         else
-          colors.border = config.palette.yellow
+          colors.border = Config.palette.yellow
         end
       end,
     }
 
-    if config.darkmode then
-      opts.style = "moon"
-      opts.styles.sidebars = "dark"
-      opts.styles.floats = "dark"
+    if Config.darkmode then
+      NeoDefaults.style = "moon"
+      NeoDefaults.styles.sidebars = "dark"
+      NeoDefaults.styles.floats = "dark"
     end
 
-    if config.transparent then
-      opts.styles.sidebars = "transparent"
-      opts.styles.floats = "transparent"
+    if Config.transparent then
+      NeoDefaults.styles.sidebars = "transparent"
+      NeoDefaults.styles.floats = "transparent"
     end
 
-    return opts
+    opts = vim.tbl_deep_extend("force", NeoDefaults, opts or {})
+
+    require("tokyonight").setup(opts)
   end,
 }
