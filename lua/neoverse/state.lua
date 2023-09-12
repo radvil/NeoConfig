@@ -4,8 +4,8 @@ local M = {}
 ---@type NeoState
 local defaults = {
   smooth_cursor = true,
-  noice = not vim.g.neovide,
   barbecue = true,
+  noice = true,
 }
 
 ---@type NeoState | nil

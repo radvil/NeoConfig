@@ -10,7 +10,7 @@ return {
     icons = {
       breadcrumb = "»",
       separator = "➜",
-      group = "🔸",
+      group = vim.g.neovide and "+ " or "🔸",
     },
     disable = {
       buftypes = { "terminal" },

@@ -159,7 +159,7 @@ function M.float_term(cmd, opts)
     size = { width = 0.9, height = 0.9 },
   }, opts or {}, { persistent = true })
 
-  ---@cast opts LazyCmdOptions|{interactive?:boolean, esc_esc?:false}
+  ---@cast opts LazyCmdOptions|{interactive?:boolean, esc_esc?:false, ctrl_hjkl?: true}
   local termkey = vim.inspect({ cmd = cmd or "shell", cwd = opts.cwd, env = opts.env, count = vim.v.count1 })
 
   if terminals[termkey] and terminals[termkey]:buf_valid() then
