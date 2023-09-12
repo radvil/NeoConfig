@@ -48,7 +48,7 @@ return {
   init = function()
     local ss = require("smart-splits")
     local map = function(lhs, rhs, desc)
-      return vim.keymap.set({ "n", "t" }, lhs, rhs, {
+      return vim.keymap.set("n", lhs, rhs, {
         desc = "Window » " .. desc,
       })
     end
