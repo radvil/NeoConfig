@@ -104,11 +104,11 @@ return {
       },
     },
 
-    config = function()
-      -- vim.o.foldcolumn = "0" -- '0' is not bad
-      -- vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-      -- vim.o.foldlevelstart = 99
-      -- vim.o.foldenable = true
+    config = function(_, opts)
+      vim.o.foldcolumn = "0" -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
 
       local ftMap = {
         html = { "treesitter", "indent" },
@@ -117,8 +117,8 @@ return {
         git = "",
       }
 
-      require("ufo").setup({
-        -----@diagnostic disable-next-line: unused-local
+      ---@type UfoConfig
+      local defaults = {
         provider_selector = function(_, filetype, _)
           return ftMap[filetype]
         end,
@@ -137,7 +137,10 @@ return {
             jumpBot = "G",
           },
         },
-      })
+      }
+
+      opts = vim.tbl_deep_extend("force", defaults, opts or {})
+      require("ufo").setup(opts)
     end,
   },
 }
