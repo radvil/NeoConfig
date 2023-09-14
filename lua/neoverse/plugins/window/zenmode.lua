@@ -25,5 +25,15 @@ return {
         list = true, -- disable whitespace chars
       },
     },
+    --   on_open = function()
+    --     if require("neoverse.utils").call("barbecue") then
+    --       require("barbecue.ui").toggle(false)
+    --     end
+    --   end,
+    --   on_close = function()
+    --     if require("neoverse.utils").call("barbecue") then
+    --       require("barbecue.ui").toggle(true)
+    --     end
+    --   end,
   },
 }
