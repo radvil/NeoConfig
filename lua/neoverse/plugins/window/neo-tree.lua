@@ -140,6 +140,7 @@ return {
     opts.buffers = {
       follow_current_file = {
         enabled = true,
+        leave_dirs_open = true,
       },
     }
 
@@ -147,7 +148,7 @@ return {
       winbar = true,
       statusline = false,
       truncation_character = "…",
-      show_scrolled_off_parent_node = true,
+      show_scrolled_off_parent_node = false, -- HACK: enable this caused flickering on "InsertEnter"
       highlight_tab = "BufferLineBackground",
       highlight_separator = "BufferLineBackground",
       highlight_background = "BufferLineBackground",
