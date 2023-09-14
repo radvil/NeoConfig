@@ -37,7 +37,7 @@ return {
       "InsertLeave",
       "BufModifiedSet",
     }, {
-      group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+      group = vim.api.nvim_create_augroup("NeoBarbecueUpdate", {}),
       callback = function()
         if require("neoverse.state").barbecue then
           require("barbecue.ui").update()
