@@ -165,7 +165,7 @@ return {
         },
         {
           source = "git_status",
-          display_name = "  git",
+          display_name = "  git",
         },
       },
     }

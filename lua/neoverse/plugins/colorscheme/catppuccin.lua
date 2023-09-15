@@ -25,7 +25,7 @@ M.config = function(_, opts)
         dim_dirname = true,
         bold_basename = false,
         dim_context = true,
-        alt_background = Config.transparent,
+        alt_background = false,
       },
       treesitter = true,
       dropbar = false,
@@ -45,7 +45,7 @@ M.config = function(_, opts)
       illuminate = true,
       navic = {
         enabled = true,
-        custom_bg = Config.transparent and "lualine" or "NONE",
+        custom_bg = Config.transparent and "NONE" or "lualine",
       },
       indent_blankline = {
         enabled = true,
