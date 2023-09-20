@@ -130,6 +130,7 @@ return {
       Kmap("<leader>bB", "CloseLeft", "Close left"),
       Kmap("<leader>bW", "CloseRight", "Close right"),
       Kmap("<leader>bC", "CloseOthers", "Close others"),
+      Kmap("<a-q>", "PickClose", "Pick & close"),
     }
   end,
 
@@ -138,17 +139,20 @@ return {
 
     local defaults = {
       options = {
-        -- stylua: ignore
-        close_command = function(n) require("mini.bufremove").delete(n, false) end,
-        -- stylua: ignore
-        right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
         show_close_icon = false,
-        show_tab_indicators = true,
         always_show_bufferline = false,
         mode = "buffers",
         diagnostics = "nvim_lsp",
+        ---@type "insert_after_current" | "insert_at_end" | "id" | "extension" | "relative_directory" | "directory" | "tabs"
         sort_by = "insert_at_end",
-        --- @type "thin" | "padded_slant" | "slant" | "thick" | "none"
+        show_tab_indicators = true,
+        close_command = function(n)
+          require("mini.bufremove").delete(n, false)
+        end,
+        right_mouse_command = function(n)
+          require("mini.bufremove").delete(n, false)
+        end,
+        ---@type "thin" | "padded_slant" | "slant" | "thick" | "none"
         separator_style = "thin",
         indicator = {
           ---@type "icon" | "underline" | "none"
@@ -162,9 +166,9 @@ return {
         offsets = {
           {
             filetype = "neo-tree",
-            text = "~ TREE VIEW",
+            text = "~ TREE VIEW ~",
             highlight = "BufferLineFill",
-            text_align = "left",
+            text_align = "center",
             separator = false,
           },
         },

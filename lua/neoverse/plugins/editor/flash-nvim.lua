@@ -111,7 +111,9 @@ M[1] = {
               })
               vim.schedule(function()
                 vim.api.nvim_set_current_win(curr_win)
-                vim.fn.winrestview(curr_view)
+                if curr_view then
+                  vim.fn.winrestview(curr_view)
+                end
               end)
             end,
           })

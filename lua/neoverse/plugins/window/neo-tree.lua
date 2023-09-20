@@ -23,7 +23,7 @@ return {
           })
         end
       end,
-      desc = "Tree » Toggle (root)",
+      desc = "NeoTree » Toggle Fs (root)",
     },
     {
       "<leader>E",
@@ -37,12 +37,19 @@ return {
           })
         end
       end,
-      desc = "Tree » Toggle",
+      desc = "NeoTree » Toggle Fs",
     },
     {
       "<leader><cr>",
-      ":Neotree buffers<cr>",
-      desc = "Tree » Buffers",
+      function()
+        require("neo-tree.command").execute({
+          source = "buffers",
+          action = "show",
+          reveal = true,
+          toggle = true,
+        })
+      end,
+      desc = "NeoTree » Toggle Buffers",
     },
   },
 
@@ -85,6 +92,7 @@ return {
           nowait = true,
         },
         mappings = {
+          ["<space>"] = false,
           ["l"] = "open",
           ["w"] = "open_with_window_picker",
           ["<cr>"] = "open",
@@ -140,6 +148,7 @@ return {
       },
 
       buffers = {
+        show_unloaded = true,
         follow_current_file = {
           enabled = true,
           leave_dirs_open = true,
@@ -151,11 +160,6 @@ return {
         statusline = false,
         truncation_character = "…",
         show_scrolled_off_parent_node = false, -- HACK: enable this caused flickering on "InsertEnter"
-        highlight_tab = "BufferLineBackground",
-        highlight_separator = "BufferLineBackground",
-        highlight_background = "BufferLineBackground",
-        highlight_tab_active = "BufferLineBufferSelected",
-        highlight_separator_active = "BufferLineIndicatorSelected",
         sources = {
           {
             source = "filesystem",
@@ -173,7 +177,15 @@ return {
       },
     }
 
-    opts = vim.tbl_deep_extend("force", Defaults, opts or {})
+    opts = vim.tbl_deep_extend("force", Defaults, opts or {}) or Defaults
+
+    if require("neoverse.utils").call("bufferline") then
+      opts.source_selector.highlight_tab = "BufferLineBackground"
+      opts.source_selector.highlight_separator = "BufferLineBackground"
+      opts.source_selector.highlight_background = "BufferLineBackground"
+      opts.source_selector.highlight_tab_active = "BufferLineBufferSelected"
+      opts.source_selector.highlight_separator_active = "BufferLineIndicatorSelected"
+    end
 
     require("neo-tree").setup(opts)
 

@@ -13,6 +13,7 @@ local Icons = {
   GrepStrings = " ",
   MarkList = "󰙒 ",
   JumpList = " ",
+  Buffers = " ",
 }
 
 ---@param lhs string
@@ -318,8 +319,14 @@ return {
 
     Kmap(
       "<leader>,",
-      ":Telescope buffers ignore_current_buffer=true initial_mode=normal sort_lastused=true sort_mru=true<cr>",
-      "Find opened buffers"
+      NeoTelescope("buffers", {
+        prompt_title = Icons.Buffers .. "Other buffers",
+        ignore_current_buffer = true,
+        initial_mode = "normal",
+        sort_lastused = true,
+        sort_mru = true,
+      }),
+      "Other buffers"
     ),
   },
 }

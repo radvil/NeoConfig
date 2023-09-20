@@ -30,6 +30,7 @@ return {
       "Trouble",
       "alpha",
       "help",
+      "git",
       "qf",
 
       -- popup
