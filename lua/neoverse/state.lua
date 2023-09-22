@@ -4,7 +4,7 @@ local M = {}
 ---@type NeoState
 local defaults = {
   smooth_cursor = true,
-  barbecue = false,
+  barbecue = true,
   noice = true,
 }
 
