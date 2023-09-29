@@ -3,13 +3,23 @@ return {
   "lukas-reineke/indent-blankline.nvim",
   event = "BufReadPost",
   main = "ibl",
+  keys = {
+    {
+      "<leader>ui",
+      ":IBLToggle<CR>",
+      desc = "Toggle » Indentation guide",
+    },
+  },
   opts = {
-    char = "│",
-    show_current_context = false,
-    buftype_exclude = { "terminal" },
-    show_trailing_blankline_indent = false,
-    char_list = { "│", "»", "┊", "»" },
-    filetype_exclude = {
+    enabled = true,
+    indent = {
+      -- char = "│",
+      char = { "│", "»", "┊", "»" },
+    },
+    scope = {
+      enabled = false,
+    },
+    exclude = {
       "DiffviewFiles",
       "NeogitStatus",
       "Dashboard",
