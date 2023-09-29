@@ -41,13 +41,13 @@ return {
         comments = { italic = true },
         keywords = { italic = true },
       },
-      on_colors = function(colors)
-        if not Config.transparent then
-          colors.border = "#12131D"
-        else
-          colors.border = Config.palette.yellow
-        end
-      end,
+      -- on_colors = function(colors)
+      --   if not Config.transparent then
+      --     colors.border = "#12131D"
+      --   else
+      --     colors.border = Config.palette.yellow
+      --   end
+      -- end,
     }
 
     if Config.darkmode then
