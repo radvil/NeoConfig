@@ -21,6 +21,7 @@ M.config = function(_, opts)
     },
     integrations = {
       alpha = true,
+      barbar = false,
       barbecue = {
         dim_dirname = true,
         bold_basename = false,
@@ -44,7 +45,7 @@ M.config = function(_, opts)
       mason = true,
       illuminate = true,
       navic = {
-        enabled = true,
+        enabled = false,
         custom_bg = Config.transparent and "NONE" or "lualine",
       },
       indent_blankline = {
@@ -62,8 +63,19 @@ M.config = function(_, opts)
         style = "nvchad",
       },
     },
-    custom_highlights = function()
+    custom_highlights = function(colors)
       return {
+        WinSeparator = {
+          -- bg = Config.palette.bg_darker,
+          fg = colors.surface1,
+        },
+        StatusLineNC = {
+          bg = Config.palette.bg_darker,
+        },
+        StatusLine = {
+          bg = Config.palette.bg_darker,
+          fg = colors.rosewater,
+        },
         FlashCurrent = {
           fg = Config.palette.bg,
           bg = Config.palette.yellow,
@@ -80,6 +92,9 @@ M.config = function(_, opts)
         },
         NeoTreeIndentMarker = {
           fg = "#313244",
+        },
+        NeoTreeGitModified = {
+          fg = colors.rosewater,
         },
       }
     end,

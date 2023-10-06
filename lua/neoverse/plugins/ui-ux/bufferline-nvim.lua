@@ -1,18 +1,20 @@
-local function generate_bufferline_hls()
+---@param transparent? boolean
+---@param styles? ("bold" | "italic")[]
+local function get_custom_catppuccin_hls(transparent, styles)
   return function()
     local ctp = require("catppuccin")
-    local config = require("neoverse.config")
+    local Config = require("neoverse.config")
     local C = require("catppuccin.palettes").get_palette()
     --stylua: ignore
     if not C then return {} end
-
     local O = ctp.options
-    local active_bg = config.palette.bg2
+    local active_bg = Config.palette.bg2
     local inactive_bg = C.base
-    local bg_highlight = C.crust
     local separator_fg = C.surface1
-    local styles = { "bold", "italic" }
-
+    local fill_bg = Config.palette.bg_darker
+    if transparent == true then
+      fill_bg = C.none
+    end
     local highlights = {
       -- buffers
       background = { bg = inactive_bg },
@@ -27,20 +29,20 @@ local function generate_bufferline_hls()
       tab_selected = { fg = C.sky, bg = active_bg, bold = true },
       tab_separator = { fg = separator_fg, bg = inactive_bg },
       tab_separator_selected = { fg = separator_fg, bg = active_bg },
-
       tab_close = { fg = C.red, bg = inactive_bg },
       indicator_selected = { fg = C.peach, bg = active_bg, style = styles },
       -- separators
       separator = { fg = separator_fg, bg = inactive_bg },
       separator_visible = { fg = separator_fg, bg = inactive_bg },
       separator_selected = { fg = separator_fg, bg = active_bg },
-      offset_separator = { fg = separator_fg, bg = active_bg },
+      offset_separator = { fg = C.surface1, bg = fill_bg },
       -- close buttons
       close_button = { fg = C.surface1, bg = inactive_bg },
       close_button_visible = { fg = C.surface1, bg = inactive_bg },
       close_button_selected = { fg = C.red, bg = active_bg },
       -- Empty fill
-      fill = { bg = bg_highlight },
+      -- fill = { bg = C.crust },
+      fill = { bg = fill_bg },
       -- Numbers
       numbers = { fg = C.subtext0, bg = inactive_bg },
       numbers_visible = { fg = C.subtext0, bg = inactive_bg },
@@ -81,12 +83,10 @@ local function generate_bufferline_hls()
       modified = { fg = C.peach, bg = inactive_bg },
       modified_selected = { fg = C.peach, bg = active_bg },
     }
-
     for _, color in pairs(highlights) do
       -- Because default is gui=bold,italic
       color.italic = false
       color.bold = false
-
       if color.style then
         for _, style in pairs(color.style) do
           color[style] = true
@@ -115,6 +115,7 @@ return {
     end
     return {
       Kmap("<a-b>", "Pick", "Pick"),
+      Kmap("<a-q>", "PickClose", "Pick & close"),
       Kmap("<leader>bS", "SortByTabs", "Sort by tabs"),
       Kmap("<leader>bs", "SortByDirectory", "Sort by directory"),
       Kmap("<leader>bp", "TogglePin", "Toggle pin"),
@@ -130,30 +131,33 @@ return {
       Kmap("<leader>bB", "CloseLeft", "Close left"),
       Kmap("<leader>bW", "CloseRight", "Close right"),
       Kmap("<leader>bC", "CloseOthers", "Close others"),
-      Kmap("<a-q>", "PickClose", "Pick & close"),
     }
   end,
 
   opts = function(_, opts)
     vim.opt.mousemoveevent = true
 
-    local defaults = {
+    local not_on_tmux_session = os.getenv("TMUX") == nil
+
+    local DEFAULTS = {
       options = {
-        show_close_icon = false,
-        always_show_bufferline = false,
         mode = "buffers",
         diagnostics = "nvim_lsp",
-        ---@type "insert_after_current" | "insert_at_end" | "id" | "extension" | "relative_directory" | "directory" | "tabs"
-        sort_by = "insert_at_end",
+        show_close_icon = false,
+        move_wraps_at_ends = true,
+        show_buffer_icons = true,
         show_tab_indicators = true,
+        always_show_bufferline = false,
+        ---@type "thin" | "padded_slant" | "slant" | "thick" | "none"
+        separator_style = "thin",
+        ---@type "insert_after_current" | "insert_at_end" | "id" | "extension" | "relative_directory" | "directory" | "tabs"
+        sort_by = "insert_after_current",
         close_command = function(n)
           require("mini.bufremove").delete(n, false)
         end,
         right_mouse_command = function(n)
           require("mini.bufremove").delete(n, false)
         end,
-        ---@type "thin" | "padded_slant" | "slant" | "thick" | "none"
-        separator_style = "thin",
         indicator = {
           ---@type "icon" | "underline" | "none"
           style = "icon",
@@ -166,22 +170,31 @@ return {
         offsets = {
           {
             filetype = "neo-tree",
-            text = "~ TREE VIEW ~",
+            text_align = not_on_tmux_session and "left" or "center",
+            text = function()
+              return not_on_tmux_session and "CWD » " .. vim.fn.getcwd() or "~ TREE VIEW ~"
+            end,
             highlight = "BufferLineFill",
-            text_align = "center",
-            separator = false,
+            separator = true,
           },
         },
+        custom_filter = function(buf_number)
+          if vim.bo[buf_number].filetype ~= "oil" then
+            return true
+          end
+          if vim.bo[buf_number].filetype ~= "nofile" then
+            return true
+          end
+        end,
       },
     }
 
-    opts = vim.tbl_deep_extend("force", defaults, opts or {})
+    opts = vim.tbl_deep_extend("force", DEFAULTS, opts or {}) or DEFAULTS
 
     local Utils = require("neoverse.utils")
     local Config = require("neoverse.config")
-
-    if Utils.call("catppuccin") and Config.transparent and string.match(vim.g.colors_name, "catppuccin") then
-      opts.highlights = generate_bufferline_hls()
+    if Utils.call("catppuccin") and string.match(vim.g.colors_name, "catppuccin") then
+      opts.highlights = get_custom_catppuccin_hls(Config.transparent)
     end
 
     return opts

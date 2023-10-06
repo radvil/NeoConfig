@@ -9,16 +9,16 @@ return {
     {
       "<Leader>fe",
       function()
-        require("oil").toggle_float()
+        require("oil").open()
       end,
-      desc = "Float » Toggle Explorer (pwd)",
+      desc = "File Explorer » Open (pwd)",
     },
     {
       "<Leader>fE",
       function()
-        require("oil").toggle_float(vim.loop.cwd())
+        require("oil").open(vim.loop.cwd())
       end,
-      desc = "Float » Toggle Explorer (cwd)",
+      desc = "File Explorer » Open (cwd)",
     },
   },
 
@@ -28,8 +28,8 @@ return {
     trash_command = "trash-put",
     skip_confirm_for_simple_edits = false,
     prompt_save_on_select_new_entry = true,
-    default_file_explorer = true,
-    buf_options = { buflisted = false },
+    default_file_explorer = false,
+    buf_options = { buflisted = true },
     use_default_keymaps = false,
     keymaps = {
       ["g?"] = "actions.show_help",

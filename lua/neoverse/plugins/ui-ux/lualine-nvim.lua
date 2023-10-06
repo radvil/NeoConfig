@@ -16,7 +16,7 @@ return {
     require("lualine").setup({
       options = {
         theme = "auto",
-        globalstatus = not Config.transparent,
+        globalstatus = false,
         disabled_filetypes = {
           statusline = {
             "dashboard",

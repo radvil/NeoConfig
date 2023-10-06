@@ -23,6 +23,7 @@ local defaults = {
   snippet_dirs = {},
 
   palette = {
+    bg_darker = "#181826",
     bg = "#1E1E2E",
     bg2 = "#2F334D",
     fg = "#ffffff",

@@ -59,13 +59,22 @@ return {
       return string.format("%s ", icon)
     end
     local Defaults = {
+      event_handlers = {
+        {
+          event = "neo_tree_buffer_enter",
+          handler = function()
+            vim.cmd([[setlocal relativenumber]])
+          end,
+        },
+      },
       default_component_configs = {
         indent = {
+          padding = 0,
           with_markers = true,
-          with_expanders = false,
           -- indent_marker = "┊",
-          expander_collapsed = Icons.Folds.Collapsed,
-          expander_expanded = Icons.Folds.Expanded,
+          with_expanders = true,
+          -- expander_collapsed = "»",
+          -- expander_expanded = "-",
         },
         git_status = {
           symbols = {
@@ -85,7 +94,7 @@ return {
       },
 
       window = {
-        width = 44,
+        width = 46,
         position = "left",
         mapping_options = {
           noremap = true,
