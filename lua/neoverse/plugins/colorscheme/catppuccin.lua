@@ -95,13 +95,13 @@ M.config = function(_, opts)
 
       if not Config.transparent then
         hls.WinSeparator = {
-          fg = "#000000",
+          fg = colors.crust,
         }
         hls.StatusLineNC = {
-          bg = Config.palette.bg_darker,
+          bg = colors.crust,
         }
         hls.StatusLine = {
-          bg = Config.palette.bg_darker,
+          bg = colors.crust,
           fg = colors.rosewater,
         }
         hls.TelescopePromptBorder = {
@@ -110,7 +110,7 @@ M.config = function(_, opts)
         }
         hls.TelescopePromptNormal = {
           bg = colors.crust,
-          fg = colors.rosewater,
+          -- fg = colors.rosewater,
         }
         hls.TelescopePromptTitle = {
           bold = true,
@@ -122,6 +122,13 @@ M.config = function(_, opts)
         }
         hls.TelescopeResultsTitle = {
           bg = colors.yellow,
+        }
+        hls.TelescopeResultsNormal = {
+          bg = colors.crust,
+        }
+        hls.TelescopeResultsBorder = {
+          bg = colors.crust,
+          fg = colors.crust,
         }
       end
 
