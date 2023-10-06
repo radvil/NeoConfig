@@ -65,20 +65,6 @@ return {
           "oil",
         },
       },
-      -- context_patterns = {
-      --   "class",
-      --   "function",
-      --   "method",
-      --   "^if",
-      --   "^while",
-      --   "^for",
-      --   "^object",
-      --   "^table",
-      --   "^type",
-      --   "^import",
-      --   "block",
-      --   "arguments",
-      -- },
     }
 
     opts = vim.tbl_deep_extend("force", defaults, opts or {}) or defaults

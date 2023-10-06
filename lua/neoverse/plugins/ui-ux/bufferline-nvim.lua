@@ -137,7 +137,7 @@ return {
   opts = function(_, opts)
     vim.opt.mousemoveevent = true
 
-    local not_on_tmux_session = os.getenv("TMUX") == nil
+    local show_cwd = vim.g.neovide or os.getenv("TMUX") == nil
 
     local DEFAULTS = {
       options = {
@@ -170,9 +170,9 @@ return {
         offsets = {
           {
             filetype = "neo-tree",
-            text_align = not_on_tmux_session and "left" or "center",
+            text_align = show_cwd and "left" or "center",
             text = function()
-              return not_on_tmux_session and "CWD » " .. vim.fn.getcwd() or "~ TREE VIEW ~"
+              return show_cwd and "CWD » " .. vim.fn.getcwd() or "~ TREE VIEW ~"
             end,
             highlight = "BufferLineFill",
             separator = true,
