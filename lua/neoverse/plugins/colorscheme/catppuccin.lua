@@ -45,7 +45,7 @@ M.config = function(_, opts)
       mason = true,
       illuminate = true,
       navic = {
-        enabled = false,
+        enabled = true,
         custom_bg = Config.transparent and "NONE" or "lualine",
       },
       indent_blankline = {
@@ -64,16 +64,11 @@ M.config = function(_, opts)
       },
     },
     custom_highlights = function(colors)
-      return {
+      local hls = {
         WinSeparator = {
-          -- bg = Config.palette.bg_darker,
           fg = colors.surface1,
         },
-        StatusLineNC = {
-          bg = Config.palette.bg_darker,
-        },
-        StatusLine = {
-          bg = Config.palette.bg_darker,
+        NavicText = {
           fg = colors.rosewater,
         },
         FlashCurrent = {
@@ -97,6 +92,21 @@ M.config = function(_, opts)
           fg = colors.rosewater,
         },
       }
+
+      if not Config.transparent then
+        hls.WinSeparator = {
+          fg = "#000000",
+        }
+        hls.StatusLineNC = {
+          bg = Config.palette.bg_darker,
+        }
+        hls.StatusLine = {
+          bg = Config.palette.bg_darker,
+          fg = colors.rosewater,
+        }
+      end
+
+      return hls
     end,
   }
 

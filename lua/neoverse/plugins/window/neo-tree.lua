@@ -72,7 +72,7 @@ return {
           padding = 0,
           with_markers = true,
           -- indent_marker = "┊",
-          with_expanders = true,
+          with_expanders = false,
           -- expander_collapsed = "»",
           -- expander_expanded = "-",
         },

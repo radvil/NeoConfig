@@ -10,9 +10,10 @@ local function get_custom_catppuccin_hls(transparent, styles)
     local O = ctp.options
     local active_bg = Config.palette.bg2
     local inactive_bg = C.base
-    local separator_fg = C.surface1
+    local separator_fg = "#000000"
     local fill_bg = Config.palette.bg_darker
     if transparent == true then
+      separator_fg = C.surface1
       fill_bg = C.none
     end
     local highlights = {
@@ -35,7 +36,7 @@ local function get_custom_catppuccin_hls(transparent, styles)
       separator = { fg = separator_fg, bg = inactive_bg },
       separator_visible = { fg = separator_fg, bg = inactive_bg },
       separator_selected = { fg = separator_fg, bg = active_bg },
-      offset_separator = { fg = C.surface1, bg = fill_bg },
+      offset_separator = { fg = separator_fg, bg = fill_bg },
       -- close buttons
       close_button = { fg = C.surface1, bg = inactive_bg },
       close_button_visible = { fg = C.surface1, bg = inactive_bg },
