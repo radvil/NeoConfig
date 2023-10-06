@@ -148,7 +148,7 @@ return {
         move_wraps_at_ends = true,
         show_buffer_icons = true,
         show_tab_indicators = true,
-        always_show_bufferline = false,
+        always_show_bufferline = true,
         ---@type "thin" | "padded_slant" | "slant" | "thick" | "none"
         separator_style = "thin",
         ---@type "insert_after_current" | "insert_at_end" | "id" | "extension" | "relative_directory" | "directory" | "tabs"

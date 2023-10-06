@@ -104,6 +104,25 @@ M.config = function(_, opts)
           bg = Config.palette.bg_darker,
           fg = colors.rosewater,
         }
+        hls.TelescopePromptBorder = {
+          bg = colors.crust,
+          fg = colors.crust,
+        }
+        hls.TelescopePromptNormal = {
+          bg = colors.crust,
+          fg = colors.rosewater,
+        }
+        hls.TelescopePromptTitle = {
+          bold = true,
+          bg = colors.peach,
+          fg = colors.crust,
+        }
+        hls.TelescopePromptPrefix = {
+          bg = colors.crust,
+        }
+        hls.TelescopeResultsTitle = {
+          bg = colors.yellow,
+        }
       end
 
       return hls
