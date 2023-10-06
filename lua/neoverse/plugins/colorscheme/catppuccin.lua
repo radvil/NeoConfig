@@ -22,12 +22,6 @@ M.config = function(_, opts)
     integrations = {
       alpha = true,
       barbar = false,
-      barbecue = {
-        dim_dirname = true,
-        bold_basename = false,
-        dim_context = true,
-        alt_background = false,
-      },
       treesitter = true,
       dropbar = false,
       lsp_trouble = true,
@@ -62,9 +56,23 @@ M.config = function(_, opts)
         enabled = true,
         style = "nvchad",
       },
+      barbecue = {
+        dim_dirname = true,
+        bold_basename = false,
+        dim_context = true,
+        alt_background = false,
+      },
+    },
+    color_overrides = {
+      mocha = {
+        surface0 = Config.palette.bg2,
+      },
     },
     custom_highlights = function(colors)
       local hls = {
+        CursorLine = {
+          bg = colors.surface0,
+        },
         WinSeparator = {
           fg = colors.surface1,
         },
@@ -86,7 +94,7 @@ M.config = function(_, opts)
           style = { "bold" },
         },
         NeoTreeIndentMarker = {
-          fg = "#313244",
+          fg = colors.surface0,
         },
         NeoTreeGitModified = {
           fg = colors.rosewater,
@@ -110,7 +118,6 @@ M.config = function(_, opts)
         }
         hls.TelescopePromptNormal = {
           bg = colors.crust,
-          -- fg = colors.rosewater,
         }
         hls.TelescopePromptTitle = {
           bold = true,

@@ -2,7 +2,9 @@ local function fg(name)
   return function()
     ---@type {foreground?:number}?
     local hl = vim.api.nvim_get_hl(vim.api.nvim_get_hl_id_by_name(name), {})
-    return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
+    return hl and hl.foreground and {
+      fg = string.format("#%06x", hl.foreground),
+    }
   end
 end
 
@@ -27,17 +29,8 @@ return {
       extensions = { "neo-tree", "lazy" },
       sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch" },
-        lualine_c = {
-          {
-            "diagnostics",
-            symbols = {
-              error = Config.icons.Diagnostics.Error,
-              warn = Config.icons.Diagnostics.Warn,
-              info = Config.icons.Diagnostics.Info,
-              hint = Config.icons.Diagnostics.Hint,
-            },
-          },
+        -- lualine_b = { "branch" },
+        lualine_b = {
           {
             "filetype",
             icon_only = true,
@@ -49,11 +42,22 @@ return {
           },
           {
             "filename",
-            path = State.barbecue and 1 or 0,
+            path = 0,
             symbols = {
               modified = "💋",
               readonly = " ",
               unnamed = "",
+            },
+          },
+        },
+        lualine_c = {
+          {
+            "diagnostics",
+            symbols = {
+              error = Config.icons.Diagnostics.Error,
+              warn = Config.icons.Diagnostics.Warn,
+              info = Config.icons.Diagnostics.Info,
+              hint = Config.icons.Diagnostics.Hint,
             },
           },
           {
@@ -65,16 +69,8 @@ return {
             end,
           },
         },
-        lualine_x = {
-          {
-            function()
-              return require("noice").api.status.command.get()
-            end,
-            cond = function()
-              return package.loaded["noice"] and require("noice").api.status.command.has()
-            end,
-            color = fg("Statement"),
-          },
+        lualine_x = {},
+        lualine_y = {
           {
             function()
               return require("noice").api.status.mode.get()
@@ -98,7 +94,16 @@ return {
             },
           },
         },
-        lualine_y = {
+        lualine_z = {
+          {
+            function()
+              return require("noice").api.status.command.get()
+            end,
+            cond = function()
+              return package.loaded["noice"] and require("noice").api.status.command.has()
+            end,
+            color = fg("Statement"),
+          },
           {
             "progress",
             separator = " ",
@@ -114,11 +119,6 @@ return {
               right = 1,
             },
           },
-        },
-        lualine_z = {
-          function()
-            return " " .. os.date("%R")
-          end,
         },
       },
     })
