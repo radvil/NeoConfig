@@ -21,14 +21,14 @@ MMMMMMMMMMMMMMMMM.                             MMMMMMMMMMMMMMMMMM
                                MM]]
     db.section.header.val = vim.split(logo, "\n")
     db.section.buttons.val = {
-      db.button("s", "🕗" .. " Resume session", [[:lua require('persistence').load()<cr>]]),
-      db.button("r", "📁" .. " Recent files", ":Telescope oldfiles<cr>"),
-      db.button("f", "🔭" .. " Find files", ":Telescope find_files<cr>"),
-      -- db.button("w", "🔎" .. " Grep words", ":Telescope live_grep<cr>"),
-      db.button("n", "📌" .. " Find notes", ":NeoNotes<cr>"),
-      db.button("d", "🔧" .. " Config files", ":NeoDotfiles<cr>"),
-      db.button("p", "📎" .. " Manage plugins", ":Lazy<cr>"),
-      db.button("q", "⭕" .. " Quit session", ":qa<cr>"),
+      db.button("s", "🕗" .. " Resume session", [[<cmd>lua require('persistence').load()<cr>]]),
+      db.button("r", "📁" .. " Recent files", "<cmd>Telescope oldfiles<cr>"),
+      db.button("f", "🔭" .. " Find files", "<cmd>Telescope find_files<cr>"),
+      db.button("w", "🔎" .. " Grep words", "<cmd>Telescope live_grep<cr>"),
+      db.button("n", "📌" .. " Find notes", "<cmd>NeoNotes<cr>"),
+      db.button("d", "🔧" .. " Config files", "<cmd>NeoDotfiles<cr>"),
+      db.button("p", "📎" .. " Manage plugins", "<cmd>Lazy<cr>"),
+      db.button("q", "⭕" .. " Quit session", "<cmd>qa<cr>"),
     }
     for _, button in ipairs(db.section.buttons.val) do
       button.opts.hl = "AlphaButtons"
