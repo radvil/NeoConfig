@@ -1,5 +1,5 @@
 return {
-  "windwp/nvim-spectre",
+  "nvim-pack/nvim-spectre",
   config = true,
   keys = {
     {

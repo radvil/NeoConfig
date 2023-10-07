@@ -11,6 +11,15 @@ return {
       virt_text_priority = 100,
     }
 
+    opts.signs = {
+      add = { text = "▎" },
+      change = { text = "▎" },
+      delete = { text = "" },
+      topdelete = { text = "" },
+      changedelete = { text = "▎" },
+      untracked = { text = "▎" },
+    }
+
     opts.on_attach = function(buffer)
       ---@param lhs string
       ---@param rhs function | string

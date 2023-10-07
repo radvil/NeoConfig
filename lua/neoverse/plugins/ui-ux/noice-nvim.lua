@@ -93,8 +93,8 @@ return {
             relative = "editor",
             position = {
               col = "50%",
-              -- row = 5,
-              row = 18,
+              row = 6,
+              -- row = 18,
             },
             size = {
               width = 60,

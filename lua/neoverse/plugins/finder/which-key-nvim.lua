@@ -39,7 +39,7 @@ return {
         "qf",
       },
     },
-    triggers = { "<leader>", "s", "`", '"', "'" },
+    triggers = { "<leader>", "s", "`", '"', "'", "[", "]" },
     triggers_nowait = {
       "`",
       "'",

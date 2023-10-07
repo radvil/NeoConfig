@@ -166,14 +166,6 @@ return {
             separator = true,
           },
         },
-        custom_filter = function(buf_number)
-          if vim.bo[buf_number].filetype ~= "oil" then
-            return true
-          end
-          if vim.bo[buf_number].filetype ~= "nofile" then
-            return true
-          end
-        end,
       },
     }
 

@@ -73,8 +73,15 @@ M.config = function(_, opts)
         CursorLine = {
           bg = colors.surface0,
         },
+        IncSearch = {
+          bg = colors.maroon,
+          fg = colors.crust,
+        },
         WinSeparator = {
           fg = colors.surface1,
+        },
+        MiniIndentscopeSymbol = {
+          fg = colors.flamingo,
         },
         NavicText = {
           fg = colors.rosewater,
