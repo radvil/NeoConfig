@@ -12,6 +12,7 @@ return {
   opts = function()
     return {
       icons = require("neoverse.config").icons,
+      lazy_update_context = true,
       separator = " » ",
       highlight = true,
       depth_limit = 7,
