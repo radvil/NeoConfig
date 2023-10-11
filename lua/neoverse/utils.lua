@@ -83,6 +83,12 @@ function M.lazy_has(plugin)
   return require("lazy.core.config").spec.plugins[plugin] ~= nil
 end
 
+function M.get_clients(...)
+  ---@diagnostic disable-next-line: deprecated
+  local fn = vim.lsp.get_clients or vim.lsp.get_active_clients
+  return fn(...)
+end
+
 ---@param callback fun(client, buffer)
 function M.on_lsp_attach(callback)
   vim.api.nvim_create_autocmd("LspAttach", {

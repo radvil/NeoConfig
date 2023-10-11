@@ -1,3 +1,5 @@
+---@diagnostic disable: inject-field
+
 local M = {}
 
 M._loaded = false
@@ -94,38 +96,62 @@ function M.get()
   return M._keys
 end
 
+---@param method string
+function M.has(buffer, method)
+  method = method:find("/") and method or "textDocument/" .. method
+  local clients = require("neoverse.utils").get_clients({ bufnr = buffer })
+  for _, client in ipairs(clients) do
+    if client.supports_method(method) then
+      return true
+    end
+  end
+  return false
+end
+
+function M.resolve(buffer)
+  local Keys = require("lazy.core.handler.keys")
+  local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
+  local function add(keymap)
+    local keys = Keys.parse(keymap)
+    if keys[2] == false then
+      keymaps[keys.id] = nil
+    else
+      keymaps[keys.id] = keys
+    end
+  end
+  for _, keymap in ipairs(M.get()) do
+    add(keymap)
+  end
+  local opts = require("neoverse.utils").opts("nvim-lspconfig")
+  local clients = require("neoverse.utils").get_clients({ bufnr = buffer })
+  for _, client in ipairs(clients) do
+    local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
+    for _, keymap in ipairs(maps) do
+      add(keymap)
+    end
+  end
+  return keymaps
+end
+
 function M.on_attach(client, buffer)
   if options.enable_defaults then
     local Keys = require("lazy.core.handler.keys")
-    local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
-
-    for _, value in ipairs(M.get()) do
-      local keys = Keys.parse(value)
-      if keys[2] == vim.NIL or keys[2] == false then
-        keymaps[keys.id] = nil
-      else
-        keymaps[keys.id] = keys
-      end
-    end
-
+    local keymaps = M.resolve(buffer)
     for _, keys in pairs(keymaps) do
-      if not keys.has or client.server_capabilities[keys.has .. "Provider"] then
+      if not keys.has or M.has(buffer, keys.has) then
         local opts = Keys.opts(keys)
-        ---@diagnostic disable-next-line: no-unknown
         opts.has = nil
         opts.silent = opts.silent ~= false
         opts.buffer = buffer
-        vim.keymap.set(keys.mode or "n", keys[1], keys[2], opts)
+        vim.keymap.set(keys.mode or "n", keys.lhs, keys.rhs, opts)
       end
     end
   end -- OEL enable_defaults
-
   if client.server_capabilities["documentSymbolProvider"] then
     if require("neoverse.utils").lazy_has("nvim-navic") then
       require("nvim-navic").attach(client, buffer)
     end
   end
-
   if client.server_capabilities.renameProvider then
     if require("neoverse.utils").lazy_has("inc-rename.nvim") then
       vim.keymap.set("n", "<leader>cr", function()
@@ -142,7 +168,6 @@ function M.on_attach(client, buffer)
       })
     end
   end
-
   if options.on_attach then
     options.on_attach(client, buffer)
   end

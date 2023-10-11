@@ -59,14 +59,14 @@ return {
       return string.format("%s ", icon)
     end
     local Defaults = {
-      event_handlers = {
-        {
-          event = "neo_tree_buffer_enter",
-          handler = function()
-            vim.cmd([[setlocal relativenumber]])
-          end,
-        },
-      },
+      -- event_handlers = {
+      --   {
+      --     event = "neo_tree_buffer_enter",
+      --     handler = function()
+      --       vim.cmd([[setlocal relativenumber]])
+      --     end,
+      --   },
+      -- },
       default_component_configs = {
         indent = {
           padding = 0,
