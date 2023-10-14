@@ -2,7 +2,14 @@ return {
   "folke/which-key.nvim",
   opts = {
     show_help = false,
-    plugins = { spelling = true },
+    plugins = {
+      marks = true,
+      registers = true,
+      spelling = {
+        enabled = true,
+        suggestions = 20,
+      },
+    },
     window = {
       border = "none",
       position = "bottom",
@@ -39,7 +46,7 @@ return {
         "qf",
       },
     },
-    triggers = { "<leader>", "s", "`", '"', "'", "[", "]" },
+    triggers = { "<leader>", "s", "`", '"', "'", "[", "]", "z" },
     triggers_nowait = {
       "`",
       "'",
