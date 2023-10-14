@@ -93,8 +93,8 @@ local function get_custom_catppuccin_hls(transparent, styles)
 end
 
 return {
-  "akinsho/nvim-bufferline.lua",
-  event = "VeryLazy",
+  "akinsho/bufferline.nvim",
+  lazy = false,
   keys = function()
     local Kmap = function(lhs, cmd, desc)
       cmd = string.format("<cmd>BufferLine%s<cr>", cmd)
@@ -124,10 +124,9 @@ return {
 
   opts = function(_, opts)
     vim.opt.mousemoveevent = true
-
     local show_cwd = vim.g.neovide or os.getenv("TMUX") == nil
 
-    local DEFAULTS = {
+    opts = vim.tbl_deep_extend("force", opts or {}, {
       options = {
         mode = "buffers",
         diagnostics = "nvim_lsp",
@@ -167,9 +166,7 @@ return {
           },
         },
       },
-    }
-
-    opts = vim.tbl_deep_extend("force", DEFAULTS, opts or {}) or DEFAULTS
+    })
 
     local Utils = require("neoverse.utils")
     local Config = require("neoverse.config")

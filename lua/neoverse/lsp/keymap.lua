@@ -45,13 +45,14 @@ function M.get()
         has = "signatureHelp",
       },
       { "<leader>cx", vim.diagnostic.open_float, desc = "Diagnostic open float" },
-      {
-        "<a-k>",
-        vim.lsp.buf.signature_help,
-        mode = "i",
-        desc = "Signature Help",
-        has = "signatureHelp",
-      },
+      -- TODO: Also work in normal mode. why ??
+      -- {
+      --   "<a-k>",
+      --   vim.lsp.buf.signature_help,
+      --   mode = "i",
+      --   desc = "Signature Help",
+      --   has = "signatureHelp",
+      -- },
       { "]d", M.diagnostic_goto(true), desc = "Next diagnostic" },
       { "[d", M.diagnostic_goto(false), desc = "Prev diagnostic" },
       { "]e", M.diagnostic_goto(true, "ERROR"), desc = "Next error" },
