@@ -71,10 +71,7 @@ return {
         indent = {
           padding = 0,
           with_markers = true,
-          -- indent_marker = "┊",
           with_expanders = false,
-          -- expander_collapsed = "»",
-          -- expander_expanded = "-",
         },
         git_status = {
           symbols = {
@@ -186,15 +183,7 @@ return {
       },
     }
 
-    opts = vim.tbl_deep_extend("force", Defaults, opts or {}) or Defaults
-
-    if require("neoverse.utils").call("bufferline") then
-      opts.source_selector.highlight_tab = "BufferLineBackground"
-      opts.source_selector.highlight_separator = "BufferLineBackground"
-      opts.source_selector.highlight_background = "BufferLineBackground"
-      opts.source_selector.highlight_tab_active = "BufferLineBufferSelected"
-      opts.source_selector.highlight_separator_active = "BufferLineIndicatorSelected"
-    end
+    opts = vim.tbl_deep_extend("force", opts or {}, Defaults)
 
     require("neo-tree").setup(opts)
 

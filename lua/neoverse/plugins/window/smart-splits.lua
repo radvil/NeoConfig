@@ -52,15 +52,13 @@ return {
         desc = "Window » " .. desc,
       })
     end
+
+    --stylua: ignore start
     -- resize keymaps
-    map("<c-down>", ss.resize_down, "Resize down")
     map("<c-up>", ss.resize_up, "Resize up")
-    map("<c-left>", function()
-      ss.resize_left(6)
-    end, "Resize left")
-    map("<c-right>", function()
-      ss.resize_right(6)
-    end, "Resize right")
+    map("<c-down>", ss.resize_down, "Resize down")
+    map("<c-left>", function() ss.resize_left(6) end, "Resize left")
+    map("<c-right>", function() ss.resize_right(6) end, "Resize right")
 
     -- navigation keymaps
     map("<c-j>", ss.move_cursor_down, "Move cursor down")

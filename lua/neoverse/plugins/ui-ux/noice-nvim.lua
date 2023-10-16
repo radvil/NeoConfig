@@ -1,3 +1,5 @@
+local active = true
+
 return {
   {
     "folke/which-key.nvim",
@@ -18,23 +20,21 @@ return {
       "rcarriga/nvim-notify",
     },
     -- stylua: ignore
-    enabled = function() return require("neoverse.state").noice end,
-    -- stylua: ignore
     keys = {
       {
         "<leader>ul",
         function()
-          local next = not require("neoverse.state").noice
-          require("noice")[next and "enable" or "disable"]()
-          local msg = next and "Noice Logger + UX » Enabled" or "Noice Logger + UX » Disabled"
-          local lvl = next and vim.log.levels.INFO or vim.log.levels.WARN
-          require("neoverse.state").noice = next
+          active = not active
+          require("noice")[active and "enable" or "disable"]()
+          local msg = active and "Noice Logger + UX » Enabled" or "Noice Logger + UX » Disabled"
+          local lvl = active and vim.log.levels.INFO or vim.log.levels.WARN
           vim.notify(msg, lvl)
         end,
         desc = "Logger » Toggle Noice Logger/UX",
       },
       { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
       { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, expr = true, desc = "Noice » Scroll backward", mode = {"i", "n", "s"} },
+      ---@diagnostic disable-next-line: param-type-mismatch
       { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Noice » Redirect cmdline" },
       { "<leader>ll", function() require("noice").cmd("last") end, desc = "Logger » Noice last message" },
       { "<leader>lh", function() require("noice").cmd("history") end, desc = "Logger » Noice message history" },
@@ -44,7 +44,7 @@ return {
 
     ---@param opts NoiceConfig
     config = function(_, opts)
-      local config = require("neoverse.config")
+      local Config = require("neoverse.config")
       local defaults = {
         health = { checker = true },
         presets = {
@@ -159,7 +159,7 @@ return {
         opts.routes[2].view = "notify"
       end
 
-      if opts and not config.transparent then
+      if opts and not Config.transparent then
         opts.presets.lsp_doc_border = {
           views = {
             hover = {

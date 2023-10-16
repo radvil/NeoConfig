@@ -1,19 +1,26 @@
----@type LazySpec
-local M = {}
-M[1] = "nvim-treesitter/nvim-treesitter-context"
-M.dependencies = "nvim-treesitter/nvim-treesitter"
-M.enabled = false
-M.event = "VeryLazy"
-M.opts = {
-  enable = true,
-  throttle = true,
-  max_lines = 0,
-  patterns = {
-    default = {
-      "class",
-      "function",
-      "method",
+return {
+  "nvim-treesitter/nvim-treesitter-context",
+  dependencies = "nvim-treesitter/nvim-treesitter",
+  event = "VeryLazy",
+  enabled = true,
+  opts = {
+    enable = false,
+    mode = "cursor",
+  },
+  keys = {
+    {
+      "<leader>ut",
+      function()
+        local Utils = require("neoverse.utils")
+        local tsc = require("treesitter-context")
+        tsc.toggle()
+        if Utils.inject.get_upvalue(tsc.toggle, "enabled") then
+          Utils.info("Enabled", { title = "Treesitter Context" })
+        else
+          Utils.warn("Disabled", { title = "Treesitter Context" })
+        end
+      end,
+      desc = "Toggle » Treesitter Context",
     },
   },
 }
-return M

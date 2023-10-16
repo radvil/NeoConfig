@@ -13,6 +13,7 @@ local function get_custom_catppuccin_hls(transparent, styles)
     local separator_fg = C.crust
     local fill_bg = C.crust
     if transparent == true then
+      active_bg = C.none
       inactive_bg = Config.palette.bg
       separator_fg = C.surface1
       fill_bg = C.mantle

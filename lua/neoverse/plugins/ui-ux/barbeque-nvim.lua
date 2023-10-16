@@ -1,3 +1,5 @@
+local active = true
+
 return {
   "utilyre/barbecue.nvim",
   event = "BufReadPost",
@@ -11,11 +13,11 @@ return {
     {
       "<leader>ub",
       function()
-        local next = not require("neoverse.state").barbecue
+        local next = not active
         local lvl = next and vim.log.levels.INFO or vim.log.levels.WARN
         local status = next and "Enabled" or "Disabled"
         require("barbecue.ui").toggle(next)
-        require("neoverse.state").barbecue = next
+        active = next
         vim.notify("Barbeque » " .. status, lvl)
       end,
       desc = "Toggle » Barbeque/Navic",
@@ -40,7 +42,7 @@ return {
     }, {
       group = vim.api.nvim_create_augroup("NeoBarbecueUpdate", {}),
       callback = function()
-        if require("neoverse.state").barbecue then
+        if active then
           require("barbecue.ui").update()
         end
       end,

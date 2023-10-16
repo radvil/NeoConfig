@@ -1,3 +1,5 @@
+local active = true
+
 return {
   "gen740/SmoothCursor.nvim",
   event = "VeryLazy",
@@ -5,14 +7,13 @@ return {
     {
       "<leader>ms",
       function()
-        if not require("neoverse.state").smooth_cursor then
+        active = not active
+        if active then
           vim.cmd("SmoothCursorStart")
           vim.notify("Smooth cursor » enabled", vim.log.levels.INFO)
-          require("neoverse.state").smooth_cursor = true
         else
           vim.cmd("SmoothCursorStop")
           vim.notify("Smooth cursor » disabled", vim.log.levels.WARN)
-          require("neoverse.state").smooth_cursor = false
         end
       end,
       desc = "Toggle smooth cursor",
@@ -45,7 +46,7 @@ return {
       "qf",
     },
     disable_float_win = true,
-    autostart = require("neoverse.state").smooth_cursor,
+    autostart = active,
     intervals = 13,
     threshold = 1,
     cursor = "",

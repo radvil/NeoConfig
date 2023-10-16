@@ -30,7 +30,7 @@ _____________________                              _____________________
         header = vim.split(logo, "\n"),
         center = {
           {
-            action = "lua require('persistence').load()",
+            action = "NeoSessionRestore",
             desc = " Resume session",
             icon = "🕗",
             key = "s",

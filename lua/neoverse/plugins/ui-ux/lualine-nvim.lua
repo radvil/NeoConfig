@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 local function fg(name)
   return function()
     ---@type {foreground?:number}?
@@ -11,9 +12,25 @@ end
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
+  init = function()
+    vim.g.lualine_laststatus = vim.o.laststatus
+    if vim.fn.argc(-1) > 0 then
+      -- set an empty statusline till lualine loads
+      vim.o.statusline = " "
+    else
+      -- hide the statusline on the starter page
+      vim.o.laststatus = 0
+    end
+  end,
   config = function()
+    -- PERF: we don't need this lualine require madness 🤷
+    local lualine_require = require("lualine_require")
+    lualine_require.require = require
+
+    vim.o.laststatus = vim.g.lualine_laststatus
+
     local Config = require("neoverse.config")
-    local State = require("neoverse.state")
+    local Utils = require("neoverse.utils")
     local A = { "mode" }
     local B = {
       {
@@ -26,13 +43,9 @@ return {
         },
       },
       {
-        "filename",
-        path = 0,
-        symbols = {
-          modified = "💋",
-          readonly = " ",
-          unnamed = "",
-        },
+        function()
+          return Utils.root.pretty_path()
+        end,
       },
     }
     local C = {
@@ -50,7 +63,7 @@ return {
           return require("nvim-navic").get_location()
         end,
         cond = function()
-          return package.loaded["nvim-navic"] and require("nvim-navic").is_available() and not State.barbecue
+          return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
         end,
       },
     }
@@ -105,7 +118,7 @@ return {
       },
     }
 
-    if not os.getenv("TMUX") then
+    if vim.g.neovide or not os.getenv("TMUX") then
       table.insert(B, 1, "branch")
     end
 
