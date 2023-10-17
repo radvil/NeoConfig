@@ -53,7 +53,7 @@ return {
             buffer = " Buffer",
             path = " Path",
           }
-          vim_item.kind = Config.icons.kinds[item_kind]
+          vim_item.kind = Config.icons.Kinds[item_kind]
           vim_item.menu = sources[entry.source.name]
           return vim_item
         end,

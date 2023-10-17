@@ -46,7 +46,6 @@ return {
     },
   },
   {
-
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
     event = "BufReadPost",
@@ -100,7 +99,7 @@ return {
             vim.notify("Nvim ufo disabled!", vim.log.levels.WARN)
           end
         end,
-        desc = "Toggle » UFO Provider",
+        desc = "Toggle » Fold Marker",
       },
     },
 
@@ -112,6 +111,7 @@ return {
         python = { "indent" },
         vim = "indent",
         git = "",
+        Outline = "",
       }
 
       ---@type UfoConfig

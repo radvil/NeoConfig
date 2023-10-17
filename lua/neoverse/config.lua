@@ -72,7 +72,7 @@ local defaults = {
       Conflict = "",
       Ignored = "",
     },
-    kinds = {
+    Kinds = {
       Array = " ",
       Boolean = " ",
       Class = " ",

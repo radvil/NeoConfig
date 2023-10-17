@@ -5,7 +5,7 @@ return {
     {
       "<leader>mc",
       ":Colortils picker<cr>",
-      desc = "Color picker",
+      desc = "Misc » Pick Color",
     },
   },
   config = function()
