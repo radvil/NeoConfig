@@ -160,12 +160,22 @@ return {
             filetype = "neo-tree",
             text_align = show_cwd and "left" or "center",
             text = function()
-              return show_cwd and "CWD » " .. vim.fn.getcwd() or "~ TREE VIEW ~"
+              return show_cwd and "CWD » " .. vim.fn.getcwd() or "~ CWD TREE VIEW ~"
             end,
             highlight = "BufferLineFill",
             separator = true,
           },
+          {
+            filetype = "Outline",
+            text_align = show_cwd and "left" or "center",
+            text = "~ SYMBOLS TREE VIEW ~",
+            highlight = "SymbolsOffsetFill",
+            separator = true,
+          },
         },
+        custom_filter = function(bufnr)
+          return vim.bo[bufnr].filetype ~= "oil"
+        end,
       },
     })
 

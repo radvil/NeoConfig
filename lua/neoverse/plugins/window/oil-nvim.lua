@@ -23,14 +23,18 @@ return {
   },
 
   opts = {
-    delete_to_trash = false,
+    delete_to_trash = true,
     restore_win_options = true,
     trash_command = "trash-put",
     skip_confirm_for_simple_edits = false,
     prompt_save_on_select_new_entry = true,
-    default_file_explorer = false,
+    default_file_explorer = true,
     buf_options = { buflisted = true },
     use_default_keymaps = false,
+    cleanup_delay_ms = 500,
+    view_options = {
+      show_hidden = true,
+    },
     keymaps = {
       ["g?"] = "actions.show_help",
       ["q"] = "actions.close",

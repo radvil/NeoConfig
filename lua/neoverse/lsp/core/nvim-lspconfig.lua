@@ -124,6 +124,7 @@ M.config = function(_, opts)
     opts.prehook()
   end
 
+  -- require("neoverse.lsp.bun-utils").setup({ "tailwindcss", "angularls", "tsserver", "eslint" })
   require("neoverse.lsp.diagnostic").setup(opts.diagnostics)
   require("neoverse.lsp.keymap").setup(opts.mappings)
   require("neoverse.lsp.format").setup(opts.format)

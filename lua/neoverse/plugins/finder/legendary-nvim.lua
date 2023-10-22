@@ -5,7 +5,7 @@ return {
   keys = {
     {
       "<leader>q",
-      ":Legendary<cr>",
+      "<cmd>Legendary<cr>",
       desc = "Quick Command/Keymaps Palette",
     },
   },

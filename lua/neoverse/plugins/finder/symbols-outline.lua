@@ -11,7 +11,7 @@ return {
   opts = function()
     local Config = require("neoverse.config")
     local opts = {
-      width = 44,
+      width = 40,
       wrap = false,
       position = "right",
       auto_close = false,
@@ -20,10 +20,10 @@ return {
       show_numbers = false,
       autofold_depth = nil,
       relative_width = false,
-      auto_unfold_hover = true,
+      auto_unfold_hover = false,
       show_symbol_details = false,
-      highlight_hovered_item = true,
       show_relative_numbers = false,
+      highlight_hovered_item = true,
       fold_markers = { "", "" },
       keymaps = {
         close = { "q" },

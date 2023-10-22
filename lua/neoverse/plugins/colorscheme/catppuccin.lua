@@ -118,6 +118,14 @@ return {
             bg = Config.transparent and colors.none or colors.surface0,
             fg = colors.peach,
           },
+          SymbolsOffsetFill = {
+            bg = colors.blue,
+            fg = colors.mantle,
+            bold = true,
+          },
+          SymbolsOutlineConnector = {
+            link = "NeoTreeIndentMarker",
+          },
         }
 
         if not Config.transparent then
