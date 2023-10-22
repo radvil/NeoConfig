@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "lukas-reineke/indent-blankline.nvim",
-  event = "BufReadPost",
+  event = "LazyFile",
   main = "ibl",
   keys = {
     {

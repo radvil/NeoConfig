@@ -1,6 +1,6 @@
 return {
   "RRethy/vim-illuminate",
-  event = "BufReadPost",
+  event = "LazyFile",
 
   keys = {
     {

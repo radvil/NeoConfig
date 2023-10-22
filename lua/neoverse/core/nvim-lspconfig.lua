@@ -4,7 +4,7 @@ local M = {}
 
 M[1] = "neovim/nvim-lspconfig"
 
-M.event = { "BufReadPre", "BufNewFile" }
+M.event = "LazyFile"
 
 M.dependencies = {
   "mason.nvim",

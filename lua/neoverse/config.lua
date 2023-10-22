@@ -1,3 +1,4 @@
+---@diagnostic disable: inject-field
 ---@type NeoVerseOpts
 local M = {}
 
@@ -117,27 +118,27 @@ local options = nil
 
 ---@diagnostic disable-next-line: inject-field
 function M.bootstrap(opts)
-  options = vim.tbl_deep_extend("force", defaults, opts or {})
+  local LazyUtil = require("lazy.core.util")
+  options = vim.tbl_deep_extend("force", defaults, opts or {}) or {}
 
   if M.before_config_init then
     M.before_config_init()
   end
 
-  if M.after_config_init then
-    if vim.fn.argc(-1) == 0 then
-      vim.api.nvim_create_autocmd("User", {
-        group = vim.api.nvim_create_augroup("NeoVerse", { clear = true }),
-        pattern = "VeryLazy",
-        callback = function()
+  if vim.fn.argc(-1) == 0 then
+    vim.api.nvim_create_autocmd("User", {
+      group = vim.api.nvim_create_augroup("NeoVerse", { clear = true }),
+      pattern = "VeryLazy",
+      callback = function()
+        if M.after_config_init then
           M.after_config_init()
-        end,
-      })
-    else
-      M.after_config_init()
-    end
+        end
+      end,
+    })
   end
 
-  require("lazy.core.util").try(function()
+  LazyUtil.track("colorscheme")
+  LazyUtil.try(function()
     if type(M.colorscheme) == "function" then
       M.colorscheme()
     else
@@ -146,13 +147,30 @@ function M.bootstrap(opts)
   end, {
     msg = "Could not load your colorscheme",
     on_error = function(msg)
-      require("lazy.core.util").error(msg)
+      LazyUtil.error(msg)
       vim.cmd.colorscheme("habamax")
     end,
   })
+  LazyUtil.track()
 end
 
----TODO: Learn abuot this metatable thing!!!
+M.did_init = false
+function M.init()
+  if M.did_init then
+    return
+  end
+  M.did_init = true
+  local plugin = require("lazy.core.config").spec.plugins.LazyVim
+  if plugin then
+    vim.opt.rtp:append(plugin.dir)
+  end
+
+  local PluginUtil = require("neoverse.utils.plugin")
+  PluginUtil.lazy_notify()
+  PluginUtil.lazy_file()
+end
+
+---TODO: Learn about this metatable thing!!!
 ---@diagnostic disable-next-line: inject-field
 function M.set(key, value)
   if options == nil then

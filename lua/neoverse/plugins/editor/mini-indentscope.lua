@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "echasnovski/mini.indentscope",
-  event = { "BufReadPre", "BufNewFile" },
+  event = "LazyFile",
 
   keys = {
     {
