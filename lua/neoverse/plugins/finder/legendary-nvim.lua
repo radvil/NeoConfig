@@ -16,7 +16,7 @@ return {
       include_builtin = true,
       extensions = {
         diffview = true,
-        smart_splits = true,
+        smart_splits = false,
         which_key = {
           auto_register = require("neoverse.utils").call("which-key") or false,
         },
