@@ -3,7 +3,6 @@
 local function get_custom_catppuccin_hls(transparent, styles)
   return function()
     local ctp = require("catppuccin")
-    local Config = require("neoverse.config")
     local C = require("catppuccin.palettes").get_palette()
     --stylua: ignore
     if not C then return {} end
@@ -14,7 +13,7 @@ local function get_custom_catppuccin_hls(transparent, styles)
     local fill_bg = C.crust
     if transparent == true then
       active_bg = C.none
-      inactive_bg = Config.palette.bg
+      inactive_bg = require("neoverse.config").palette.dark
       separator_fg = C.surface1
       fill_bg = C.mantle
     end
@@ -95,7 +94,7 @@ end
 
 return {
   "akinsho/bufferline.nvim",
-  lazy = false,
+  event = "LazyFile",
   keys = function()
     local Kmap = function(lhs, cmd, desc)
       cmd = string.format("<cmd>BufferLine%s<cr>", cmd)
@@ -135,7 +134,7 @@ return {
         move_wraps_at_ends = true,
         show_buffer_icons = true,
         show_tab_indicators = true,
-        always_show_bufferline = true,
+        always_show_bufferline = false,
         ---@type "thin" | "padded_slant" | "slant" | "thick" | "none"
         separator_style = "thin",
         ---@type "insert_after_current" | "insert_at_end" | "id" | "extension" | "relative_directory" | "directory" | "tabs"
@@ -153,7 +152,7 @@ return {
         hover = {
           enabled = true,
           reveal = { "close" },
-          delay = 200,
+          delay = 100,
         },
         offsets = {
           {
@@ -186,5 +185,16 @@ return {
     end
 
     return opts
+  end,
+
+  init = function()
+    -- Fix bufferline when restoring a session
+    vim.api.nvim_create_autocmd("BufAdd", {
+      callback = function()
+        vim.schedule(function()
+          pcall(nvim_bufferline)
+        end)
+      end,
+    })
   end,
 }
