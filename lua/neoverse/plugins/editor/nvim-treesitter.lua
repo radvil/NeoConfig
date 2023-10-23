@@ -2,7 +2,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   event = { "LazyFile", "VeryLazy" },
   build = ":TSUpdate",
-
+  cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
   keys = {
     {
       "<c-space>",
@@ -33,10 +33,7 @@ return {
       "vim",
       "yaml",
     },
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = { "markdown" },
-    },
+    highlight = { enable = true },
     indent = { enable = true },
     incremental_selection = {
       enable = true,
