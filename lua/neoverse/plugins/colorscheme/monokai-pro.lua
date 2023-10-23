@@ -26,7 +26,7 @@ return {
         return {
           LazyNormal = { link = "Normal" },
           LspInlayHint = { link = "Comment" },
-          ZenBg = { bg = Config.palette.bg },
+          ZenBg = { bg = Config.palette.dark },
           Visual = {
             bg = "#55435b",
           },
@@ -37,17 +37,17 @@ return {
             fg = Config.palette.yellow,
           },
           FlashCurrent = {
-            fg = Config.palette.bg,
+            fg = Config.palette.dark,
             bg = Config.palette.yellow,
             bold = true,
           },
           FlashMatch = {
-            fg = Config.palette.bg2,
-            bg = Config.palette.blue2,
+            fg = Config.palette.dark2,
+            bg = Config.palette.sky,
           },
           FlashLabel = {
-            fg = Config.palette.fg,
-            bg = Config.palette.pink,
+            fg = Config.palette.light,
+            bg = Config.palette.pink2,
             bold = true,
           },
         }
