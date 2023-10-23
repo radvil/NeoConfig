@@ -2,10 +2,10 @@ return {
   "nvim-treesitter/nvim-treesitter-context",
   dependencies = "nvim-treesitter/nvim-treesitter",
   event = "VeryLazy",
-  enabled = true,
   opts = {
     enable = false,
     mode = "cursor",
+    max_lines = 3,
   },
   keys = {
     {
