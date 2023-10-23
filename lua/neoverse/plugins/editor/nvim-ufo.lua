@@ -47,11 +47,12 @@ return {
   },
   {
     "kevinhwang91/nvim-ufo",
-    event = "BufReadPost",
+    event = "LazyFile",
     dependencies = {
       "kevinhwang91/promise-async",
       {
         "luukvbaal/statuscol.nvim",
+        event = "LazyFile",
         config = function()
           local builtin = require("statuscol.builtin")
           require("statuscol").setup({
