@@ -62,7 +62,7 @@ return {
       },
       color_overrides = {
         mocha = {
-          surface0 = Config.palette.bg2,
+          surface0 = Config.palette.dark2,
         },
       },
       custom_highlights = function(colors)
@@ -84,17 +84,17 @@ return {
             fg = colors.rosewater,
           },
           FlashCurrent = {
-            fg = Config.palette.bg,
+            fg = Config.palette.dark,
             bg = Config.palette.yellow,
             style = { "bold" },
           },
           FlashMatch = {
-            fg = Config.palette.bg2,
-            bg = Config.palette.blue2,
+            fg = colors.surface0,
+            bg = Config.palette.sky,
           },
           FlashLabel = {
-            fg = Config.palette.fg,
-            bg = Config.palette.pink,
+            fg = Config.palette.light,
+            bg = Config.palette.pink2,
             style = { "bold" },
           },
           NeoTreeIndentMarker = {
@@ -125,6 +125,12 @@ return {
           },
           SymbolsOutlineConnector = {
             link = "NeoTreeIndentMarker",
+          },
+          GitSignsUntracked = {
+            fg = colors.blue,
+          },
+          GitSignsTopDelete = {
+            fg = colors.maroon,
           },
         }
 
