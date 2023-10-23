@@ -100,7 +100,7 @@ end
 ---@param method string
 function M.has(buffer, method)
   method = method:find("/") and method or "textDocument/" .. method
-  local clients = require("neoverse.utils").get_clients({ bufnr = buffer })
+  local clients = require("neoverse.utils").lsp.get_clients({ bufnr = buffer })
   for _, client in ipairs(clients) do
     if client.supports_method(method) then
       return true
@@ -124,7 +124,7 @@ function M.resolve(buffer)
     add(keymap)
   end
   local opts = require("neoverse.utils").opts("nvim-lspconfig")
-  local clients = require("neoverse.utils").get_clients({ bufnr = buffer })
+  local clients = require("neoverse.utils").lsp.get_clients({ bufnr = buffer })
   for _, client in ipairs(clients) do
     local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
     for _, keymap in ipairs(maps) do
@@ -186,7 +186,7 @@ end
 function M.setup(opts)
   if not M._loaded then
     options = vim.tbl_deep_extend("force", options, opts or {}) or options
-    require("neoverse.utils").on_lsp_attach(M.on_attach)
+    require("neoverse.utils").lsp.on_attach(M.on_attach)
     M._loaded = true
   end
 end

@@ -1,4 +1,8 @@
+---@class neoverse.utils.plugin
 local M = {}
+
+M.use_lazy_file = true
+M.lazy_file_events = { "BufReadPost", "BufNewFile", "BufWritePre" }
 
 -- delay notifications till vim.notify was replaced or after 500ms
 function M.lazy_notify()
@@ -98,6 +102,11 @@ function M.lazy_file()
       load()
     end,
   })
+end
+
+function M.setup()
+  M.lazy_notify()
+  M.lazy_file()
 end
 
 return M

@@ -75,7 +75,7 @@ function M.disable(server, cond)
   end)
 end
 
----@param opts? LazyFormatter| {filter?: (string|lsp.Client.filter)}
+---@param opts? NeoFormatter| {filter?: (string|lsp.Client.filter)}
 function M.formatter(opts)
   opts = opts or {}
   local filter = opts.filter or {}
