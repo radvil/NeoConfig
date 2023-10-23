@@ -1,11 +1,11 @@
 ---@type LazySpec[]
 return {
-  "nvim-lua/plenary.nvim",
-  "MunifTanjim/nui.nvim",
-  { "tpope/vim-repeat", event = "BufReadPre" },
+  { "nvim-lua/plenary.nvim" },
+  { "MunifTanjim/nui.nvim", lazy = true },
+  { "tpope/vim-repeat", event = "VeryLazy" },
   {
     "nvim-tree/nvim-web-devicons",
-    lazy = false,
     opts = { default = true },
+    lazy = true,
   },
 }
