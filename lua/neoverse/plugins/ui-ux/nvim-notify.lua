@@ -1,8 +1,6 @@
 ---@type LazySpec
 local M = {
   "rcarriga/nvim-notify",
-  event = "BufReadPost",
-
   config = function(_, opts)
     ---@type notify.Config
     local defaults = {
@@ -34,19 +32,20 @@ local M = {
   end,
 
   init = function()
-    local util = require("neoverse.utils")
-    if util.lazy_has("noice.nvim") then
-      util.on_very_lazy(function()
+    local Util = require("neoverse.utils")
+    -- when noice is not enabled, install notify on VeryLazy
+    if not Util.lazy_has("noice.nvim") then
+      Util.on_very_lazy(function()
         vim.notify = require("notify")
       end)
-    else
-      vim.keymap.set("n", "<leader>nd", function()
-        require("notify").dismiss({
-          pending = true,
-          silent = true,
-        })
-      end, { desc = "Notification » Dismiss" })
     end
+
+    vim.keymap.set("n", "<leader>nd", function()
+      require("notify").dismiss({
+        pending = true,
+        silent = true,
+      })
+    end, { desc = "Notification » Dismiss" })
   end,
 }
 
