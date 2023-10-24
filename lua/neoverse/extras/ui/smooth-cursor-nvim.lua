@@ -57,7 +57,7 @@ return {
       head = {
         cursor = "▷",
         texthl = "SmoothCursor",
-        linehl = not require("neoverse.config").transparent and "CursorLine" or nil,
+        linehl = not vim.g.neo_transparent and "CursorLine" or nil,
       },
       body = {
         { cursor = "", texthl = "SmoothCursorRed" },

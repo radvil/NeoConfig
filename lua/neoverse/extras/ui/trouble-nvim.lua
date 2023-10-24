@@ -30,6 +30,7 @@ end
 
 M[2] = {
   "nvim-telescope/telescope.nvim",
+  optional = true,
   opts = {
     defaults = {
       mappings = {

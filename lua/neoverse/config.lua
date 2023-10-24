@@ -8,10 +8,9 @@ local M = {}
 local defaults = {
   dev = false,
   darkmode = true,
-  transparent = false,
 
   ---@type string | function
-  colorscheme = "tokyonight",
+  colorscheme = "catppuccin",
 
   builtins = {
     keymaps = true,
@@ -36,10 +35,6 @@ local defaults = {
   },
 
   icons = {
-    Folds = {
-      Collapsed = "",
-      Expanded = "",
-    },
     Mason = {
       package_uninstalled = "◍ ",
       package_installed = "",
@@ -118,7 +113,7 @@ function M.json.load()
     f:close()
     local ok, json = pcall(vim.json.decode, data, { luanil = { object = true, array = true } })
     if ok then
-      M.json.data = vim.tbl_deep_extend("force", M.json.data, json or {})
+      M.json.data = vim.tbl_deep_extend("force", M.json.data, json or {}) or {}
       if M.json.data.version ~= M.json.version then
         Utils.json.migrate()
       end
@@ -170,6 +165,7 @@ function M.bootstrap(opts)
       end
       M.load("keymaps")
       Utils.root.setup()
+      Utils.format.setup()
       Utils.extras.setup()
     end,
   })
@@ -212,7 +208,7 @@ end
 
 ---TODO: Learn about this metatable thing!!!
 ---@diagnostic disable-next-line: inject-field
-function M.set(key, value)
+function M:set(key, value)
   if options == nil then
     defaults[key] = value
   else

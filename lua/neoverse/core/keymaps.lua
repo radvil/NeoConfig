@@ -22,10 +22,32 @@ Utils.map({ "n", "x", "v" }, "Q", "q", { nowait = true, desc = "Record" })
 Utils.map({ "n", "x", "o" }, "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
 Utils.map({ "n", "x", "o" }, "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev search result" })
 
-if vim.opt.clipboard ~= "unnamedplus" then
-  local opt = function(desc)
-    return { nowait = true, desc = string.format("System clipboard » %s", desc) }
+-- stylua: ignore start
+
+-- formatting
+Utils.map({ "n", "v" }, "<leader>cf", function() Utils.format({ force = true }) end, { desc = "Code » Format document" })
+Utils.map("n", "<leader>uf", function() Utils.format.toggle() end, { desc = "Toggle » Auto format (global)" })
+Utils.map("n", "<leader>uF", function() Utils.format.toggle(true) end, { desc = "Toggle » Auto format (buffer)" })
+
+-- diagnostic
+local diagnostic_goto = function(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
   end
+end
+Utils.map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Code » Line Diagnostics" })
+Utils.map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+Utils.map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+Utils.map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+Utils.map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+Utils.map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+Utils.map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+
+-- clipboard
+if vim.opt.clipboard ~= "unnamedplus" then
+  local opt = function(desc) return { nowait = true, desc = string.format("System clipboard » %s", desc) } end
   Utils.map({ "n", "o", "x", "v" }, "gy", '"+y', opt("Yank"))
   Utils.map({ "n", "o", "x", "v" }, "gp", '"+p', opt("Paste after cursor"))
   Utils.map("n", "gY", '"+y$', opt("Yank line"))
@@ -33,12 +55,7 @@ if vim.opt.clipboard ~= "unnamedplus" then
 end
 
 -- Clear search, diff update and redraw
-Utils.map(
-  "n",
-  "<leader>ur",
-  "<cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>",
-  { desc = "Redraw / clear hlsearch / diff update" }
-)
+Utils.map( "n", "<leader>ur", "<cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>", { desc = "Redraw / update UI" })
 
 -- swap lines
 Utils.map("n", "<A-k>", ":m .-2<cr>==", { desc = "Swap current line up" })
@@ -82,7 +99,6 @@ if not Utils.lazy_has("mini.bufremove") then
   Utils.map("n", "<Leader>bD", ":bufdo bdelete<cr>", { desc = "Buffer » Delete (all)" })
 end
 
---stylua: ignore start
 Utils.map("n", "<leader>us", function() Utils.toggle.option("spell") end, { desc = "Toggle » Spell" })
 Utils.map("n", "<leader>uw", function() Utils.toggle.option("wrap") end, { desc = "Toggle » Word wrap" })
 Utils.map("n", "<leader>uc", function() Utils.toggle.option("cursorline") end, { desc = "Toggle » Cursor line" })
@@ -92,7 +108,7 @@ Utils.map("n", "<leader>ux", function() Utils.toggle.diagnostics() end, { desc =
 ---floating terminal
 local ft = function(cmd, root)
   local opt = { size = { width = 0.6, height = 0.7 }, title = "  " .. (cmd or "Terminal"), title_pos = "right" }
-  opt.border = require("neoverse.config").transparent and "single" or "none"
+  opt.border = vim.g.neo_transparent and "single" or "none"
   if root then opt.cwd = Utils.root.get() end
   Utils.terminal.open(cmd, opt)
 end
@@ -122,30 +138,6 @@ Utils.map("n", "<leader>gg", function() lz() end, { desc = "Git » Open lazygit 
 Utils.map("n", "<leader>gG", function() lz({ cwd = Utils.root.get() }) end, { desc = "Git » Open lazygit (rwd)" })
 
 --stylua: ignore end
-
-local theme_map = {
-  catppuccin = "catppuccin",
-  tokyonight = "tokyonight.nvim",
-  monokai = "monokai-pro.nvim",
-}
-
--- toggle opacity
-Utils.map("n", "<leader>uT", function()
-  local Config = require("neoverse.config")
-  Utils.try(function()
-    local colors_name = vim.g.colors_name
-    for key, value in pairs(theme_map) do
-      if string.match(colors_name, key) then
-        Config.set("transparent", not Config.transparent)
-        vim.cmd.Lazy("reload " .. value)
-        vim.cmd.Lazy("reload noice.nvim")
-        vim.cmd.colorscheme(colors_name)
-        vim.opt.cursorline = not vim.opt.cursorline
-        break
-      end
-    end
-  end)
-end, { desc = "Toggle » Transparent Background" })
 
 Utils.map("n", "<leader>uH", function()
   local next = vim.b.ts_highlight and "stop" or "start"

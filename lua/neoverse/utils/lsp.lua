@@ -81,7 +81,7 @@ function M.formatter(opts)
   local filter = opts.filter or {}
   filter = type(filter) == "string" and { name = filter } or filter
   ---@cast filter lsp.Client.filter
-  ---@type LazyFormatter
+  ---@type NeoFormatter
   local ret = {
     name = "LSP",
     primary = true,
@@ -102,7 +102,7 @@ function M.formatter(opts)
       end, ret)
     end,
   }
-  return Utils.merge(ret, opts) --[[@as LazyFormatter]]
+  return Utils.merge(ret, opts) --[[@as NeoFormatter]]
 end
 
 ---@alias lsp.Client.format {timeout_ms?: number, format_options?: table} | lsp.Client.filter

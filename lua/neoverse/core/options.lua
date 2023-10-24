@@ -1,9 +1,9 @@
-local Config = require("neoverse.config")
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 vim.opt.wrap = false
 vim.opt.autowrite = true
 vim.opt.confirm = true
-vim.opt.cursorline = Config.transparent
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.list = true
@@ -51,10 +51,10 @@ vim.opt.mouse = "a"
 
 vim.opt.spelllang = { "en" }
 vim.opt.fillchars = {
-  foldopen = Config.icons.Folds.Expanded,
-  foldclose = Config.icons.Folds.Collapsed,
-  diff = "/",
+  foldclose = "",
+  foldopen = "",
   foldsep = " ",
+  diff = "/",
   fold = " ",
   eob = " ",
 }
@@ -83,3 +83,14 @@ if vim.g.neovide then
   vim.g.neovide_transparency = 1 -- 0.87
   vim.opt.guifont = { "JetbrainsMono Nerd Font", ":h7.5" }
 end
+
+-- NeoVerse global options
+vim.g.neo_autoformat = true
+vim.g.neo_transparent = not vim.g.neovide
+
+-- NeoVerse root dir detection
+-- Each entry can be:
+-- * the name of a detector function like `lsp` or `cwd`
+-- * a pattern or array of patterns like `.git` or `lua`.
+-- * a function with signature `function(buf) -> string|string[]`
+vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }

@@ -87,6 +87,22 @@ function M.get_extras(source, modname)
   }
 end
 
+---@param prios table<string,number>
+function M.get_specs_by_prios(prios)
+  table.sort(Config.json.data.extras, function(a, b)
+    local pa = prios[a] or 10
+    local pb = prios[b] or 10
+    if pa == pb then
+      return a < b
+    end
+    return pa < pb
+  end)
+  ---@param extra string
+  return vim.tbl_map(function(extra)
+    return { import = extra }
+  end, Config.json.data.extras)
+end
+
 ---@class NeoPluginView
 ---@field float LazyFloat
 ---@field text Text

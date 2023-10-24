@@ -30,16 +30,13 @@ end
 
 return {
   {
-    -- Modify nvim-lspconfig for nvim-ufo
-    {
-      "neovim/nvim-lspconfig",
-      opts = {
-        capabilities = {
-          textDocument = {
-            foldingRange = {
-              dynamicRegistration = false,
-              lineFoldingOnly = true,
-            },
+    "neovim/nvim-lspconfig",
+    opts = {
+      capabilities = {
+        textDocument = {
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
           },
         },
       },
@@ -47,7 +44,7 @@ return {
   },
   {
     "kevinhwang91/nvim-ufo",
-    event = "VeryLazy",
+    event = "LazyFile",
     dependencies = {
       "kevinhwang91/promise-async",
       {
@@ -119,41 +116,32 @@ return {
       },
     },
 
-    config = function(_, opts)
-      local Config = require("neoverse.config")
-      local ftMap = {
-        typescript = { "treesitter", "indent" },
-        html = { "treesitter", "indent" },
-        python = { "indent" },
-        vim = "indent",
-        git = "",
-        Outline = "",
-      }
-
-      ---@type UfoConfig
-      local defaults = {
-        provider_selector = function(_, filetype, _)
-          return ftMap[filetype]
-        end,
-        -- open_fold_hl_timeout = 150,
-        fold_virt_text_handler = handler,
-        preview = {
-          win_config = {
-            border = Config.transparent and "single" or "none",
-            winhighlight = "Normal:Folded",
-            winblend = 0,
-          },
-          mappings = {
-            scrollU = "<C-u>",
-            scrollD = "<C-d>",
-            jumpTop = "gg",
-            jumpBot = "G",
-          },
+    opts = {
+      provider_selector = function(_, filetype, _)
+        return ({
+          typescript = { "treesitter", "indent" },
+          html = { "treesitter", "indent" },
+          python = { "indent" },
+          vim = "indent",
+          git = "",
+          Outline = "",
+        })[filetype]
+      end,
+      -- open_fold_hl_timeout = 150,
+      fold_virt_text_handler = handler,
+      preview = {
+        win_config = {
+          border = vim.g.neo_transparent and "single" or "none",
+          winhighlight = "Normal:Folded",
+          winblend = 0,
         },
-      }
-
-      opts = vim.tbl_deep_extend("force", defaults, opts or {})
-      require("ufo").setup(opts)
-    end,
+        mappings = {
+          scrollU = "<C-u>",
+          scrollD = "<C-d>",
+          jumpTop = "gg",
+          jumpBot = "G",
+        },
+      },
+    },
   },
 }

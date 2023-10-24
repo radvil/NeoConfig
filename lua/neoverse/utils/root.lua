@@ -75,7 +75,7 @@ end
 ---@param opts? { buf?: number, spec?: NeoRootSpec[], all?: boolean }
 function M.detect(opts)
   opts = opts or {}
-  opts.spec = opts.spec or type(vim.g.root_spec) == "table" and vim.g.root_spec or M.spec
+  opts.spec = opts.spec or type(vim.g.neo_root_spec) == "table" and vim.g.neo_root_spec or M.spec
   opts.buf = (opts.buf == nil or opts.buf == 0) and vim.api.nvim_get_current_buf() or opts.buf
 
   local ret = {} ---@type NeoRoot[]
@@ -142,7 +142,7 @@ function M.pretty_path()
 end
 
 function M.info()
-  local spec = type(vim.g.root_spec) == "table" and vim.g.root_spec or M.spec
+  local spec = type(vim.g.neo_root_spec) == "table" and vim.g.neo_root_spec or M.spec
   local roots = M.detect({ all = true })
   local lines = {} ---@type string[]
   local first = true
@@ -158,7 +158,7 @@ function M.info()
     end
   end
   lines[#lines + 1] = "```lua"
-  lines[#lines + 1] = "vim.g.root_spec = " .. vim.inspect(spec)
+  lines[#lines + 1] = "vim.g.neo_root_spec = " .. vim.inspect(spec)
   lines[#lines + 1] = "```"
   Utils.info(lines, { title = "Neoverse Roots" })
   return roots[1] and roots[1].paths[1] or vim.loop.cwd()

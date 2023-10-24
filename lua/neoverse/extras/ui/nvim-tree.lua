@@ -1,11 +1,15 @@
--- TODO: set universal options whether to use nvim-tree or neo-tree
 if true then
   return {}
 end
 
 return {
   {
-    "akinsho/nvim-bufferline.lua",
+    "nvim-neo-tree/neo-tree.nvim",
+    enabled = false,
+  },
+
+  {
+    "akinsho/bufferline.nvim",
     opts = {
       options = {
         offsets = {
@@ -23,9 +27,11 @@ return {
 
   {
     "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons", "s1n7ax/nvim-window-picker" },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "s1n7ax/nvim-window-picker",
+    },
     keys = {
-      -- TODO: toggle between nvim-tree and oil-nvim
       {
         "<Leader>e",
         function()

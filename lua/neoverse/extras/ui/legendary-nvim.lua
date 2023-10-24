@@ -1,6 +1,6 @@
 return {
   "mrjones2014/legendary.nvim",
-  priority = 9999,
+  dependencies = "folke/which-key.nvim",
   lazy = false,
   keys = {
     {
@@ -18,7 +18,7 @@ return {
         diffview = true,
         smart_splits = false,
         which_key = {
-          auto_register = require("neoverse.utils").call("which-key") or false,
+          auto_register = true,
         },
         lazy_nvim = {
           auto_register = true,

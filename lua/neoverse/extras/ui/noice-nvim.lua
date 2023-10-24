@@ -7,32 +7,31 @@ return {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
   },
-    -- stylua: ignore
-    keys = {
-      {
-        "<leader>ul",
-        function()
-          active = not active
-          require("noice")[active and "enable" or "disable"]()
-          local msg = active and "Noice Logger + UX » Enabled" or "Noice Logger + UX » Disabled"
-          local lvl = active and vim.log.levels.INFO or vim.log.levels.WARN
-          vim.notify(msg, lvl)
-        end,
-        desc = "Logger » Toggle Noice Logger/UX",
-      },
-      { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
-      { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, expr = true, desc = "Noice » Scroll backward", mode = {"i", "n", "s"} },
-      ---@diagnostic disable-next-line: param-type-mismatch
-      { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Noice » Redirect cmdline" },
-      { "<leader>ll", function() require("noice").cmd("last") end, desc = "Logger » Noice last message" },
-      { "<leader>lh", function() require("noice").cmd("history") end, desc = "Logger » Noice message history" },
-      { "<leader>la", function() require("noice").cmd("all") end, desc = "Logger » All noice messages" },
-      { "<leader>ld", function() require("noice").cmd("dismiss") end, desc = "Logger » Dismiss noice messages" },
+  -- stylua: ignore
+  keys = {
+    {
+      "<leader>ul",
+      function()
+        active = not active
+        require("noice")[active and "enable" or "disable"]()
+        local msg = active and "Noice Logger + UX » Enabled" or "Noice Logger + UX » Disabled"
+        local lvl = active and vim.log.levels.INFO or vim.log.levels.WARN
+        vim.notify(msg, lvl)
+      end,
+      desc = "Logger » Toggle Noice Logger/UX",
     },
+    { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
+    { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, expr = true, desc = "Noice » Scroll backward", mode = {"i", "n", "s"} },
+    ---@diagnostic disable-next-line: param-type-mismatch
+    { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Noice » Redirect cmdline" },
+    { "<leader>ll", function() require("noice").cmd("last") end, desc = "Logger » Noice last message" },
+    { "<leader>lh", function() require("noice").cmd("history") end, desc = "Logger » Noice message history" },
+    { "<leader>la", function() require("noice").cmd("all") end, desc = "Logger » All noice messages" },
+    { "<leader>ld", function() require("noice").cmd("dismiss") end, desc = "Logger » Dismiss noice messages" },
+  },
 
   ---@param opts NoiceConfig
   config = function(_, opts)
-    local Config = require("neoverse.config")
     local defaults = {
       health = { checker = true },
       presets = {
@@ -82,7 +81,6 @@ return {
           position = {
             col = "50%",
             row = 6,
-            -- row = 18,
           },
           size = {
             width = 60,
@@ -147,7 +145,7 @@ return {
       opts.routes[2].view = "notify"
     end
 
-    if opts and not Config.transparent then
+    if opts and not vim.g.neo_transparent then
       opts.presets.lsp_doc_border = {
         views = {
           hover = {

@@ -8,6 +8,7 @@ local LazyUtil = require("lazy.core.util")
 ---@field inject neoverse.utils.inject
 ---@field toggle neoverse.utils.toggle
 ---@field extras neoverse.utils.extras
+---@field format neoverse.utils.format
 ---@field plugin neoverse.utils.plugin
 ---@field root neoverse.utils.root
 ---@field json neoverse.utils.json

@@ -12,8 +12,8 @@ return {
       },
     },
     window = {
-      border = "none",
-      position = "bottom",
+      border = vim.g.neo_transparent and "single" or "none",
+      padding = vim.g.neo_transparent and { 0, 0, 0, 0 } or { 1, 2, 1, 2 },
     },
     icons = {
       breadcrumb = "»",
@@ -66,6 +66,7 @@ return {
       ["<Leader>/"] = { name = "Telescope" },
       ["<Leader>x"] = { name = "Diagnostics" },
       ["<Leader>b"] = { name = "Buffer" },
+      ["<leader>c"] = { name = "Code" },
       ["<Leader>w"] = { name = "Window" },
       ["<Leader>m"] = { name = "Miscellaneous" },
       ["<Leader>s"] = { name = "Spectre" },
@@ -74,21 +75,11 @@ return {
       ["<Leader>g"] = { name = "Git" },
       ["<Leader>u"] = { name = "Toggle" },
       ["<Leader>t"] = { name = "Tab" },
-      -- TODO: this doesn't work
-      ["<leader>c"] = { name = "Coding" },
     },
   },
 
   config = function(_, opts)
-    local wk = require("which-key")
-    local Config = require("neoverse.config")
-
-    if Config.transparent then
-      opts.window.border = "single"
-      opts.window.padding = { 0, 0, 0, 0 }
-    end
-
-    wk.setup(opts)
-    wk.register(opts.defaults)
+    require("which-key").setup(opts)
+    require("which-key").register(opts.defaults)
   end,
 }
