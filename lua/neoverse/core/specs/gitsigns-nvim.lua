@@ -1,34 +1,45 @@
 local M = {}
-
-local view_active = false
+local Utils = require("neoverse.utils")
 
 M.keys = {
   {
     "<leader>gr",
     function()
       require("gitsigns").refresh()
-      vim.notify("View refreshed", vim.log.levels.INFO, { title = "Gitsigns" })
+      Utils.info("Gitsigns refreshed", { title = "Gitsigns" })
     end,
-    desc = "Refresh view",
+    desc = "Gitsigns » Refresh view",
   },
   {
     "<leader>gu",
-    function()
-      local gs = require("gitsigns")
-      gs.toggle_signs()
-      gs.toggle_numhl()
-      gs.toggle_linehl()
-      gs.toggle_current_line_blame()
-      view_active = not view_active
-      local lvl = view_active and "info" or "warn"
-      local state = view_active and "enabled" or "disabled"
-      vim.notify("View status " .. state, lvl, { title = "Gitsigns" })
-    end,
-    desc = "Toggle buffer status",
+    desc = "Gitsigns » Toggle",
+  },
+  {
+    "<leader>gun",
+    ":Gitsigns toggle_numhl<cr>",
+    desc = "Gitsigns » Toggle Number Hl",
+  },
+  {
+    "<leader>guu",
+    ":Gitsigns toggle_signs<cr>",
+    desc = "Gitsigns » Toggle SignColumn Hl",
+  },
+  {
+    "<leader>gub",
+    ":Gitsigns toggle_current_line_blame<cr>",
+    desc = "Gitsigns » Toggle Line Blame",
+  },
+  {
+    "<leader>gud",
+    ":Gitsigns toggle_word_diff<cr>",
+    desc = "Gitsigns » Toggle Word Diff",
   },
 }
 
 M.opts = {
+  signcolumn = true,
+  numhl = false,
+  current_line_blame = false,
   signs = {
     add = { text = "▎" },
     change = { text = "▎" },
@@ -40,7 +51,7 @@ M.opts = {
   current_line_blame_opts = {
     virt_text_pos = "right_align",
     virt_text_priority = 100,
-    delay = 1000,
+    delay = 300,
   },
 }
 
