@@ -53,6 +53,14 @@ return {
           local builtin = require("statuscol.builtin")
           require("statuscol").setup({
             relculright = true,
+            ft_ignore = {
+              "DiffviewFiles",
+              "dashboard",
+              "NvimTree",
+              "neo-tree",
+              "Outline",
+              "Trouble",
+            },
             segments = {
               { text = { builtin.foldfunc, " " }, click = "v:lua.ScFa" },
               { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
@@ -88,7 +96,9 @@ return {
         "[z",
         function()
           require("ufo").goPreviousClosedFold()
-          require("ufo").peekFoldedLinesUnderCursor()
+          vim.schedule(function()
+            require("ufo").peekFoldedLinesUnderCursor()
+          end)
         end,
         desc = "UFO » Peek prev fold",
       },
@@ -96,7 +106,9 @@ return {
         "]z",
         function()
           require("ufo").goNextClosedFold()
-          require("ufo").peekFoldedLinesUnderCursor()
+          vim.schedule(function()
+            require("ufo").peekFoldedLinesUnderCursor()
+          end)
         end,
         desc = "UFO » Peek next fold",
       },
