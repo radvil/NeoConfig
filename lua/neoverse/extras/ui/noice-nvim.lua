@@ -1,5 +1,3 @@
-local active = true
-
 return {
   "folke/noice.nvim",
   event = "VeryLazy",
@@ -9,17 +7,6 @@ return {
   },
   -- stylua: ignore
   keys = {
-    {
-      "<leader>ul",
-      function()
-        active = not active
-        require("noice")[active and "enable" or "disable"]()
-        local msg = active and "Noice Logger + UX » Enabled" or "Noice Logger + UX » Disabled"
-        local lvl = active and vim.log.levels.INFO or vim.log.levels.WARN
-        vim.notify(msg, lvl)
-      end,
-      desc = "Logger » Toggle Noice Logger/UX",
-    },
     { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
     { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, expr = true, desc = "Noice » Scroll backward", mode = {"i", "n", "s"} },
     ---@diagnostic disable-next-line: param-type-mismatch
