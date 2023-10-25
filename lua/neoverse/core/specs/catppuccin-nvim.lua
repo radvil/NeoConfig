@@ -79,7 +79,6 @@ M.config = function(_, opts)
           fg = colors.flamingo,
         },
         NavicText = {
-          -- fg = colors.rosewater,
           fg = colors.lavender,
         },
         FlashCurrent = {
