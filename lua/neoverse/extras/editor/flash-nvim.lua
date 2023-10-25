@@ -32,7 +32,6 @@ local ftMap = {
     "fugitiveblame",
     "gitcommit",
     "Trouble",
-    "alpha",
     "help",
     "qf",
   },
@@ -60,6 +59,29 @@ M[1] = {
         end,
         desc = "Flash » Jump",
       },
+      -- {
+      --   "<a-m>",
+      --   mode = "n",
+      --   function()
+      --     require("flash").jump({
+      --       exclude = ftMap.popups,
+      --       autojump = false,
+      --       forward = true,
+      --       wrap = true,
+      --       action = function(target, state)
+      --         state:hide()
+      --         vim.api.nvim_set_current_win(target.win)
+      --         vim.api.nvim_win_set_cursor(target.win, target.pos)
+      --         if target.win and target.pos and vim.bo.filetype == "neo-tree" then
+      --           vim.schedule(function()
+      --             vim.cmd.execute([["normal \<CR>"]])
+      --           end)
+      --         end
+      --       end,
+      --     })
+      --   end,
+      --   desc = "Flash » Jump",
+      -- },
       {
         "<a-m>",
         mode = { "x", "o" },
