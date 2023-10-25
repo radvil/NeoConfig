@@ -75,7 +75,7 @@ end
 function M.pretty_path(opts)
   opts = vim.tbl_extend("force", {
     relative = "cwd",
-    modified_hl = "Constant",
+    modified_hl = "@constructor.lua",
   }, opts or {})
 
   return function(self)

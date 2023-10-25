@@ -79,7 +79,8 @@ M.config = function(_, opts)
           fg = colors.flamingo,
         },
         NavicText = {
-          fg = colors.rosewater,
+          -- fg = colors.rosewater,
+          fg = colors.lavender,
         },
         FlashCurrent = {
           fg = palette.dark,
@@ -116,6 +117,11 @@ M.config = function(_, opts)
           bg = transparent and colors.none or colors.surface0,
           fg = colors.peach,
         },
+        NeoTreeTitlebar = {
+          bg = colors.blue,
+          fg = colors.crust,
+          bold = true,
+        },
         SymbolsOffsetFill = {
           bg = colors.blue,
           fg = colors.mantle,
@@ -135,13 +141,13 @@ M.config = function(_, opts)
         hls.WinSeparator = {
           fg = colors.crust,
         }
-        -- hls.StatusLineNC = {
-        --   bg = colors.crust,
-        -- }
-        -- hls.StatusLine = {
-        --   bg = colors.crust,
-        --   fg = colors.rosewater,
-        -- }
+        hls.StatusLineNC = {
+          bg = colors.crust,
+        }
+        hls.StatusLine = {
+          bg = colors.crust,
+          fg = colors.rosewater,
+        }
         hls.TelescopePromptBorder = {
           bg = colors.crust,
           fg = colors.crust,
