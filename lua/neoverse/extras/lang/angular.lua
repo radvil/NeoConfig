@@ -1,4 +1,4 @@
-local getTemplateLocationForComponent = function()
+local goToTemplateFile = function()
   local params = vim.lsp.util.make_position_params(0)
   vim.lsp.buf_request(0, "angular/getTemplateLocationForComponent", params, function(_, result)
     if result then
@@ -7,7 +7,7 @@ local getTemplateLocationForComponent = function()
   end)
 end
 
-local getComponentsWithTemplateFile = function()
+local goToComponentFile = function()
   local params = vim.lsp.util.make_position_params(0)
   vim.lsp.buf_request(0, "angular/getComponentsWithTemplateFile", params, function(_, result)
     if result then
@@ -71,8 +71,8 @@ return {
           require("neoverse.utils").lsp.on_attach(function(client)
             if client.name == "angularls" then
               client.server_capabilities.renameProvider = false
-              cmd("t", getComponentsWithTemplateFile, "Goto component template file")
-              cmd("c", getTemplateLocationForComponent, "Goto component class file")
+              cmd("c", goToComponentFile, "Go to component file")
+              cmd("t", goToTemplateFile, "Go to template file")
             end
           end)
         end,
