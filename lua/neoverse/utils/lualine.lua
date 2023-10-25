@@ -114,7 +114,7 @@ function M.root_dir(opts)
     subdirectory = true,
     parent = true,
     other = true,
-    icon = "󱉭 ",
+    icon = "󱉭",
   }, opts or {})
 
   local function get()
