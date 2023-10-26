@@ -41,6 +41,7 @@ M.keys = {
 }
 
 M.opts = {
+  open_cmd = "new",
   mapping = {
     ["run_current_replace"] = {
       map = "<Leader>r",
