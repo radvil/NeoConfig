@@ -1,3 +1,5 @@
+---@diagnostic disable: cast-local-type, param-type-mismatch
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   deactivate = function()
@@ -14,6 +16,7 @@ return {
       function()
         require("neo-tree.command").execute({
           dir = require("neoverse.utils").root.get(),
+          reveal_force_cwd = false,
           position = "left",
           toggle = true,
         })
@@ -129,7 +132,7 @@ return {
         use_libuv_file_watcher = true,
         hijack_netrw_behavior = "disabled",
         follow_current_file = {
-          enabled = false,
+          enabled = true,
           leave_dirs_open = true,
         },
         window = {
