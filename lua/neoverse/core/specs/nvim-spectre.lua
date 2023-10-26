@@ -32,11 +32,11 @@ M.keys = {
     desc = "spectre search » current word [cwd]",
   },
   {
-    "<leader>sf",
+    "<leader>sd",
     function()
       require("spectre").open_file_search({ select_word = true })
     end,
-    desc = "spectre search » current word [cwf]",
+    desc = "spectre search » current word [doc]",
   },
 }
 

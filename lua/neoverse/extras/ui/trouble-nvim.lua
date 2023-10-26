@@ -9,13 +9,13 @@ M[1] = {
   keys = {
     {
       "<Leader>xd",
-      ":TroubleToggle document_diagnostics<cr>",
-      desc = "Diagnostics » Trouble (doc lvl)",
+      "<cmd>TroubleToggle document_diagnostics<cr>",
+      desc = "diagnostics » trouble [doc]",
     },
     {
       "<Leader>xw",
-      ":TroubleToggle workspace_diagnostics<Cr>",
-      desc = "Diagnostics » Trouble (cwd lvl)",
+      "<cmd>TroubleToggle workspace_diagnostics<Cr>",
+      desc = "Diagnostics » Trouble [cwd]",
     },
   },
 }
