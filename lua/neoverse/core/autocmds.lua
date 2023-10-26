@@ -1,23 +1,19 @@
-require("neoverse.utils").debug("Loading autocommands...")
-
-local function augroup(name)
-  return vim.api.nvim_create_augroup("nvmini_" .. name, { clear = true })
-end
+local Utils = require("neoverse.utils")
 
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = augroup("checktime"),
+  group = Utils.create_augroup("checktime"),
   command = "checktime",
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = augroup("highlight_on_yanked"),
+  group = Utils.create_augroup("highlight_on_yanked"),
   callback = function()
     vim.highlight.on_yank({ timeout = 99 })
   end,
 })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
-  group = augroup("goto_last_loc"),
+  group = Utils.create_augroup("goto_last_loc"),
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -28,7 +24,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("close_with_<q>"),
+  group = Utils.create_augroup("close_with_<q>"),
   pattern = {
     "neo-tree-popup",
     "spectre_panel",
@@ -58,7 +54,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("wrap_and_spell"),
+  group = Utils.create_augroup("wrap_and_spell"),
   pattern = { "gitcommit", "markdown" },
   callback = function()
     vim.opt_local.wrap = true
@@ -67,21 +63,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
-  group = augroup("resize_splits"),
+  group = Utils.create_augroup("resize_splits"),
   callback = function()
     vim.cmd("tabdo wincmd =")
   end,
 })
-
--- -- HACK: re-caclulate folds when entering a buffer through Telescope
--- -- @see https://github.com/nvim-telescope/telescope.nvim/issues/699
--- vim.api.nvim_create_autocmd("BufEnter", {
---   group = augroup("fix_folds"),
---   callback = function()
---     if vim.opt.foldmethod:get() == "expr" then
---       vim.schedule(function()
---         vim.opt.foldmethod = "expr"
---       end)
---     end
---   end,
--- })
