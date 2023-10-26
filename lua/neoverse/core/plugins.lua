@@ -210,6 +210,7 @@ return {
     config = get("nvim-treesitter").config,
     opts = get("nvim-treesitter").opts,
     keys = get("nvim-treesitter").keys,
+    init = get("nvim-treesitter").init,
     build = ":TSUpdate",
     cmd = {
       "TSUpdateSync",
@@ -275,10 +276,10 @@ return {
   },
   {
     "epwalsh/obsidian.nvim",
-    event = "VeryLazy",
     config = get("obsidian-nvim").config,
-    keys = get("obsidian-nvim").keys,
     init = get("obsidian-nvim").init,
+    keys = get("obsidian-nvim").keys,
+    event = "VeryLazy",
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
@@ -296,7 +297,7 @@ return {
 
   -- extensions loader
   require("neoverse.utils").extras.get_specs_by_prios({
-    ["neoverse.extras.ui.which-key-nvim"] = 9997,
+    -- ["neoverse.extras.ui.which-key-nvim"] = 9997,
     ["neoverse.extras.ui.legendary-nvim"] = 9996,
     ["neoverse.extras.editor.symbols-outline"] = 100,
   }),
