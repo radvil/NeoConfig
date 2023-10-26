@@ -1,5 +1,42 @@
 local M = {}
 
+local telescope_pick = function(prompt_bufnr)
+  require("flash").jump({
+    pattern = "^",
+    label = { after = { 0, 0 } },
+    search = {
+      mode = "search",
+      exclude = {
+        function(win)
+          return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
+        end,
+      },
+    },
+    action = function(match)
+      local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+      picker:set_selection(match.pos[1] - 1)
+    end,
+  })
+end
+
+local neotree_pick = function()
+  require("flash").jump({
+    autojump = false,
+    forward = true,
+    wrap = true,
+    action = function(target, state)
+      state:hide()
+      vim.api.nvim_set_current_win(target.win)
+      vim.api.nvim_win_set_cursor(target.win, target.pos)
+      if target.win and target.pos then
+        vim.schedule(function()
+          vim.cmd.execute([["normal \<CR>"]])
+        end)
+      end
+    end,
+  })
+end
+
 local ftMap = {
   popups = {
     "TelescopeResults",
@@ -59,29 +96,6 @@ M[1] = {
         end,
         desc = "Flash » Jump",
       },
-      -- {
-      --   "<a-m>",
-      --   mode = "n",
-      --   function()
-      --     require("flash").jump({
-      --       exclude = ftMap.popups,
-      --       autojump = false,
-      --       forward = true,
-      --       wrap = true,
-      --       action = function(target, state)
-      --         state:hide()
-      --         vim.api.nvim_set_current_win(target.win)
-      --         vim.api.nvim_win_set_cursor(target.win, target.pos)
-      --         if target.win and target.pos and vim.bo.filetype == "neo-tree" then
-      --           vim.schedule(function()
-      --             vim.cmd.execute([["normal \<CR>"]])
-      --           end)
-      --         end
-      --       end,
-      --     })
-      --   end,
-      --   desc = "Flash » Jump",
-      -- },
       {
         "<a-m>",
         mode = { "x", "o" },
@@ -200,26 +214,20 @@ M[1] = {
       },
     },
   },
-}
 
-local pick_with_flash = function(prompt_bufnr)
-  require("flash").jump({
-    pattern = "^",
-    label = { after = { 0, 0 } },
-    search = {
-      mode = "search",
-      exclude = {
-        function(win)
-          return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
+  init = function()
+    local Utils = require("neoverse.utils")
+    if Utils.lazy_has("neo-tree.nvim") then
+      vim.api.nvim_create_autocmd("FileType", {
+        group = Utils.create_augroup("neotree_flash_pick", true),
+        pattern = { "neo-tree", "neo-tree-popup" },
+        callback = function(args)
+          vim.keymap.set("n", "<a-m>", neotree_pick, { buffer = args.buf, desc = "NeoTree » Flash pick" })
         end,
-      },
-    },
-    action = function(match)
-      local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
-      picker:set_selection(match.pos[1] - 1)
-    end,
-  })
-end
+      })
+    end
+  end,
+}
 
 M[2] = {
   "nvim-telescope/telescope.nvim",
@@ -227,8 +235,8 @@ M[2] = {
   opts = {
     defaults = {
       mappings = {
-        ["n"] = { ["<a-m>"] = pick_with_flash },
-        ["i"] = { ["<a-m>"] = pick_with_flash },
+        ["n"] = { ["<a-m>"] = telescope_pick },
+        ["i"] = { ["<a-m>"] = telescope_pick },
       },
     },
   },

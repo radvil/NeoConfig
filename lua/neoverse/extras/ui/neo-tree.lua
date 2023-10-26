@@ -14,6 +14,7 @@ return {
       function()
         require("neo-tree.command").execute({
           dir = require("neoverse.utils").root.get(),
+          position = "left",
           toggle = true,
         })
       end,
@@ -24,6 +25,7 @@ return {
       function()
         require("neo-tree.command").execute({
           dir = vim.loop.cwd(),
+          position = "left",
           toggle = true,
         })
       end,
@@ -34,6 +36,7 @@ return {
       function()
         require("neo-tree.command").execute({
           source = "buffers",
+          position = "right",
           action = "show",
           reveal = true,
           toggle = true,
@@ -126,7 +129,7 @@ return {
         use_libuv_file_watcher = true,
         hijack_netrw_behavior = "disabled",
         follow_current_file = {
-          enabled = true,
+          enabled = false,
           leave_dirs_open = true,
         },
         window = {
@@ -178,6 +181,7 @@ return {
     require("neo-tree").setup(opts)
 
     vim.api.nvim_create_autocmd("TermClose", {
+      group = require("neoverse.utils").create_augroup("neotree_reload_gitstatus", true),
       pattern = "*lazygit",
       callback = function()
         if package.loaded["neo-tree.sources.git_status"] then
