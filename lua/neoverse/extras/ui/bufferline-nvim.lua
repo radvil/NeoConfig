@@ -127,6 +127,7 @@ return {
     local show_cwd = vim.g.neovide or os.getenv("TMUX") == nil
 
     local blacklist = {
+      "checkhealth",
       "dashboard",
       "oil",
       "qf",
