@@ -222,7 +222,10 @@ M[1] = {
         group = Utils.create_augroup("neotree_flash_pick", true),
         pattern = { "neo-tree", "neo-tree-popup" },
         callback = function(args)
-          vim.keymap.set("n", "<a-m>", neotree_pick, { buffer = args.buf, desc = "NeoTree » Flash pick" })
+          vim.keymap.set("n", "<a-m>", neotree_pick, {
+            desc = "NeoTree » Flash pick",
+            buffer = args.buf,
+          })
         end,
       })
     end
