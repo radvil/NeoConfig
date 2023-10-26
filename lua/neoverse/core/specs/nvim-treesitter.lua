@@ -3,12 +3,12 @@ local M = {}
 M.keys = {
   {
     "<c-space>",
-    desc = "Treesitter » Init/increase selection",
+    desc = "Treesitter » Init/increase node selection",
     mode = { "n", "x" },
   },
   {
     "<bs>",
-    desc = "Treesitter » Decrease selection",
+    desc = "Treesitter » Decrease node selection",
     mode = "x",
   },
 }

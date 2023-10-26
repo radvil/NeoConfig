@@ -239,7 +239,7 @@ return {
   {
     "nvim-pack/nvim-spectre",
     keys = get("nvim-spectre").keys,
-    config = true,
+    opts = get("nvim-spectre").opts,
   },
   {
     "lukas-reineke/indent-blankline.nvim",

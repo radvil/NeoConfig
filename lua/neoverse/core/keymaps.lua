@@ -18,7 +18,6 @@ Utils.map({ "i", "c" }, "<a-bs>", "<esc>ciw", { nowait = true, desc = "Delete ba
 Utils.map({ "i", "c" }, "<a-i>", "<space><left>", { desc = "Tab backward" })
 Utils.map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Clear hlsearch" })
 Utils.map({ "n", "x", "v" }, "ga", "<esc>ggVG", { nowait = true, desc = "Select all" })
-Utils.map({ "n", "x", "v" }, "Q", "q", { nowait = true, desc = "Record" })
 Utils.map({ "n", "x", "o" }, "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
 Utils.map({ "n", "x", "o" }, "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev search result" })
 
