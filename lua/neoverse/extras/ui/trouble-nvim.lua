@@ -15,7 +15,7 @@ M[1] = {
     {
       "<Leader>xw",
       "<cmd>TroubleToggle workspace_diagnostics<Cr>",
-      desc = "Diagnostics » Trouble [cwd]",
+      desc = "diagnostics » trouble [cwd]",
     },
   },
 }

@@ -1,10 +1,21 @@
 ---@type LazySpec
 local M = {
   "rcarriga/nvim-notify",
-  config = function(_, opts)
+
+  keys = {
+    {
+      "<leader>uN",
+      function()
+        require("notify").dismiss({ pending = true, silent = true })
+      end,
+      desc = "Notification » Dismiss",
+    },
+  },
+
+  config = function()
     ---@type notify.Config
-    local defaults = {
-      background_colour = "NotifyBackground",
+    require("notify").setup({
+      background_colour = vim.g.neo_transparent and "#000000" or "NotifyBackground",
       render = "default",
       timeout = 1000,
       icons = {
@@ -20,15 +31,7 @@ local M = {
       max_width = function()
         return math.floor(vim.o.columns * 0.36)
       end,
-    }
-
-    opts = vim.tbl_deep_extend("force", defaults, opts or {})
-
-    if vim.g.neo_transparent then
-      opts.background_colour = "#000000"
-    end
-
-    require("notify").setup(opts)
+    })
   end,
 
   init = function()
@@ -39,13 +42,6 @@ local M = {
         vim.notify = require("notify")
       end)
     end
-
-    vim.keymap.set("n", "<leader>nd", function()
-      require("notify").dismiss({
-        pending = true,
-        silent = true,
-      })
-    end, { desc = "Notification » Dismiss" })
   end,
 }
 

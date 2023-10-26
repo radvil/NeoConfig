@@ -73,9 +73,7 @@ M.config = function()
   local options = {
     mappings = {},
     finder = "telescope.nvim",
-    completion = {
-      nvim_cmp = true,
-    },
+    completion = { nvim_cmp = true },
     daily_notes = {
       folder = "+daily",
       date_format = "%Y-%m-%d",
@@ -113,11 +111,8 @@ M.config = function()
 end
 
 M.init = function()
-  if require("neoverse.utils").call("which-key") then
-    require("which-key").register({
-      mode = "n",
-      ["<leader>n"] = { name = "Note(Obsidian)" },
-    })
+  if require("neoverse.utils").lazy_has("which-key.nvim") then
+    require("which-key").register({ mode = "n", ["<leader>n"] = { name = "note[obsidian]" } })
   end
 end
 

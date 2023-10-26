@@ -10,28 +10,28 @@ M.keys = {
         icon = "📌",
       })
     end,
-    desc = "Mark file",
+    desc = "harpoon » mark file",
   },
   {
     [[<leader>\]],
     function()
       require("harpoon.ui").toggle_quick_menu()
     end,
-    desc = "Marked file list",
+    desc = "harpoon » file list",
   },
   {
     "[f",
     function()
       require("harpoon.ui").nav_prev()
     end,
-    desc = "Prev marked file",
+    desc = "harpoon » prev file",
   },
   {
     "]f",
     function()
       require("harpoon.ui").nav_next()
     end,
-    desc = "Next marked file",
+    desc = "harpoon » next file",
   },
 }
 

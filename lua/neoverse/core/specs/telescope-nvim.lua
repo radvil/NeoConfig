@@ -115,13 +115,13 @@ M.config = function(_, opts)
     },
   })
 
-  if not string.match(vim.g.colors_name, "catppuccin") then
-    opts.defaults.borderchars = {
-      prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
-      preview = { "─", " ", " ", " ", "─", "─", " ", " " },
-      results = { " " },
-    }
-  end
+  -- if not string.match(vim.g.colors_name, "catppuccin") then
+  --   opts.defaults.borderchars = {
+  --     prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
+  --     preview = { "─", " ", " ", " ", "─", "─", " ", " " },
+  --     results = { " " },
+  --   }
+  -- end
 
   require("telescope").setup(opts)
 end

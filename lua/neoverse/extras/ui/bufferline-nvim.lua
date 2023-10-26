@@ -186,7 +186,7 @@ return {
     })
 
     local Utils = require("neoverse.utils")
-    if Utils.call("catppuccin") and string.match(vim.g.colors_name, "catppuccin") then
+    if Utils.lazy_has("catppuccin") and string.match(vim.g.colors_name, "catppuccin") then
       opts.highlights = get_custom_catppuccin_hls()
     end
 

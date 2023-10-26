@@ -70,6 +70,7 @@ return {
       ["<leader>c"] = { name = "Code" },
       ["<Leader>w"] = { name = "Window" },
       ["<Leader>m"] = { name = "Miscellaneous" },
+      -- ["<Leader>n"] = { name = "Note/Obsidian" },
       ["<Leader>s"] = { name = "Spectre search" },
       ["<Leader>S"] = { name = "Session" },
       ["<Leader>f"] = { name = "Float" },

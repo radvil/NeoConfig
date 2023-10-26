@@ -46,7 +46,7 @@ return {
     "ThePrimeagen/harpoon",
     opts = get("harpoon").opts,
     keys = get("harpoon").keys,
-    event = "LazyFile",
+    lazy = true,
   },
   {
     "radvil2/windows.nvim",
@@ -93,12 +93,27 @@ return {
     init = get("telescope-nvim").init,
     keys = get("telescope-nvim").keys,
     cmd = "Telescope",
+    lazy = true,
     dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      config = function()
-        require("telescope").load_extension("fzf")
-      end,
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        config = function()
+          require("telescope").load_extension("fzf")
+        end,
+      },
+      {
+        "rcarriga/nvim-notify",
+        keys = {
+          {
+            "<leader>/n",
+            function()
+              require("telescope").extensions.notify.notify()
+            end,
+            desc = "Telescope » Notifications",
+          },
+        },
+      },
     },
   },
 
@@ -128,7 +143,6 @@ return {
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
       "williamboman/mason.nvim",
-      "b0o/SchemaStore.nvim",
       {
         "folke/neoconf.nvim",
         dependencies = "neovim/nvim-lspconfig",
@@ -140,6 +154,11 @@ return {
         opts = {},
       },
     },
+  },
+  {
+    "b0o/SchemaStore.nvim",
+    version = false,
+    lazy = true,
   },
   {
     "stevearc/conform.nvim",
@@ -276,14 +295,11 @@ return {
   },
   {
     "epwalsh/obsidian.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     config = get("obsidian-nvim").config,
     init = get("obsidian-nvim").init,
     keys = get("obsidian-nvim").keys,
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim",
-    },
+    lazy = true,
   },
   {
     "iamcco/markdown-preview.nvim",
