@@ -12,6 +12,12 @@ M.keys = {
     function() require("oil").open(vim.loop.cwd()) end,
     desc = "File Explorer » Open (cwd)",
   },
+  {
+    "<Leader>fp",
+    ---@diagnostic disable-next-line: param-type-mismatch
+    function() require("oil").open(vim.fn.stdpath("data")) end,
+    desc = "File Explorer » Open plugins dir",
+  },
 }
 
 M.opts = {
