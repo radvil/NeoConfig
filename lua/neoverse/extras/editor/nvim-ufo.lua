@@ -44,14 +44,15 @@ return {
   },
   {
     "kevinhwang91/nvim-ufo",
-    event = "LazyFile",
+    event = { "LazyFile" },
     dependencies = {
       "kevinhwang91/promise-async",
       {
         "luukvbaal/statuscol.nvim",
-        config = function()
+        event = "LazyFile",
+        opts = function()
           local builtin = require("statuscol.builtin")
-          require("statuscol").setup({
+          return {
             relculright = true,
             ft_ignore = {
               "DiffviewFiles",
@@ -66,7 +67,7 @@ return {
               { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
               { text = { "%s" }, click = "v:lua.ScSa" },
             },
-          })
+          }
         end,
       },
     },
