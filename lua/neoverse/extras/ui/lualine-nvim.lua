@@ -120,6 +120,7 @@ return {
     end
 
     return {
+      extensions = { "neo-tree", "lazy" },
       options = {
         theme = "auto",
         globalstatus = true,
@@ -130,7 +131,6 @@ return {
           },
         },
       },
-      extensions = { "neo-tree", "lazy" },
       sections = {
         lualine_a = A,
         lualine_b = B,

@@ -171,13 +171,13 @@ return {
             highlight = "BufferLineFill",
             separator = true,
           },
-          {
-            filetype = "Outline",
-            text_align = show_cwd and "left" or "center",
-            text = "~ SYMBOLS TREE VIEW ~",
-            highlight = "SymbolsOffsetFill",
-            separator = true,
-          },
+          -- {
+          --   filetype = "Outline",
+          --   text_align = show_cwd and "left" or "center",
+          --   text = "~ DOCUMENT SYMBOLS ~",
+          --   highlight = "SymbolsOffsetFill",
+          --   separator = true,
+          -- },
         },
         custom_filter = function(bufnr)
           return not vim.tbl_contains(blacklist, vim.bo[bufnr].filetype)

@@ -24,7 +24,7 @@ return {
           toggle = true,
         })
       end,
-      desc = "NeoTree » Toggle (root)",
+      desc = "neotree » toggle (root)",
     },
     {
       "<leader>E",
@@ -35,7 +35,7 @@ return {
           toggle = true,
         })
       end,
-      desc = "NeoTree » Toggle (cwd)",
+      desc = "neotree » toggle (cwd)",
     },
     {
       "<leader><cr>",
@@ -43,12 +43,13 @@ return {
         require("neo-tree.command").execute({
           source = "buffers",
           position = "right",
-          action = "show",
-          reveal = false,
+          action = "focus",
+          selector = false,
+          reveal = true,
           toggle = true,
         })
       end,
-      desc = "NeoTree » Toggle Buffers",
+      desc = "neotree » toggle buffers",
     },
   },
   opts = {
@@ -100,15 +101,8 @@ return {
         ["zM"] = "close_all_nodes",
         ["zR"] = "expand_all_nodes",
 
-        ["a"] = "add",
-        ["d"] = "delete",
         ["r"] = "rename",
         ["<F2>"] = "rename",
-        ["c"] = "copy",
-        ["y"] = "copy_to_clipboard",
-        ["x"] = "cut_to_clipboard",
-        ["p"] = "paste_from_clipboard",
-
         ["?"] = "show_help",
         ["K"] = { "toggle_preview", config = { use_float = true } },
         ["<esc>"] = "revert_preview",
@@ -121,7 +115,7 @@ return {
       use_libuv_file_watcher = true,
       hijack_netrw_behavior = "disabled",
       follow_current_file = {
-        enabled = true,
+        enabled = false,
         leave_dirs_open = true,
       },
       window = {
@@ -134,6 +128,12 @@ return {
           ["[g"] = "prev_git_modified",
           ["]g"] = "next_git_modified",
           ["<a-space>"] = "clear_filter",
+          ["a"] = "add",
+          ["d"] = "delete",
+          ["y"] = "copy_to_clipboard",
+          ["p"] = "paste_from_clipboard",
+          ["c"] = "copy",
+          ["x"] = "cut_to_clipboard",
         },
       },
     },
@@ -146,23 +146,30 @@ return {
       },
     },
 
+    sources = {
+      "filesystem",
+      "git_status",
+      "buffers",
+      -- "document_symbols",
+    },
+
     source_selector = {
-      winbar = true,
+      winbar = false,
       statusline = false,
       truncation_character = "…",
       show_scrolled_off_parent_node = false, -- HACK: enable this caused flickering on "InsertEnter"
       sources = {
         {
           source = "filesystem",
-          display_name = " 󰙅 files",
+          display_name = " 󰙅 filesystem",
         },
-        {
-          source = "buffers",
-          display_name = "  buffers",
-        },
+        -- {
+        --   source = "buffers",
+        --   display_name = "  buffers",
+        -- },
         {
           source = "git_status",
-          display_name = "  git",
+          display_name = "  gitsource",
         },
       },
     },
@@ -184,6 +191,10 @@ return {
       { event = events.FILE_RENAMED, handler = on_move },
       -- { event = events.NEO_TREE_BUFFER_ENTER, handler = on_tree_enter },
     })
+
+    local has_lualine = require("neoverse.utils").lazy_has("lualine.nvim")
+    opts.source_selector.winbar = has_lualine
+    opts.source_selector.statusline = not has_lualine
 
     require("neo-tree").setup(opts)
     vim.api.nvim_create_autocmd("TermClose", {
