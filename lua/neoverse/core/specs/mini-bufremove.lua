@@ -3,30 +3,30 @@ local M = {}
 M.keys = {
   {
     "<Leader>bd",
-    "<Cmd>BD<Cr>",
-    desc = "Buffer » Delete",
+    "<cmd>BD<cr>",
+    desc = "buffer » delete",
   },
   {
     "<Leader>bf",
-    "<Cmd>BF<Cr>",
-    desc = "Buffer » Delete (force)",
+    "<cmd>BF<cr>",
+    desc = "buffer » delete [force]",
   },
   {
     "<Leader>bD",
-    "<Cmd>BAD<Cr>",
-    desc = "Buffer » Delete all",
+    "<cmd>BAD<cr>",
+    desc = "buffer » delete all",
   },
   {
     "<Leader>bF",
-    "<Cmd>BAF<Cr>",
-    desc = "Buffer » Delete all (force)",
+    "<cmd>BAF<cr>",
+    desc = "buffer » delete all [force]",
   },
 }
 
 M.init = function()
   vim.api.nvim_create_user_command("BD", function()
     require("mini.bufremove").delete(0, false)
-  end, { desc = "Delete current buffer" })
+  end, { desc = "delete current buffer" })
 
   vim.api.nvim_create_user_command("BAD", function()
     for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
@@ -34,11 +34,11 @@ M.init = function()
         require("mini.bufremove").delete(bufnr, false)
       end
     end
-  end, { desc = "Delete all buffers" })
+  end, { desc = "delete all buffers" })
 
   vim.api.nvim_create_user_command("BF", function()
     require("mini.bufremove").delete(0, true)
-  end, { desc = "Delete current buffer (force)" })
+  end, { desc = "delete current buffer [force]" })
 
   vim.api.nvim_create_user_command("BAF", function()
     for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
@@ -46,7 +46,7 @@ M.init = function()
         require("mini.bufremove").delete(bufnr, true)
       end
     end
-  end, { desc = "Remove all buffers (force)" })
+  end, { desc = "remove all buffers [force]" })
 end
 
 return M
