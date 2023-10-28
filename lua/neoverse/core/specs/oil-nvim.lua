@@ -5,18 +5,12 @@ M.keys = {
   {
     "<Leader>fe",
     function() require("oil").open() end,
-    desc = "File Explorer » Open (pwd)",
+    desc = "file explorer » open",
   },
   {
     "<Leader>fE",
     function() require("oil").open(vim.loop.cwd()) end,
-    desc = "File Explorer » Open (cwd)",
-  },
-  {
-    "<Leader>fp",
-    ---@diagnostic disable-next-line: param-type-mismatch
-    function() require("oil").open(vim.fn.stdpath("data")) end,
-    desc = "File Explorer » Open plugins dir",
+    desc = "file explorer » open [cwd]",
   },
 }
 
@@ -36,8 +30,8 @@ M.opts = {
     buflisted = true,
   },
   keymaps = {
-    ["g?"] = "actions.show_help",
     ["q"] = "actions.close",
+    ["g?"] = "actions.show_help",
     ["<cr>"] = "actions.select",
     ["^"] = "actions.open_cwd",
     ["H"] = "actions.toggle_hidden",
