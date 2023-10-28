@@ -3,19 +3,28 @@ local M = {}
 
 M[1] = {
   "folke/trouble.nvim",
-  event = "BufReadPost",
   cmd = { "TroubleToggle", "Trouble" },
   opts = { use_diagnostic_signs = true },
   keys = {
     {
-      "<Leader>xd",
+      "<leader>xx",
       "<cmd>TroubleToggle document_diagnostics<cr>",
-      desc = "diagnostics » trouble [doc]",
+      desc = "diagnostics » document [trouble]",
     },
     {
-      "<Leader>xw",
-      "<cmd>TroubleToggle workspace_diagnostics<Cr>",
-      desc = "diagnostics » trouble [cwd]",
+      "<leader>xX",
+      "<cmd>TroubleToggle workspace_diagnostics<cr>",
+      desc = "diagnostics » workspace [trouble]",
+    },
+    {
+      "<leader>xL",
+      "<cmd>TroubleToggle loclist<cr>",
+      desc = "diagnostics » location list [trouble]",
+    },
+    {
+      "<leader>xQ",
+      "<cmd>TroubleToggle quickfix<cr>",
+      desc = "diagnostics » quickfix [trouble]",
     },
   },
 }
