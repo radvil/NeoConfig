@@ -26,7 +26,7 @@ vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.updatetime = 200
 vim.opt.hidden = true
-vim.opt.laststatus = 2
+vim.opt.laststatus = 3 -- global statusline = 3
 vim.opt.timeoutlen = 400
 vim.opt.winwidth = 7
 vim.opt.winminwidth = 5
@@ -70,6 +70,7 @@ vim.opt.sessionoptions = {
   "buffers",
   "winsize",
   "curdir",
+  "folds",
 }
 
 vim.g.markdown_recommended_style = 0
