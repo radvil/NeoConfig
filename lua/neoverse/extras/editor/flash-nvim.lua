@@ -1,42 +1,5 @@
 local M = {}
 
-local telescope_pick = function(prompt_bufnr)
-  require("flash").jump({
-    pattern = "^",
-    label = { after = { 0, 0 } },
-    search = {
-      mode = "search",
-      exclude = {
-        function(win)
-          return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
-        end,
-      },
-    },
-    action = function(match)
-      local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
-      picker:set_selection(match.pos[1] - 1)
-    end,
-  })
-end
-
-local neotree_pick = function()
-  require("flash").jump({
-    autojump = false,
-    forward = true,
-    wrap = true,
-    action = function(target, state)
-      state:hide()
-      vim.api.nvim_set_current_win(target.win)
-      vim.api.nvim_win_set_cursor(target.win, target.pos)
-      if target.win and target.pos then
-        vim.schedule(function()
-          vim.cmd.execute([["normal \<CR>"]])
-        end)
-      end
-    end,
-  })
-end
-
 local ftMap = {
   popups = {
     "TelescopeResults",
@@ -72,7 +35,58 @@ local ftMap = {
     "help",
     "qf",
   },
+  sidebars = {
+    "NvimTree",
+    "neo-tree",
+    "Outline",
+  },
 }
+
+local telescope_pick = function(prompt_bufnr)
+  require("flash").jump({
+    pattern = "^",
+    label = { after = { 0, 0 } },
+    search = {
+      mode = "search",
+      exclude = {
+        function(win)
+          return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
+        end,
+      },
+    },
+    action = function(match)
+      local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+      picker:set_selection(match.pos[1] - 1)
+    end,
+  })
+end
+
+local jump_and_open = function()
+  vim.schedule(function()
+    require("flash").jump({
+      search = {
+        exclude = ftMap.popups,
+        multi_window = true,
+        autojump = false,
+        forward = true,
+      },
+      action = function(target, state)
+        state:hide()
+        vim.api.nvim_set_current_win(target.win)
+        vim.api.nvim_win_set_cursor(target.win, target.pos)
+        if vim.tbl_contains(ftMap.sidebars, vim.bo.filetype) then
+          vim.schedule(function()
+            vim.cmd.execute([["normal \<CR>"]])
+          end)
+        else
+          vim.schedule(function()
+            vim.cmd.execute([["normal gd"]])
+          end)
+        end
+      end,
+    })
+  end)
+end
 
 ---@type LazySpec
 M[1] = {
@@ -94,7 +108,14 @@ M[1] = {
             },
           })
         end,
-        desc = "Flash » Jump",
+        desc = "flash » jump",
+      },
+      -- NOTE: Experimental keymap
+      {
+        "go",
+        mode = "n",
+        jump_and_open,
+        desc = "flash » jump and open",
       },
       {
         "<a-m>",
@@ -108,7 +129,7 @@ M[1] = {
             },
           })
         end,
-        desc = "Flash » Jump",
+        desc = "flash » jump",
       },
       {
         "<a-s>",
@@ -116,7 +137,7 @@ M[1] = {
         function()
           require("flash").treesitter()
         end,
-        desc = "Flash » Select node",
+        desc = "flash » select node",
       },
       {
         "<a-s>",
@@ -128,34 +149,7 @@ M[1] = {
             },
           })
         end,
-        desc = "Treesitter » Search range",
-      },
-      {
-        "<a-s>",
-        function()
-          local curr_win = vim.api.nvim_get_current_win()
-          local curr_view = vim.fn.winsaveview()
-          require("flash").jump({
-            action = function(target, state)
-              state:hide()
-              vim.api.nvim_set_current_win(target.win)
-              vim.api.nvim_win_set_cursor(target.win, target.pos)
-              require("flash").treesitter({
-                search = {
-                  exclude = ftMap.excludes,
-                },
-              })
-              vim.schedule(function()
-                vim.api.nvim_set_current_win(curr_win)
-                if curr_view then
-                  vim.fn.winrestview(curr_view)
-                end
-              end)
-            end,
-          })
-        end,
-        mode = "o",
-        desc = "Treesitter » Select parent range",
+        desc = "treesitter » search range",
       },
     }
   end,
@@ -214,22 +208,6 @@ M[1] = {
       },
     },
   },
-
-  init = function()
-    local Utils = require("neoverse.utils")
-    if Utils.lazy_has("neo-tree.nvim") then
-      vim.api.nvim_create_autocmd("FileType", {
-        group = Utils.create_augroup("neotree_flash_pick", true),
-        pattern = { "neo-tree", "neo-tree-popup" },
-        callback = function(args)
-          vim.keymap.set("n", "<a-m>", neotree_pick, {
-            desc = "NeoTree » Flash pick",
-            buffer = args.buf,
-          })
-        end,
-      })
-    end
-  end,
 }
 
 M[2] = {
