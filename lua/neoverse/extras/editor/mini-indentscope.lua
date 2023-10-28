@@ -35,7 +35,7 @@ return {
         "neo-tree",
         "fugitive",
         "Outline",
-        "trouble",
+        "Trouble",
         "prompt",
         "dirbuf",
         "notify",
