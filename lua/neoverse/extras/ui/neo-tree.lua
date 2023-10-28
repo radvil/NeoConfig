@@ -18,13 +18,13 @@ return {
       function()
         require("neo-tree.command").execute({
           dir = require("neoverse.utils").root.get(),
-          reveal_force_cwd = false,
           position = "left",
-          reveal = false,
+          selector = true,
+          reveal = true,
           toggle = true,
         })
       end,
-      desc = "neotree » toggle (root)",
+      desc = "neotree » toggle fs (root)",
     },
     {
       "<leader>E",
@@ -32,24 +32,48 @@ return {
         require("neo-tree.command").execute({
           dir = vim.loop.cwd(),
           position = "left",
+          selector = true,
           toggle = true,
         })
       end,
-      desc = "neotree » toggle (cwd)",
+      desc = "neotree » toggle fs (cwd)",
     },
     {
       "<leader><cr>",
       function()
         require("neo-tree.command").execute({
+          dir = require("neoverse.utils").root.get(),
           source = "buffers",
-          position = "right",
+          position = "left",
           action = "focus",
-          selector = false,
           reveal = true,
-          toggle = true,
         })
       end,
-      desc = "neotree » toggle buffers",
+      desc = "neotree » buffers",
+    },
+    {
+      "<Leader>ff",
+      function()
+        require("neo-tree.command").execute({
+          dir = require("neoverse.utils").root.get(),
+          position = "float",
+          selector = false,
+          action = "focus",
+        })
+      end,
+      desc = "neotree » fs float [root]",
+    },
+    {
+      "<Leader>fp",
+      function()
+        require("neo-tree.command").execute({
+          dir = vim.fn.stdpath("data"),
+          position = "float",
+          selector = false,
+          action = "focus",
+        })
+      end,
+      desc = "neotree » open plugins",
     },
   },
   opts = {
@@ -115,7 +139,7 @@ return {
       use_libuv_file_watcher = true,
       hijack_netrw_behavior = "disabled",
       follow_current_file = {
-        enabled = false,
+        enabled = true,
         leave_dirs_open = true,
       },
       window = {
@@ -123,7 +147,8 @@ return {
           ["."] = "set_root",
           ["/"] = "fuzzy_finder",
           ["H"] = "toggle_hidden",
-          ["<bs>"] = "navigate_up",
+          -- ["<bs>"] = "navigate_up",
+          ["-"] = "navigate_up",
           ["f"] = "filter_on_submit",
           ["[g"] = "prev_git_modified",
           ["]g"] = "next_git_modified",
@@ -144,32 +169,41 @@ return {
         enabled = true,
         leave_dirs_open = true,
       },
+      window = {
+        mappings = {
+          ["d"] = "buffer_delete",
+          ["a"] = false,
+          ["y"] = false,
+          ["p"] = false,
+          ["c"] = false,
+          ["x"] = false,
+        },
+      },
     },
 
     sources = {
       "filesystem",
       "git_status",
       "buffers",
-      -- "document_symbols",
     },
 
     source_selector = {
       winbar = false,
       statusline = false,
       truncation_character = "…",
-      show_scrolled_off_parent_node = false, -- HACK: enable this caused flickering on "InsertEnter"
+      show_scrolle_off_parent_node = false, -- HACK: enable this caused flickering on "InsertEnter"
       sources = {
         {
           source = "filesystem",
-          display_name = " 󰙅 filesystem",
+          display_name = " 󰙅 files",
         },
-        -- {
-        --   source = "buffers",
-        --   display_name = "  buffers",
-        -- },
+        {
+          source = "buffers",
+          display_name = "  buffers",
+        },
         {
           source = "git_status",
-          display_name = "  gitsource",
+          display_name = "  git",
         },
       },
     },
@@ -179,9 +213,6 @@ return {
     local function on_move(data)
       require("neoverse.utils").lsp.on_rename(data.source, data.destination)
     end
-    -- local on_tree_enter = function()
-    --   vim.cmd([[setlocal relativenumber]])
-    -- end
 
     local events = require("neo-tree.events")
     opts.event_handlers = opts.event_handlers or {}
@@ -189,12 +220,11 @@ return {
     vim.list_extend(opts.event_handlers, {
       { event = events.FILE_MOVED, handler = on_move },
       { event = events.FILE_RENAMED, handler = on_move },
-      -- { event = events.NEO_TREE_BUFFER_ENTER, handler = on_tree_enter },
     })
 
-    local has_lualine = require("neoverse.utils").lazy_has("lualine.nvim")
-    opts.source_selector.winbar = has_lualine
-    opts.source_selector.statusline = not has_lualine
+    local show_statusline = not require("neoverse.utils").lazy_has("lualine.nvim")
+    opts.source_selector.statusline = show_statusline
+    opts.source_selector.winbar = not show_statusline
 
     require("neo-tree").setup(opts)
     vim.api.nvim_create_autocmd("TermClose", {
