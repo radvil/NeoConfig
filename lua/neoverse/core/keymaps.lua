@@ -4,6 +4,9 @@ Utils.debug("Loading keymaps...")
 -- reset
 Utils.map({ "n", "x", "v" }, "<nL>", "<nop>")
 Utils.map("", "<c-z>", ":undo<cr>", { nowait = true })
+Utils.map("n", "Q", "q", { nowait = true, desc = "Toggle recording" })
+Utils.map("n", "<a-q>", "<nop>")
+Utils.map("n", "q", "<nop>")
 
 -- base
 Utils.map("v", "<", "<gv", { desc = "Indent left" })
@@ -65,14 +68,14 @@ Utils.map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Swap selected lines up" })
 Utils.map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Swap selected lines down" })
 
 -- tabs
-Utils.map("n", "[t", ":tabprevious<cr>", { desc = "Tab » Prev" })
-Utils.map("n", "]t", ":tabnext<cr>", { desc = "Tab » Next" })
-Utils.map("n", "<leader>tn", ":tabnew<cr>", { desc = "Tab » New" })
-Utils.map("n", "<leader>td", ":tabclose<cr>", { desc = "Tab » Delete" })
+Utils.map("n", "<tab>", ":tabnext<cr>", { desc = "tab » next" })
+Utils.map("n", "<s-tab>", ":tabprevious<cr>", { desc = "tab » prev" })
+-- Utils.map("n", "<leader>tn", ":tabnew<cr>", { desc = "Tab » New" })
+-- Utils.map("n", "<leader>td", ":tabclose<cr>", { desc = "Tab » Delete" })
 
 -- windows
-Utils.map("n", "<leader>ww", "<c-w>p", { desc = "Window » Other" })
-Utils.map("n", "<leader>wd", "<c-w>c", { desc = "Window » Delete" })
+Utils.map("n", "<leader>ww", "<c-w>p", { desc = "window » last used" })
+Utils.map("n", "<leader>wd", "<c-w>c", { desc = "window » delete current" })
 if not Utils.lazy_has("smart-splits.nvim") then
   Utils.map("n", "<c-h>", "<c-w>h", { remap = true, desc = "Window » Navigate left" })
   Utils.map("n", "<c-j>", "<c-w>j", { remap = true, desc = "Window » Navigate down" })
@@ -85,17 +88,17 @@ if not Utils.lazy_has("smart-splits.nvim") then
 end
 
 -- buffers
-Utils.map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Buffer » Switch to other" })
-Utils.map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Buffer » Switch to other" })
-Utils.map("n", "[b", ":bprevious<cr>", { desc = "Buffer » Prev" })
-Utils.map("n", "]b", ":bnext<cr>", { desc = "Buffer » Next" })
+Utils.map("n", "<leader>`", "<cmd>e #<cr>", { desc = "buffer » switch to other" })
+Utils.map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "buffer » switch to other" })
+Utils.map("n", "[b", ":bprevious<cr>", { desc = "buffer » previous" })
+Utils.map("n", "]b", ":bnext<cr>", { desc = "buffer » next" })
 if not Utils.lazy_has("bufferline.nvim") then
-  Utils.map("n", "<a-[>", ":bprevious<cr>", { desc = "Buffer » Prev" })
-  Utils.map("n", "<a-]>", ":bnext<cr>", { desc = "Buffer » Next" })
+  Utils.map("n", "<a-[>", ":bprevious<cr>", { desc = "buffer » previous" })
+  Utils.map("n", "<a-]>", ":bnext<cr>", { desc = "buffer » next" })
 end
 if not Utils.lazy_has("mini.bufremove") then
-  Utils.map("n", "<leader>bd", ":bdelete<cr>", { desc = "Buffer » Delete" })
-  Utils.map("n", "<Leader>bD", ":bufdo bdelete<cr>", { desc = "Buffer » Delete (all)" })
+  Utils.map("n", "<leader>bd", ":bdelete<cr>", { desc = "buffer » delete current" })
+  Utils.map("n", "<Leader>bD", ":bufdo bdelete<cr>", { desc = "buffer » delete all" })
 end
 
 Utils.map("n", "<leader>us", function() Utils.toggle.option("spell") end, { desc = "Toggle » Spell" })
