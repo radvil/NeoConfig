@@ -8,24 +8,24 @@ return {
   -- stylua: ignore start
   keys = {
     {
-      "]x",
+      "]t",
       function() require("todo-comments").jump_next() end,
-      desc = "TODO » Next ref",
+      desc = "todo » next reference",
     },
     {
-      "[x",
+      "[t",
       function() require("todo-comments").jump_prev() end,
-      desc = "TODO » Prev ref",
+      desc = "todo » prev reference",
     },
     {
       "<leader>xt",
-      ":TodoTrouble<Cr>",
-      desc = "Diagnostics » Todo comments",
+      "<cmd>TodoTrouble<Cr>",
+      desc = "diagnostics » todo comments [trouble]",
     },
     {
       "<leader>/t",
-      ":TodoTelescope<Cr>",
-      desc = "Telescope » Find tasks",
+      "<cmd>TodoTelescope<Cr>",
+      desc = "Telescope » Find tasks [trouble]",
     },
   },
 }
