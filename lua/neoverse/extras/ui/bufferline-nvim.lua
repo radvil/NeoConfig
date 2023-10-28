@@ -98,27 +98,28 @@ return {
   keys = function()
     local Kmap = function(lhs, cmd, desc)
       cmd = string.format("<cmd>BufferLine%s<cr>", cmd)
-      desc = string.format("Buffer » %s", desc)
+      desc = string.format("buffer » %s", desc)
       return { lhs, cmd, desc = desc }
     end
     return {
-      Kmap("<a-b>", "Pick", "Pick"),
-      Kmap("<a-q>", "PickClose", "Pick & close"),
-      Kmap("<leader>bS", "SortByTabs", "Sort by tabs"),
-      Kmap("<leader>bs", "SortByDirectory", "Sort by directory"),
-      Kmap("<leader>bp", "TogglePin", "Toggle pin"),
-      Kmap("<a-.>", "MoveNext", "Shift right"),
-      Kmap("<a-,>", "MovePrev", "Shift left"),
-      Kmap("<a-[>", "CyclePrev", "Switch prev"),
-      Kmap("<a-]>", "CycleNext", "Switch next"),
-      Kmap("<a-1>", "GoToBuffer 1", "Switch 1st"),
-      Kmap("<a-2>", "GoToBuffer 2", "Switch 2nd"),
-      Kmap("<a-3>", "GoToBuffer 3", "Switch 3rd"),
-      Kmap("<a-4>", "GoToBuffer 4", "Switch 4th"),
-      Kmap("<a-5>", "GoToBuffer 5", "Switch 5th"),
-      Kmap("<leader>bB", "CloseLeft", "Close left"),
-      Kmap("<leader>bW", "CloseRight", "Close right"),
-      Kmap("<leader>bC", "CloseOthers", "Close others"),
+      Kmap("<a-b>", "Pick", "pick & enter"),
+      Kmap("<a-q>", "PickClose", "pick & close"),
+      Kmap("<leader>bx", "PickClose", "pick & close"),
+      Kmap("<leader>bS", "SortByTabs", "sort by tabs"),
+      Kmap("<leader>bs", "SortByDirectory", "sort by directory"),
+      Kmap("<leader>bp", "TogglePin", "toggle pin"),
+      Kmap("<a-.>", "MoveNext", "shift right"),
+      Kmap("<a-,>", "MovePrev", "shift left"),
+      Kmap("<a-[>", "CyclePrev", "switch prev"),
+      Kmap("<a-]>", "CycleNext", "switch next"),
+      Kmap("<a-1>", "GoToBuffer 1", "switch 1st"),
+      Kmap("<a-2>", "GoToBuffer 2", "switch 2nd"),
+      Kmap("<a-3>", "GoToBuffer 3", "switch 3rd"),
+      Kmap("<a-4>", "GoToBuffer 4", "switch 4th"),
+      Kmap("<a-5>", "GoToBuffer 5", "switch 5th"),
+      Kmap("<leader>bB", "CloseLeft", "close left"),
+      Kmap("<leader>bW", "CloseRight", "close right"),
+      Kmap("<leader>bC", "CloseOthers", "close others"),
     }
   end,
 
@@ -171,13 +172,6 @@ return {
             highlight = "BufferLineFill",
             separator = true,
           },
-          -- {
-          --   filetype = "Outline",
-          --   text_align = show_cwd and "left" or "center",
-          --   text = "~ DOCUMENT SYMBOLS ~",
-          --   highlight = "SymbolsOffsetFill",
-          --   separator = true,
-          -- },
         },
         custom_filter = function(bufnr)
           return not vim.tbl_contains(blacklist, vim.bo[bufnr].filetype)
