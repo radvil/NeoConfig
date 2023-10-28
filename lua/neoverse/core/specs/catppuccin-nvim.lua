@@ -10,7 +10,7 @@ M.config = function(_, opts)
     transparent_background = transparent,
     term_colors = true,
     dim_inactive = {
-      enabled = not transparent,
+      enabled = false,
       percentage = 0.13,
       shade = "dark",
     },
