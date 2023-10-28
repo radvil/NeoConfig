@@ -46,7 +46,7 @@ M.keys = {
       if not win then return end
       A.nvim_set_current_win(win)
     end,
-    desc = "Window » Pick",
+    desc = "window » pick",
   },
   {
     "<leader>ws",
@@ -77,7 +77,25 @@ M.keys = {
         A.nvim_set_current_win(picked_win)
       end)
     end,
-    desc = "Window » Pick and swap",
+    desc = "window » pick and swap",
+  },
+  {
+    "<leader>wx",
+    function()
+      local picked = require("window-picker").pick_window({
+        include_current_win = true,
+        filter_rules = {
+          bo = {
+            filetype = popups,
+          },
+        },
+      })
+      if not picked then
+        return
+      end
+      A.nvim_win_close(picked, false)
+    end,
+    desc = "window » pick and close",
   },
 }
 
