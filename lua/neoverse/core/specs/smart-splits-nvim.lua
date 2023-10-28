@@ -20,10 +20,10 @@ M.keys = function()
     Kmap("<c-l>", ss.move_cursor_right, "Move cursor right"),
 
     -- swap keymaps
-    Kmap("<leader>wj", ss.swap_buf_down, "Swap down"),
-    Kmap("<leader>wk", ss.swap_buf_up, "Swap up"),
-    Kmap("<leader>wh", ss.swap_buf_left, "Swap left"),
-    Kmap("<leader>wl", ss.swap_buf_right, "Swap right"),
+    -- Kmap("<leader>wj", ss.swap_buf_down, "Swap down"),
+    -- Kmap("<leader>wk", ss.swap_buf_up, "Swap up"),
+    -- Kmap("<leader>wh", ss.swap_buf_left, "Swap left"),
+    -- Kmap("<leader>wl", ss.swap_buf_right, "Swap right"),
 
     -- window operation
     Kmap("<leader>w<cr>", ss.start_resize_mode, "Start resize"),
