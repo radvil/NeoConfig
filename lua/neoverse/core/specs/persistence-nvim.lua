@@ -23,22 +23,22 @@ M.keys = {
 }
 
 M.opts = {
-  options = {
-    "buffers",
-    "tabpages",
-    "winsize",
-    "curdir",
-    "help",
-  },
+  options = vim.opt.sessionoptions:get(),
 }
 
 M.init = function()
   vim.api.nvim_create_user_command("NeoSessionRestore", function()
     require("persistence").load()
-    require("neo-tree.command").execute({
-      action = "show",
-      reveal = true,
-    })
+    if require("neoverse.utils").lazy_has("neo-tree.nvim") then
+      require("neo-tree.command").execute({
+        dir = require("neoverse.utils").root.get(),
+        source = "buffers",
+        position = "left",
+        action = "show",
+        reveal = true,
+        toggle = false,
+      })
+    end
   end, { desc = "Session » Restore" })
 end
 
