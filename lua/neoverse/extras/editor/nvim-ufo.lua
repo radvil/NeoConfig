@@ -1,5 +1,3 @@
-local activated = true
-
 local handler = function(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
   local suffix = (" … 󰁂 %d "):format(endLnum - lnum)
@@ -42,42 +40,33 @@ return {
       },
     },
   },
+
   {
     "kevinhwang91/nvim-ufo",
+    dependencies = { "kevinhwang91/promise-async", "luukvbaal/statuscol.nvim" },
     event = "LazyFile",
-    dependencies = {
-      "kevinhwang91/promise-async",
-      "luukvbaal/statuscol.nvim",
-    },
+    -- stylua: ignore
     keys = {
       {
         "zR",
-        function()
-          require("ufo").openAllFolds()
-        end,
+        function() require("ufo").openAllFolds() end,
         desc = "UFO » Open all folds",
       },
       {
         "zr",
-        function()
-          require("ufo").openFoldsExceptKinds()
-        end,
+        function() require("ufo").openFoldsExceptKinds() end,
         desc = "UFO » Open folds excepts kinds",
       },
       {
         "zM",
-        function()
-          require("ufo").closeAllFolds()
-        end,
+        function() require("ufo").closeAllFolds() end,
         desc = "UFO » Close all folds",
       },
       {
         "[z",
         function()
           require("ufo").goPreviousClosedFold()
-          vim.schedule(function()
-            require("ufo").peekFoldedLinesUnderCursor()
-          end)
+          vim.schedule(function() require("ufo").peekFoldedLinesUnderCursor() end)
         end,
         desc = "UFO » Peek prev fold",
       },
@@ -85,25 +74,9 @@ return {
         "]z",
         function()
           require("ufo").goNextClosedFold()
-          vim.schedule(function()
-            require("ufo").peekFoldedLinesUnderCursor()
-          end)
+          vim.schedule(function() require("ufo").peekFoldedLinesUnderCursor() end)
         end,
         desc = "UFO » Peek next fold",
-      },
-      {
-        "<Leader>uz",
-        function()
-          activated = not activated
-          if activated then
-            vim.cmd.UfoEnable()
-            vim.notify("Nvim ufo enabled!", vim.log.levels.INFO)
-          else
-            vim.cmd.UfoDisable()
-            vim.notify("Nvim ufo disabled!", vim.log.levels.WARN)
-          end
-        end,
-        desc = "Toggle » Fold Marker",
       },
     },
 

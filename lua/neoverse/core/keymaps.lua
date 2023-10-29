@@ -1,5 +1,4 @@
 local Utils = require("neoverse.utils")
-Utils.debug("Loading keymaps...")
 
 -- reset
 Utils.map({ "n", "x", "v" }, "<nL>", "<nop>")

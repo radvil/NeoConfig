@@ -70,6 +70,7 @@ vim.opt.sessionoptions = {
   "buffers",
   "winsize",
   "curdir",
+  "folds",
 }
 
 vim.g.markdown_recommended_style = 0
@@ -94,5 +95,3 @@ vim.g.neo_transparent = not vim.g.neovide
 -- * a pattern or array of patterns like `.git` or `lua`.
 -- * a function with signature `function(buf) -> string|string[]`
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
-
-require("neoverse.__test_lua")

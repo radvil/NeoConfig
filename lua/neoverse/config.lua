@@ -209,16 +209,6 @@ function M.init()
   M.json.load()
 end
 
----TODO: Learn about this metatable thing!!!
----@diagnostic disable-next-line: inject-field
-function M:set(key, value)
-  if options == nil then
-    defaults[key] = value
-  else
-    options[key] = value
-  end
-end
-
 setmetatable(M, {
   __index = function(_, key)
     if options == nil then

@@ -49,6 +49,7 @@ return {
     },
     triggers = {
       "<leader>",
+      "g",
       "s",
       "`",
       '"',
@@ -68,7 +69,7 @@ return {
     },
     defaults = {
       mode = { "n", "x" },
-      ["g"] = { name = "Goto" },
+      ["g"] = { name = "Go" },
       ["z"] = { name = "Folds" },
       ["]"] = { name = "Next" },
       ["["] = { name = "Prev" },
