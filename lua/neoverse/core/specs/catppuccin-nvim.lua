@@ -92,7 +92,8 @@ M.config = function(_, opts)
         },
         FlashLabel = {
           fg = palette.light,
-          bg = palette.pink2,
+          bg = palette.pink,
+          -- bg = palette.pink2,
           style = { "bold" },
         },
         NeoTreeIndentMarker = {

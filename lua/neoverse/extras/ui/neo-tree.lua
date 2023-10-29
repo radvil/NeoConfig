@@ -18,6 +18,7 @@ return {
       function()
         require("neo-tree.command").execute({
           dir = require("neoverse.utils").root.get(),
+          reveal_force_cwd = true,
           position = "left",
           selector = true,
           reveal = true,
@@ -47,6 +48,7 @@ return {
           position = "left",
           action = "focus",
           reveal = true,
+          toggle = true,
         })
       end,
       desc = "neotree » buffers",
@@ -59,6 +61,7 @@ return {
           position = "float",
           selector = false,
           action = "focus",
+          reveal = true,
         })
       end,
       desc = "neotree » fs float [root]",

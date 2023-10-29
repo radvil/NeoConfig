@@ -47,29 +47,7 @@ return {
     event = "LazyFile",
     dependencies = {
       "kevinhwang91/promise-async",
-      {
-        "luukvbaal/statuscol.nvim",
-        event = "LazyFile",
-        opts = function()
-          local builtin = require("statuscol.builtin")
-          return {
-            relculright = true,
-            ft_ignore = {
-              "DiffviewFiles",
-              "dashboard",
-              "NvimTree",
-              "neo-tree",
-              "Outline",
-              "Trouble",
-            },
-            segments = {
-              { text = { builtin.foldfunc, " " }, click = "v:lua.ScFa" },
-              { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
-              { text = { "%s" }, click = "v:lua.ScSa" },
-            },
-          }
-        end,
-      },
+      "luukvbaal/statuscol.nvim",
     },
     keys = {
       {

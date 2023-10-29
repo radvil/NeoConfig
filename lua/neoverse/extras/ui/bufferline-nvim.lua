@@ -163,6 +163,13 @@ return {
           delay = 100,
         },
         offsets = {
+          -- {
+          --   filetype = "neo-tree",
+          --   separator = true,
+          --   text = function()
+          --     return require("neo-tree.ui.selector").get()
+          --   end,
+          -- },
           {
             filetype = "neo-tree",
             text_align = show_cwd and "left" or "center",

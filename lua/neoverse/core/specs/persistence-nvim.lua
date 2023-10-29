@@ -32,11 +32,10 @@ M.init = function()
     if require("neoverse.utils").lazy_has("neo-tree.nvim") then
       require("neo-tree.command").execute({
         dir = require("neoverse.utils").root.get(),
-        source = "buffers",
         position = "left",
         action = "show",
+        selector = true,
         reveal = true,
-        toggle = false,
       })
     end
   end, { desc = "Session » Restore" })

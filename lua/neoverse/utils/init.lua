@@ -13,6 +13,7 @@ local LazyUtil = require("lazy.core.util")
 ---@field root neoverse.utils.root
 ---@field json neoverse.utils.json
 ---@field lsp neoverse.utils.lsp
+---@field ui neoverse.utils.ui
 local M = {}
 
 setmetatable(M, {

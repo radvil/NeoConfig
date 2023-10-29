@@ -94,6 +94,9 @@ local defaults = {
       Value = " ",
       Variable = " ",
     },
+    Misc = {
+      Dots = "…",
+    },
   },
 }
 
