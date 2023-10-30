@@ -66,12 +66,6 @@ Utils.map("i", "<A-k>", "<esc>:m .-2<cr>==gi", { desc = "Swap current line up" }
 Utils.map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Swap selected lines up" })
 Utils.map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Swap selected lines down" })
 
--- tabs
-Utils.map("n", "<tab>", ":tabnext<cr>", { desc = "tab » next" })
-Utils.map("n", "<s-tab>", ":tabprevious<cr>", { desc = "tab » prev" })
--- Utils.map("n", "<leader>tn", ":tabnew<cr>", { desc = "Tab » New" })
--- Utils.map("n", "<leader>td", ":tabclose<cr>", { desc = "Tab » Delete" })
-
 -- windows
 Utils.map("n", "<leader>ww", "<c-w>p", { desc = "window » last used" })
 Utils.map("n", "<leader>wd", "<c-w>c", { desc = "window » delete current" })
@@ -86,7 +80,7 @@ if not Utils.lazy_has("smart-splits.nvim") then
   Utils.map("n", "<c-right>", ":vertical resize +2<cr>", { desc = "Window » Width++" })
 end
 
--- buffers
+---buffers
 Utils.map("n", "<leader>`", "<cmd>e #<cr>", { desc = "buffer » switch to other" })
 Utils.map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "buffer » switch to other" })
 Utils.map("n", "[b", ":bprevious<cr>", { desc = "buffer » previous" })
