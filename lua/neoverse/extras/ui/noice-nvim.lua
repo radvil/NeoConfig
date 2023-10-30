@@ -163,7 +163,7 @@ return {
 
   init = function()
     if require("neoverse.utils").lazy_has("which-key.nvim") then
-      require("which-key").register({ mode = "n", ["<leader>l"] = { name = "Logger/Noice" } })
+      require("which-key").register({ mode = "n", ["<leader>l"] = { name = "logger/noice" } })
     end
   end,
 }
