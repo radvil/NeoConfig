@@ -19,7 +19,7 @@ M.keys = {
 }
 
 M.opts = {
-  animation = { enable = true },
+  animation = { enable = not vim.g.neovide },
   autowidth = {
     enable = false,
     winwidth = 5,
