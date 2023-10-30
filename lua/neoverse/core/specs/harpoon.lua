@@ -5,33 +5,33 @@ M.keys = {
     "<leader>mf",
     function()
       require("harpoon.mark").add_file()
-      vim.notify("Marked", vim.log.levels.INFO, {
+      require("neoverse.utils").info("file marked", {
         title = "Harpoon",
         icon = "📌",
       })
     end,
-    desc = "harpoon » mark file",
+    desc = "harpoon » mark",
   },
   {
     [[<leader>\]],
     function()
       require("harpoon.ui").toggle_quick_menu()
     end,
-    desc = "harpoon » file list",
+    desc = "harpoon » toggle file list",
   },
   {
     "[f",
     function()
       require("harpoon.ui").nav_prev()
     end,
-    desc = "harpoon » prev file",
+    desc = "harpoon » goto the prev file",
   },
   {
     "]f",
     function()
       require("harpoon.ui").nav_next()
     end,
-    desc = "harpoon » next file",
+    desc = "harpoon » goto the next file",
   },
 }
 

@@ -41,13 +41,6 @@ function M.get()
         has = "signatureHelp",
       },
       {
-        "<a-k>",
-        vim.lsp.buf.signature_help,
-        desc = "Code » Signature Help",
-        has = "signatureHelp",
-        mode = "i",
-      },
-      {
         "<leader>ca",
         vim.lsp.buf.code_action,
         desc = "Code » Code Action",

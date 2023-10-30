@@ -61,10 +61,6 @@ M.opts = function()
       ["<c-space>"] = cmp.mapping.complete(),
       ["<c-e>"] = cmp.mapping.abort(),
       ["<cr>"] = cmp.mapping.confirm({ select = true }),
-      ["<c-o>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
-      }),
     },
     sorting = defaults.sorting,
   }
