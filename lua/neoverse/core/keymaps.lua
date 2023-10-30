@@ -102,21 +102,19 @@ Utils.map("n", "<leader>ux", function() Utils.toggle.diagnostics() end, { desc =
 
 ---floating terminal
 local ft = function(cmd, root)
-  local opt = { size = { width = 0.6, height = 0.7 }, title = "  " .. (cmd or "Terminal"), title_pos = "right" }
+  local label = (type(cmd) == "table" and cmd[1] or cmd) or "Terminal"
+  local opt = { size = { width = 0.6, height = 0.7 }, title = "  " .. label, title_pos = "right" }
   opt.border = vim.g.neo_transparent and "single" or "none"
   if root then opt.cwd = Utils.root.get() end
   Utils.terminal.open(cmd, opt)
 end
 Utils.map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
-Utils.map("t", [[<c-\>]], "<cmd>close<cr>", { desc = "Float » Terminal hide" })
-Utils.map("n", "<leader>fh", function() ft("btop") end, { desc = "Float » Open htop/btop" })
-Utils.map("n", "<leader>fT", function() ft(nil) end, { desc = "Float » Terminal (cwd)" })
-Utils.map("n", "<leader>ft", function() ft(nil, true) end, { desc = "Float » Terminal (rwd)" })
-Utils.map("n", [[<c-\>]], function() ft(nil, true) end, { desc = "Float » Terminal open (rwd)" })
-
-if not vim.g.neovide then
-  Utils.map("n", "<leader>fz", function() vim.cmd([[call system('zmux')]]) end, { desc = "Float » Tmux Z" })
-end
+Utils.map("t", [[<c-\>]], "<cmd>close<cr>", { desc = "floating terminal » close [rwd]" })
+Utils.map("n", [[<c-\>]], function() ft(nil, true) end, { desc = "floating terminal » open [rwd]" })
+Utils.map("n", "<leader>fT", function() ft(nil) end, { desc = "floating terminal » open [cwd]" })
+Utils.map("n", "<leader>ft", function() ft(nil, true) end, { desc = "floating terminal » open [rwd]" })
+Utils.map("n", "<leader>tH", function() ft("btop") end, { desc = "floating terminal » open htop/btop" })
+Utils.map("n", "<leader>tP", function() ft({ "ping", "9.9.9.9" }) end, { desc = "floating terminal » ping test" })
 
 ---lazygit
 local lz = function(opts)
@@ -129,8 +127,8 @@ local lz = function(opts)
     esc_esc = false,
   })
 end
-Utils.map("n", "<leader>gg", function() lz() end, { desc = "Git » Open lazygit (cwd)" })
-Utils.map("n", "<leader>gG", function() lz({ cwd = Utils.root.get() }) end, { desc = "Git » Open lazygit (rwd)" })
+Utils.map("n", "<leader>gg", function() lz() end, { desc = "lazygit [cwd]" })
+Utils.map("n", "<leader>gG", function() lz({ cwd = Utils.root.get() }) end, { desc = "lazygit [rwd]" })
 
 --stylua: ignore end
 
