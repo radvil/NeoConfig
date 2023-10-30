@@ -31,18 +31,16 @@ M.keys = {
 }
 
 M.config = function()
-  local snippet_dirs = nil
   local vscode_loader = require("luasnip.loaders.from_vscode")
-  local config = require("neoverse.config")
   vscode_loader.lazy_load()
-  if type(config.snippet_dirs) == "function" then
-    snippet_dirs = config.snippet_dirs()
-  elseif type(config.snippet_dirs) == "table" then
-    snippet_dirs = config.snippet_dirs
+  local user_snippets = {}
+  local dir_opts = vim.g.neo_snippet_dirs
+  if type(dir_opts) == "string" then
+    vim.list_extend(user_snippets, { dir_opts })
   else
-    snippet_dirs = {}
+    vim.list_extend(user_snippets, dir_opts or {})
   end
-  vscode_loader.lazy_load({ paths = snippet_dirs })
+  vscode_loader.lazy_load({ paths = user_snippets })
 end
 
 return M

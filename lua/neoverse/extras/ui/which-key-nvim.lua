@@ -12,7 +12,7 @@ return {
       },
     },
     window = {
-      border = vim.g.neo_transparent and "single" or "none",
+      border = vim.g.neo_transparent and "rounded" or "none",
       padding = vim.g.neo_transparent and { 0, 0, 0, 0 } or { 1, 2, 1, 2 },
     },
     icons = {

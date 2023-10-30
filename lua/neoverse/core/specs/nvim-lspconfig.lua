@@ -27,7 +27,6 @@ M.opts = {
     html = {},
     cssls = {},
     emmet_language_server = {},
-    marksman = {},
     jsonls = {
       on_new_config = function(new_config)
         new_config.settings.json.schemas = new_config.settings.json.schemas or {}

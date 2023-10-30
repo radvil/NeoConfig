@@ -23,7 +23,7 @@ local Kmap = function(lhs, cmd, desc)
   return {
     lhs,
     cmd,
-    desc = string.format("Telescope » %s", desc),
+    desc = string.format("Telescope » %s", desc):lower(),
   }
 end
 
@@ -136,10 +136,9 @@ M.init = function()
   end, { desc = "Telescope » Open dotfiles" })
   ---register custom note trigger
   vim.api.nvim_create_user_command("NeoNotes", function()
-    local note_dir = require("neoverse.config").note_dir
     NeoTelescope("find_files", {
       prompt_title = Icons.FindNotes .. "Find notes",
-      cwd = (type(note_dir) == "function" and note_dir()) or note_dir,
+      cwd = vim.g.neo_notesdir,
     })()
   end, { desc = "Telescope » Find notes" })
 end

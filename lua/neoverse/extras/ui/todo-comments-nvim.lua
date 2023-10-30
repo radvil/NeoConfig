@@ -25,7 +25,7 @@ return {
     {
       "<leader>/t",
       "<cmd>TodoTelescope<Cr>",
-      desc = "Telescope » Find tasks [trouble]",
+      desc = "telescope » find tasks [trouble]",
     },
   },
 }

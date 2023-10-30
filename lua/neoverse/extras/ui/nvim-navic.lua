@@ -11,7 +11,7 @@ return {
   end,
   opts = function()
     return {
-      icons = require("neoverse.config").icons,
+      icons = require("neoverse.config").icons.Kinds,
       lazy_update_context = true,
       separator = " » ",
       highlight = true,

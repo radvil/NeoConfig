@@ -19,7 +19,7 @@ M.keys = {
 }
 
 M.opts = {
-  animation = { enable = false },
+  animation = { enable = true },
   autowidth = {
     enable = false,
     winwidth = 5,
@@ -51,5 +51,12 @@ M.opts = {
     },
   },
 }
+
+M.config = function(_, opts)
+  vim.o.winwidth = 10
+  vim.o.winminwidth = 10
+  vim.o.equalalways = false
+  require("windows").setup(opts)
+end
 
 return M

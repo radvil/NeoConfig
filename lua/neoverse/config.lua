@@ -17,12 +17,6 @@ local defaults = {
     autocmds = true,
   },
 
-  ---@type (fun(): string) | string | nil
-  note_dir = nil,
-
-  ---@type (fun(): table<string>) | table<string> | nil
-  snippet_dirs = {},
-
   palette = {
     dark = "#1E1E2E",
     dark2 = "#2F334D",

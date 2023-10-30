@@ -50,10 +50,11 @@ return {
   },
   {
     "radvil2/windows.nvim",
-    dependencies = "anuvyklack/middleclass",
+    event = "VeryLazy",
+    dependencies = { "anuvyklack/middleclass", "anuvyklack/animation.nvim" },
     opts = get("windows-nvim").opts,
     keys = get("windows-nvim").keys,
-    event = "VeryLazy",
+    config = get("windows-nvim").config,
   },
   {
     "stevearc/dressing.nvim",
@@ -110,7 +111,7 @@ return {
             function()
               require("telescope").extensions.notify.notify()
             end,
-            desc = "Telescope » Notifications",
+            desc = "telescope » notifications",
           },
         },
       },
@@ -292,23 +293,6 @@ return {
     keys = get("persistence-nvim").keys,
     opts = get("persistence-nvim").opts,
     init = get("persistence-nvim").init,
-  },
-  {
-    "epwalsh/obsidian.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-    config = get("obsidian-nvim").config,
-    init = get("obsidian-nvim").init,
-    keys = get("obsidian-nvim").keys,
-    lazy = true,
-  },
-  {
-    "iamcco/markdown-preview.nvim",
-    --stylua: ignore
-    build = function() vim.fn["mkdp#util#install"]() end,
-    keys = get("markdown-preview-nvim").keys,
-    cmd = "MarkdownPreviewToggle",
-    ft = { "markdown" },
-    lazy = true,
   },
 
   -- extensions loader

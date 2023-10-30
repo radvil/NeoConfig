@@ -143,7 +143,7 @@ return {
       hijack_netrw_behavior = "disabled",
       follow_current_file = {
         enabled = true,
-        leave_dirs_open = true,
+        leave_dirs_open = false,
       },
       window = {
         mappings = {
@@ -194,7 +194,6 @@ return {
       winbar = false,
       statusline = false,
       truncation_character = "…",
-      show_scrolle_off_parent_node = false, -- HACK: enable this caused flickering on "InsertEnter"
       sources = {
         {
           source = "filesystem",
@@ -213,8 +212,9 @@ return {
   },
 
   config = function(_, opts)
+    local Utils = require("neoverse.utils")
     local function on_move(data)
-      require("neoverse.utils").lsp.on_rename(data.source, data.destination)
+      Utils.lsp.on_rename(data.source, data.destination)
     end
 
     local events = require("neo-tree.events")
@@ -225,13 +225,13 @@ return {
       { event = events.FILE_RENAMED, handler = on_move },
     })
 
-    local show_statusline = not require("neoverse.utils").lazy_has("lualine.nvim")
+    local show_statusline = not Utils.lazy_has("lualine.nvim")
     opts.source_selector.statusline = show_statusline
     opts.source_selector.winbar = not show_statusline
 
     require("neo-tree").setup(opts)
     vim.api.nvim_create_autocmd("TermClose", {
-      group = require("neoverse.utils").create_augroup("neotree_reload_gitstatus", true),
+      group = Utils.create_augroup("neotree_reload_gitstatus", true),
       pattern = "*lazygit",
       callback = function()
         if package.loaded["neo-tree.sources.git_status"] then
