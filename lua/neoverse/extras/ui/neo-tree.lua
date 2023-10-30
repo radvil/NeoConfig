@@ -25,7 +25,7 @@ return {
           toggle = true,
         })
       end,
-      desc = "neotree » toggle fs (root)",
+      desc = "neotree » toggle filesystem [rwd]",
     },
     {
       "<leader>E",
@@ -37,7 +37,7 @@ return {
           toggle = true,
         })
       end,
-      desc = "neotree » toggle fs (cwd)",
+      desc = "neotree » toggle filesystem [cwd]",
     },
     {
       "<leader><cr>",
@@ -51,32 +51,19 @@ return {
           toggle = true,
         })
       end,
-      desc = "neotree » buffers",
-    },
-    {
-      "<Leader>ff",
-      function()
-        require("neo-tree.command").execute({
-          dir = require("neoverse.utils").root.get(),
-          position = "float",
-          selector = false,
-          action = "focus",
-          reveal = true,
-        })
-      end,
-      desc = "neotree » fs float [root]",
+      desc = "neotree » toggle buffers",
     },
     {
       "<Leader>fp",
       function()
         require("neo-tree.command").execute({
           dir = vim.fn.stdpath("data"),
-          position = "float",
+          position = "current",
           selector = false,
           action = "focus",
         })
       end,
-      desc = "neotree » open plugins",
+      desc = "neotree » browse plugins dir",
     },
   },
   opts = {

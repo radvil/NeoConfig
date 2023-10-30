@@ -152,7 +152,7 @@ M.keys = {
   Kmap("<leader>/:", ":Telescope command_history<cr>", "Command history"),
   Kmap("<leader>/c", ":Telescope commands<cr>", "Find available commands"),
   Kmap("<leader>/X", ":Telescope diagnostics<cr>", "Workspace diagnostics"),
-  Kmap("<leader>/x", ":Telescope diagnostics bufnr=0<cr>", "Find diagnostics (cwd)"),
+  Kmap("<leader>/x", ":Telescope diagnostics bufnr=0<cr>", "Find diagnostics [cwd]"),
 
   Kmap(
     "<leader>/k",
@@ -189,37 +189,37 @@ M.keys = {
   Kmap(
     "<c-p>",
     NeoTelescope("find_files", {
-      prompt_title = Icons.FindFiles .. "Files (cwd)",
+      prompt_title = Icons.FindFiles .. "Files [cwd]",
     }),
-    "Find files (cwd)"
+    "Find files [cwd]"
   ),
 
   Kmap(
     "<leader>/f",
     NeoTelescope("find_files", {
-      prompt_title = Icons.FindFiles .. "Files (root)",
+      prompt_title = Icons.FindFiles .. "Files [rwd]",
       cwd = false,
     }),
-    "Find files (root)"
+    "Find files [rwd]"
   ),
 
   Kmap(
     "<leader>/w",
     NeoTelescope("live_grep", {
-      prompt_title = Icons.LiveGrepWords .. "Live grep word (cwd)",
+      prompt_title = Icons.LiveGrepWords .. "Live grep word [cwd]",
       layout_strategy = "vertical",
     }),
-    "Live grep word (cwd)"
+    "Live grep word [cwd]"
   ),
 
   Kmap(
     "<leader>/W",
     NeoTelescope("live_grep", {
-      prompt_title = Icons.LiveGrepWords .. "Live grep word (root)",
+      prompt_title = Icons.LiveGrepWords .. "Live grep word [rwd]",
       layout_strategy = "vertical",
       cwd = false,
     }),
-    "Live grep word (root)"
+    "Live grep word [rwd]"
   ),
 
   Kmap(
@@ -243,29 +243,30 @@ M.keys = {
   Kmap(
     "<leader><tab>",
     NeoTelescope("oldfiles", {
-      prompt_title = Icons.FindRecentFiles .. "Recent files (cwd)",
+      prompt_title = Icons.FindRecentFiles .. "Recent files [cwd]",
       initial_mode = "normal",
       cwd = vim.loop.cwd(),
     }),
-    "Recent files (cwd)"
+    "Recent files [cwd]"
   ),
 
   Kmap(
     "<leader>/r",
     NeoTelescope("oldfiles", {
-      prompt_title = Icons.FindRecentFiles .. "Recent files (cwd)",
+      prompt_title = Icons.FindRecentFiles .. "Recent files [cwd]",
       cwd = vim.loop.cwd(),
     }),
-    "Recent files (cwd)"
+    "Recent files [cwd]"
   ),
 
   Kmap(
     "<leader>/R",
     NeoTelescope("oldfiles", {
-      prompt_title = Icons.FindRecentFiles .. "Recent files (root)",
+      prompt_title = Icons.FindRecentFiles .. "Recent files",
       initial_mode = "normal",
+      cwd = false,
     }),
-    "Most recent used (root)"
+    "Recent Files"
   ),
 
   Kmap(
@@ -274,7 +275,7 @@ M.keys = {
       prompt_title = Icons.GrepStrings .. "Grep strings",
       layout_strategy = "vertical",
     }),
-    "Grep strings (cwd)"
+    "Grep strings [cwd]"
   ),
 
   Kmap(
@@ -284,7 +285,7 @@ M.keys = {
       layout_strategy = "vertical",
       cwd = false,
     }),
-    "Grep strings (root)"
+    "Grep strings [rwd]"
   ),
 
   Kmap(
@@ -313,6 +314,7 @@ M.keys = {
       initial_mode = "normal",
       sort_lastused = true,
       sort_mru = true,
+      cwd = false,
     }),
     "Other buffers"
   ),
