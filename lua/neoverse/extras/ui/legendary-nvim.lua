@@ -5,7 +5,7 @@ return {
     {
       "<leader>q",
       "<cmd>Legendary<cr>",
-      desc = "Quick Command/Keymaps Palette",
+      desc = "quick command/keymaps palette",
     },
   },
   opts = {

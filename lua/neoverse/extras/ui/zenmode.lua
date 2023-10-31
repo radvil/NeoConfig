@@ -6,7 +6,7 @@ return {
     {
       "<Leader>wz",
       ":ZenMode<cr>",
-      desc = "Window » Zen Mode Toggle",
+      desc = "window » zen mode toggle",
     },
   },
 

@@ -44,7 +44,7 @@ return {
   {
     "kevinhwang91/nvim-ufo",
     dependencies = { "kevinhwang91/promise-async", "luukvbaal/statuscol.nvim" },
-    event = "LazyFile",
+    event = { "LazyFile", "BufWinEnter" },
     -- stylua: ignore
     keys = {
       {

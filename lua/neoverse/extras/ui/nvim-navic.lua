@@ -13,7 +13,8 @@ return {
     return {
       icons = require("neoverse.config").icons.Kinds,
       lazy_update_context = true,
-      separator = " » ",
+      -- separator = " » ",
+      separator = "  ",
       highlight = true,
       depth_limit = 7,
     }

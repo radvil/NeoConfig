@@ -3,7 +3,7 @@ local M = {}
 M.keys = function()
   local ss = require("smart-splits")
   local Kmap = function(lhs, rhs, desc)
-    return { lhs, rhs, mode = "n", desc = "Window » " .. desc }
+    return { lhs, rhs, mode = "n", desc = ("Window » " .. desc):lower() }
   end
   --stylua: ignore
   return {

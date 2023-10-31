@@ -6,7 +6,7 @@ M.config = function(_, opts)
   ---@type CatppuccinOptions
   opts = vim.tbl_deep_extend("force", opts or {}, {
     ---@type string
-    flavour = vim.g.neovide and "macchiato" or "mocha",
+    flavour = "mocha",
     transparent_background = transparent,
     term_colors = true,
     dim_inactive = {
@@ -65,6 +65,9 @@ M.config = function(_, opts)
     },
     custom_highlights = function(colors)
       local hls = {
+        Folded = {
+          bg = transparent and colors.crust or colors.mantle,
+        },
         CursorLine = {
           bg = colors.surface0,
         },
@@ -79,7 +82,10 @@ M.config = function(_, opts)
           fg = colors.flamingo,
         },
         NavicText = {
-          fg = colors.lavender,
+          fg = colors.subtext0,
+        },
+        NavicSeparator = {
+          fg = colors.surface1,
         },
         FlashCurrent = {
           fg = palette.dark,
@@ -93,7 +99,6 @@ M.config = function(_, opts)
         FlashLabel = {
           fg = palette.light,
           bg = palette.pink,
-          -- bg = palette.pink2,
           style = { "bold" },
         },
         NeoTreeIndentMarker = {
@@ -103,15 +108,16 @@ M.config = function(_, opts)
           fg = colors.rosewater,
         },
         NeoTreeTabInactive = {
-          bg = colors.mantle,
+          bg = colors.base,
         },
         NeoTreeTabActive = {
           bg = transparent and colors.none or colors.surface0,
           fg = colors.text,
+          bold = false,
         },
         NeoTreeTabSeparatorInactive = {
-          bg = colors.mantle,
-          fg = colors.surface0,
+          bg = colors.base,
+          fg = colors.base,
         },
         NeoTreeTabSeparatorActive = {
           bg = transparent and colors.none or colors.surface0,
@@ -172,9 +178,6 @@ M.config = function(_, opts)
         hls.TelescopeResultsBorder = {
           bg = colors.crust,
           fg = colors.crust,
-        }
-        hls.Folded = {
-          bg = colors.mantle,
         }
       end
       return hls

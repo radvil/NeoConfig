@@ -7,7 +7,6 @@ local M = {}
 ---@class NeoVerseOpts
 local defaults = {
   dev = false,
-  darkmode = true,
 
   ---@type string | function
   colorscheme = "catppuccin",

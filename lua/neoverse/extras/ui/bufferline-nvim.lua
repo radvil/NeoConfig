@@ -14,7 +14,7 @@ local function get_custom_catppuccin_hls(styles)
       active_bg = C.none
       inactive_bg = require("neoverse.config").palette.dark
       separator_fg = C.surface1
-      fill_bg = C.mantle
+      fill_bg = C.crust
     end
     local highlights = {
       fill = { bg = fill_bg },

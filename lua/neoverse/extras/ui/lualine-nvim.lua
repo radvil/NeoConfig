@@ -123,7 +123,7 @@ return {
       extensions = { "neo-tree", "lazy" },
       options = {
         theme = "auto",
-        -- globalstatus = false,
+        globalstatus = true,
         disabled_filetypes = {
           statusline = {
             "dashboard",
