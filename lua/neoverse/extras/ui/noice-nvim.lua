@@ -1,10 +1,7 @@
 return {
   "folke/noice.nvim",
   event = "VeryLazy",
-  dependencies = {
-    "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
-  },
+  dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
   -- stylua: ignore
   keys = {
     { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
@@ -18,13 +15,10 @@ return {
   },
 
   ---@param opts NoiceConfig
-  config = function(_, opts)
+  opts = function(_, opts)
     local defaults = {
-      health = { checker = true },
       presets = {
         inc_rename = true,
-        long_message_to_split = true,
-        command_palette = false,
         bottom_search = true,
         lsp_doc_border = true,
       },
@@ -37,19 +31,12 @@ return {
       lsp = {
         progress = { enabled = false },
         ---message shown by lsp servers
-        message = {
-          enabled = true,
-          view = "mini",
-        },
-        ---override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        message = { enabled = true, view = "mini" },
+        hover = { enabled = true, silent = true },
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
           ["cmp.entry.get_documentation"] = true,
-        },
-        hover = {
-          enabled = true,
-          silent = true,
         },
         signature = {
           enabled = true,
@@ -65,43 +52,20 @@ return {
         ---display cmdline and popup menu together
         cmdline_popup = {
           relative = "editor",
-          position = {
-            col = "50%",
-            row = 6,
-          },
-          size = {
-            width = 60,
-            height = "auto",
-          },
-          border = {
-            style = "single",
-            padding = { 0, 1 },
-          },
+          position = { col = "50%", row = 6 },
+          size = { width = 60, height = "auto" },
+          border = { style = "single", padding = { 0, 1 } },
         },
         popupmenu = {
           relative = "editor",
-          border = {
-            style = "single",
-            padding = { 0, 1 },
-          },
-          position = {
-            col = "50%",
-            row = 8,
-          },
-          size = {
-            width = 60,
-            height = 10,
-          },
+          size = { width = 60, height = 10 },
+          position = { col = "50%", row = 8 },
+          border = { style = "single", padding = { 0, 1 } },
         },
       },
       routes = {
         ---show @recording as notify message
-        {
-          view = "notify",
-          filter = {
-            event = "msg_showmode",
-          },
-        },
+        { view = "notify", filter = { event = "msg_showmode" } },
         {
           view = "mini",
           filter = {
@@ -114,51 +78,21 @@ return {
           },
         },
       },
-      notify = {
-        enabled = true,
-        view = "notify",
-        opts = {
-          replace = true,
-          merge = true,
-        },
-      },
     }
 
     opts = vim.tbl_deep_extend("force", defaults, opts or {}) or defaults
 
-    if opts and vim.g.neovide then
-      opts.messages.view = "notify"
-      opts.lsp.message.view = "notify"
-      opts.routes[2].view = "notify"
-    end
-
     if opts and not vim.g.neo_transparent then
-      opts.presets.lsp_doc_border = {
-        views = {
-          hover = {
-            border = {
-              style = "none",
-            },
-          },
-        },
-      }
-      opts.views.cmdline_popup.border = {
-        style = "none",
-        padding = { 1, 2 },
-      }
-      opts.views.popupmenu.border = {
-        style = "none",
-        padding = { 1, 2 },
-      }
-      opts.views.cmdline_popup.win_options = {
-        winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-      }
-      opts.views.popupmenu.win_options = {
-        winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-      }
+      local win_opts = { winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder" }
+      local border_opts = { style = "none", padding = { 1, 2 } }
+      opts.views.popupmenu.border = border_opts
+      opts.views.cmdline_popup.border = border_opts
+      opts.views.popupmenu.win_options = win_opts
+      opts.views.cmdline_popup.win_options = win_opts
+      opts.presets.lsp_doc_border = { views = { hover = { border = border_opts } } }
     end
 
-    require("noice").setup(opts)
+    return opts
   end,
 
   init = function()

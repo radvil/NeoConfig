@@ -1,9 +1,11 @@
+local useTabs = true
+
 ---@param styles? ("bold" | "italic")[]
 local function get_custom_catppuccin_hls(styles)
   return function()
     local ctp = require("catppuccin")
     local C = require("catppuccin.palettes").get_palette()
-    --stylua: ignore
+    --stylua: ignore                              
     if not C then return {} end
     local O = ctp.options
     local active_bg = C.surface0
@@ -98,18 +100,13 @@ return {
   keys = function()
     local Kmap = function(lhs, cmd, desc)
       cmd = string.format("<cmd>BufferLine%s<cr>", cmd)
-      desc = string.format("buffer » %s", desc)
+      desc = string.format("bufferline » %s", desc)
       return { lhs, cmd, desc = desc }
     end
-    return {
+    local keys = {
       Kmap("<a-b>", "Pick", "pick & enter"),
       Kmap("<a-q>", "PickClose", "pick & close"),
       Kmap("<leader>bx", "PickClose", "pick & close"),
-      Kmap("<leader>bS", "SortByTabs", "sort by tabs"),
-      Kmap("<leader>bs", "SortByDirectory", "sort by directory"),
-      Kmap("<leader>bp", "TogglePin", "toggle pin"),
-      Kmap("<a-.>", "MoveNext", "shift right"),
-      Kmap("<a-,>", "MovePrev", "shift left"),
       Kmap("<a-[>", "CyclePrev", "switch prev"),
       Kmap("<a-]>", "CycleNext", "switch next"),
       Kmap("<a-1>", "GoToBuffer 1", "switch 1st"),
@@ -121,6 +118,16 @@ return {
       Kmap("<leader>bW", "CloseRight", "close right"),
       Kmap("<leader>bC", "CloseOthers", "close others"),
     }
+    if not useTabs then
+      vim.list_extend(keys, {
+        Kmap("<a-.>", "MoveNext", "shift right"),
+        Kmap("<a-,>", "MovePrev", "shift left"),
+        Kmap("<leader>bS", "SortByTabs", "sort by tabs"),
+        Kmap("<leader>bs", "SortByDirectory", "sort by directory"),
+        Kmap("<leader>bp", "TogglePin", "toggle pin"),
+      })
+    end
+    return keys
   end,
 
   config = function(_, opts)
@@ -128,25 +135,43 @@ return {
     local show_cwd = vim.g.neovide or os.getenv("TMUX") == nil
 
     local blacklist = {
+      -- popups
+      "TelescopeResults",
+      "TelescopePrompt",
+      "neo-tree-popup",
+      "DressingInput",
+      "flash_prompt",
+      "cmp_menu",
+      "WhichKey",
+      "incline",
+      "notify",
+      "prompt",
+      "notify",
+      "noice",
+
+      -- windows
+      "DiffviewFiles",
       "checkhealth",
       "dashboard",
+      "NvimTree",
+      "neo-tree",
+      "Outline",
+      "prompt",
       "oil",
       "qf",
     }
 
     opts = vim.tbl_deep_extend("force", opts or {}, {
       options = {
-        mode = "buffers",
+        mode = "tabs",
         diagnostics = "nvim_lsp",
         show_close_icon = false,
-        move_wraps_at_ends = true,
+        move_wraps_at_ends = false,
         show_buffer_icons = true,
-        show_tab_indicators = true,
-        always_show_bufferline = true,
+        show_tab_indicators = false,
+        always_show_bufferline = false,
         ---@type "thin" | "padded_slant" | "slant" | "thick" | "none"
         separator_style = "thin",
-        ---@type "insert_after_current" | "insert_at_end" | "id" | "extension" | "relative_directory" | "directory" | "tabs"
-        sort_by = "insert_after_current",
         close_command = function(n)
           require("mini.bufremove").delete(n, false)
         end,
@@ -163,13 +188,6 @@ return {
           delay = 100,
         },
         offsets = {
-          -- {
-          --   filetype = "neo-tree",
-          --   separator = true,
-          --   text = function()
-          --     return require("neo-tree.ui.selector").get()
-          --   end,
-          -- },
           {
             filetype = "neo-tree",
             text_align = show_cwd and "left" or "center",
@@ -185,6 +203,13 @@ return {
         end,
       },
     })
+
+    if not useTabs then
+      ---@type "insert_after_current" | "insert_at_end" | "id" | "extension" | "relative_directory" | "directory" | "tabs"
+      opts.sort_by = "insert_after_current"
+      opts.move_wraps_at_ends = true
+      opts.show_tab_indicators = true
+    end
 
     local Utils = require("neoverse.utils")
     if Utils.lazy_has("catppuccin") and string.match(vim.g.colors_name, "catppuccin") then

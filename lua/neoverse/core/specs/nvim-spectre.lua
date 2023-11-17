@@ -41,7 +41,7 @@ M.keys = {
 }
 
 M.opts = {
-  open_cmd = "new",
+  opts = { open_cmd = "noswapfile new" },
   mapping = {
     ["run_current_replace"] = {
       map = "<Leader>r",

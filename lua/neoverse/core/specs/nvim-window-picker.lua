@@ -10,6 +10,7 @@ local popups = {
   "cmp_menu",
   "WhichKey",
   "lspinfo",
+  "incline",
   "notify",
   "prompt",
   "mason",

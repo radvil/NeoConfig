@@ -36,6 +36,7 @@ return {
         "fugitive",
         "Outline",
         "Trouble",
+        "lspinfo",
         "prompt",
         "dirbuf",
         "notify",

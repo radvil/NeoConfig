@@ -8,7 +8,7 @@ vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.list = true
 vim.opt.number = true
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 0
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 7
 vim.opt.shiftround = true
@@ -26,7 +26,7 @@ vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.updatetime = 200
 vim.opt.hidden = true
-vim.opt.laststatus = 3 -- global statusline = 3
+vim.opt.laststatus = 2 -- global statusline = 3
 vim.opt.timeoutlen = 400
 vim.opt.winwidth = 7
 vim.opt.winminwidth = 5
@@ -96,4 +96,4 @@ vim.g.neo_snippet_dirs = {}
 -- * the name of a detector function like `lsp` or `cwd`
 -- * a pattern or array of patterns like `.git` or `lua`.
 -- * a function with signature `function(buf) -> string|string[]`
-vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+vim.g.neo_root_spec = { "lsp", { ".git", "lua" }, "cwd" }

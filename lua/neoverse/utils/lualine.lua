@@ -34,7 +34,7 @@ function M.cmp_source(name, icon)
   end
 
   local colors = {
-    ok = Util.lualine.fg("Special"),
+    ok = Util.lualine.fg("Character"),
     error = Util.lualine.fg("DiagnosticError"),
     pending = Util.lualine.fg("DiagnosticWarn"),
   }
@@ -49,6 +49,10 @@ function M.cmp_source(name, icon)
     color = function()
       return colors[status()] or colors.ok
     end,
+    padding = {
+      left = 1,
+      right = 1,
+    },
   }
 end
 

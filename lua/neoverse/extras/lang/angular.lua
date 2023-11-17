@@ -38,6 +38,7 @@ return {
     "radvil2/nvim-treesitter-angular",
     ft = { "typescript", "html" },
     branch = "jsx-parser-fix",
+    build = ":TSUpdate",
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter",
@@ -56,7 +57,7 @@ return {
     opts = {
       servers = {
         angularls = {
-          single_file_support = true,
+          -- single_file_support = true,
           root_dir = function(fname)
             local util = require("lspconfig").util
             local original = util.root_pattern("angular.json")(fname)

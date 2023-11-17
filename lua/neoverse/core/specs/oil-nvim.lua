@@ -20,7 +20,6 @@ M.opts = {
   default_file_explorer = true,
   use_default_keymaps = false,
   restore_win_options = true,
-  trash_command = "trash-put",
   delete_to_trash = true,
   cleanup_delay_ms = 500,
   view_options = {

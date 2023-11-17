@@ -19,7 +19,7 @@ M.keys = {
 }
 
 M.opts = {
-  animation = { enable = not vim.g.neovide },
+  animation = { enable = true },
   autowidth = {
     enable = false,
     winwidth = 5,
@@ -56,6 +56,9 @@ M.config = function(_, opts)
   vim.o.winwidth = 10
   vim.o.winminwidth = 10
   vim.o.equalalways = false
+  if vim.g.neovide then
+    opts.animation.enable = false
+  end
   require("windows").setup(opts)
 end
 

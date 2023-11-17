@@ -31,8 +31,10 @@ M.config = function(_, opts)
       neotree = true,
       nvimtree = false,
       harpoon = true,
+      headlines = true,
       mason = true,
       illuminate = true,
+      flash = false,
       navic = {
         enabled = true,
         custom_bg = transparent and "NONE" or "lualine",
@@ -71,6 +73,14 @@ M.config = function(_, opts)
         CursorLine = {
           bg = colors.surface0,
         },
+        StatusLineNC = {
+          bg = colors.crust,
+        },
+        StatusLine = {
+          bold = true,
+          bg = colors.base,
+          fg = colors.rosewater,
+        },
         IncSearch = {
           bg = colors.maroon,
           fg = colors.crust,
@@ -83,6 +93,7 @@ M.config = function(_, opts)
         },
         NavicText = {
           fg = colors.subtext0,
+          bold = false,
         },
         NavicSeparator = {
           fg = colors.surface1,
@@ -106,6 +117,12 @@ M.config = function(_, opts)
         },
         NeoTreeGitModified = {
           fg = colors.rosewater,
+        },
+        NeoTreeGitUntracked = {
+          fg = colors.peach,
+        },
+        NeoTreeGitRenamed = {
+          fg = colors.pink,
         },
         NeoTreeTabInactive = {
           bg = colors.base,
@@ -142,17 +159,30 @@ M.config = function(_, opts)
         GitSignsTopDelete = {
           fg = colors.maroon,
         },
+        NoicePopupmenuBorder = {
+          fg = colors.peach,
+        },
+        NoiceCmdlinePopupBorder = {
+          fg = colors.peach,
+        },
+        NoiceCmdlinePopupTitle = {
+          fg = colors.subtext0,
+        },
+        NoiceCmdlineIcon = {
+          fg = colors.subtext0,
+        },
+        InclineActive = {
+          bg = colors.surface0,
+          fg = colors.rosewater,
+        },
+        InclineInActive = {
+          bg = colors.mantle,
+          fg = colors.surface1,
+        },
       }
       if not transparent then
         hls.WinSeparator = {
           fg = colors.crust,
-        }
-        hls.StatusLineNC = {
-          bg = colors.crust,
-        }
-        hls.StatusLine = {
-          bg = colors.crust,
-          fg = colors.rosewater,
         }
         hls.TelescopePromptBorder = {
           bg = colors.crust,
@@ -178,6 +208,9 @@ M.config = function(_, opts)
         hls.TelescopeResultsBorder = {
           bg = colors.crust,
           fg = colors.crust,
+        }
+        hls.NoiceCmdlineIcon = {
+          fg = colors.peach,
         }
       end
       return hls

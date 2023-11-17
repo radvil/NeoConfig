@@ -89,6 +89,12 @@ return {
     event = "VimEnter",
   },
   {
+    "nvim-lualine/lualine.nvim",
+    init = get("lualine-nvim").init,
+    opts = get("lualine-nvim").opts,
+    event = "VeryLazy",
+  },
+  {
     "nvim-telescope/telescope.nvim",
     config = get("telescope-nvim").config,
     init = get("telescope-nvim").init,
@@ -180,48 +186,37 @@ return {
 
   --- completion
   {
+    "windwp/nvim-ts-autotag",
+    event = "LazyFile",
+    opts = {},
+  },
+  {
     "L3MON4D3/LuaSnip",
-    config = get("luasnip").config,
-    opts = get("luasnip").opts,
-    keys = get("luasnip").keys,
+    build = (not jit.os:find("Windows"))
+        and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+      or nil,
     dependencies = {
       "rafamadriz/friendly-snippets",
       config = function()
         require("luasnip.loaders.from_vscode").lazy_load()
       end,
     },
-    build = (not jit.os:find("Windows"))
-        and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-      or nil,
+    config = get("luasnip").config,
+    opts = get("luasnip").opts,
+    keys = get("luasnip").keys,
   },
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    opts = get("nvim-cmp").opts,
     config = get("nvim-cmp").config,
+    opts = get("nvim-cmp").opts,
+    event = "InsertEnter",
+    version = false,
     dependencies = {
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
     },
-  },
-  {
-    "echasnovski/mini.surround",
-    opts = get("mini-surround").opts,
-    keys = get("mini-surround").keys,
-    init = get("mini-surround").init,
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    event = "LazyFile",
-    opts = {},
-  },
-  {
-    "windwp/nvim-autopairs",
-    keys = get("nvim-autopairs").keys,
-    event = "InsertEnter",
-    opts = {},
   },
 
   -- treesitter
@@ -231,6 +226,7 @@ return {
     opts = get("nvim-treesitter").opts,
     keys = get("nvim-treesitter").keys,
     init = get("nvim-treesitter").init,
+    version = false,
     build = ":TSUpdate",
     cmd = {
       "TSUpdateSync",
@@ -261,6 +257,8 @@ return {
     "nvim-pack/nvim-spectre",
     keys = get("nvim-spectre").keys,
     opts = get("nvim-spectre").opts,
+    cmd = "Spectre",
+    build = false,
   },
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -299,6 +297,7 @@ return {
   require("neoverse.utils").extras.get_specs_by_prios({
     ["neoverse.extras.ui.which-key-nvim"] = 9997,
     ["neoverse.extras.ui.legendary-nvim"] = 9996,
+    ["neoverse.extras.completion.codeium"] = 9994,
     ["neoverse.extras.editor.symbols-outline"] = 100,
   }),
 }

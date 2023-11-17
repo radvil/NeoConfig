@@ -1,7 +1,6 @@
 local M = {}
 
 M.opts = function()
-  local Config = require("neoverse.config")
   local cmp = require("cmp")
   local defaults = require("cmp.config.default")()
   local opts = {
@@ -35,43 +34,30 @@ M.opts = function()
     }),
     formatting = {
       fields = { "kind", "abbr", "menu" },
-      format = function(entry, vim_item)
+      format = function(_, vim_item)
         local item_kind = vim_item.kind
-        local sources = {
-          nvim_lsp = item_kind,
-          luasnip = " Snippet",
-          copilot = " Copilot",
-          buffer = " Buffer",
-          path = " Path",
-        }
-        vim_item.kind = Config.icons.Kinds[item_kind]
-        vim_item.menu = sources[entry.source.name]
+        vim_item.kind = require("neoverse.config").icons.Kinds[item_kind]
+        vim_item.menu = string.format("🔸%s", item_kind)
         return vim_item
       end,
     },
     mapping = {
-      ["<c-p>"] = cmp.mapping.select_prev_item({
-        behavior = cmp.SelectBehavior.Insert,
-      }),
-      ["<c-n>"] = cmp.mapping.select_next_item({
-        behavior = cmp.SelectBehavior.Insert,
-      }),
+      ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+      ["<c-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      ["<cr>"] = cmp.mapping.confirm({ select = true }),
       ["<c-u>"] = cmp.mapping.scroll_docs(-4),
       ["<c-d>"] = cmp.mapping.scroll_docs(4),
       ["<c-space>"] = cmp.mapping.complete(),
-      ["<c-e>"] = cmp.mapping.abort(),
-      ["<cr>"] = cmp.mapping.confirm({ select = true }),
+      ["<c-x>"] = cmp.mapping.abort(),
     },
     sorting = defaults.sorting,
   }
-
   if vim.g.neo_transparent then
     opts.window = {
       documentation = cmp.config.window.bordered(),
       completion = cmp.config.window.bordered(),
     }
   end
-
   return opts
 end
 

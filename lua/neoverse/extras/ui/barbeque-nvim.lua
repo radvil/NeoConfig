@@ -27,8 +27,8 @@ return {
     create_autocmd = false,
     attach_navic = false,
     show_dirname = false,
-    show_basename = true,
-    show_modified = true,
+    show_basename = false,
+    show_modified = false,
   },
   config = function(_, opts)
     require("barbecue").setup(opts)

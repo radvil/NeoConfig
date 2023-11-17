@@ -100,6 +100,10 @@ M.config = function(_, opts)
     local server_opts = vim.tbl_deep_extend("force", {
       capabilities = vim.deepcopy(capabilities),
     }, opts.servers[server] or {})
+    -- local coq = Utils.call("coq")
+    -- if coq then
+    --   server_opts = coq.lsp_ensure_capabilities(server_opts)
+    -- end
     if opts.standalone_setups then
       if opts.standalone_setups[server] then
         if opts.standalone_setups[server](server, server_opts) then
