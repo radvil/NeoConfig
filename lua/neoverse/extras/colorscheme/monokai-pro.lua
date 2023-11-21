@@ -6,7 +6,7 @@ return {
     local Config = require("neoverse.config")
     local NeoDefaults = {
       ---@type "classic" | "octagon" | "pro" | "machine" | "ristretto" | "spectrum"
-      filter = "pro",
+      filter = "octagon",
       inc_search = "background",
       terminal_colors = true,
       devicons = true,

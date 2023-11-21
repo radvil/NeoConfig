@@ -1,4 +1,30 @@
 local useTabs = true
+local blacklist = {
+  -- popups
+  "TelescopeResults",
+  "TelescopePrompt",
+  "neo-tree-popup",
+  "DressingInput",
+  "flash_prompt",
+  "cmp_menu",
+  "WhichKey",
+  "incline",
+  "notify",
+  "prompt",
+  "notify",
+  "noice",
+
+  -- windows
+  "DiffviewFiles",
+  "checkhealth",
+  "dashboard",
+  "NvimTree",
+  "neo-tree",
+  "Outline",
+  "prompt",
+  "oil",
+  "qf",
+}
 
 ---@param styles? ("bold" | "italic")[]
 local function get_custom_catppuccin_hls(styles)
@@ -130,80 +156,40 @@ return {
     return keys
   end,
 
-  config = function(_, opts)
-    vim.opt.mousemoveevent = true
-    local show_cwd = vim.g.neovide or os.getenv("TMUX") == nil
-
-    local blacklist = {
-      -- popups
-      "TelescopeResults",
-      "TelescopePrompt",
-      "neo-tree-popup",
-      "DressingInput",
-      "flash_prompt",
-      "cmp_menu",
-      "WhichKey",
-      "incline",
-      "notify",
-      "prompt",
-      "notify",
-      "noice",
-
-      -- windows
-      "DiffviewFiles",
-      "checkhealth",
-      "dashboard",
-      "NvimTree",
-      "neo-tree",
-      "Outline",
-      "prompt",
-      "oil",
-      "qf",
-    }
-
-    opts = vim.tbl_deep_extend("force", opts or {}, {
-      options = {
-        mode = "tabs",
-        diagnostics = "nvim_lsp",
-        show_close_icon = false,
-        move_wraps_at_ends = false,
-        show_buffer_icons = true,
-        show_tab_indicators = false,
-        always_show_bufferline = false,
-        ---@type "thin" | "padded_slant" | "slant" | "thick" | "none"
-        separator_style = "thin",
-        close_command = function(n)
-          require("mini.bufremove").delete(n, false)
-        end,
-        right_mouse_command = function(n)
-          require("mini.bufremove").delete(n, false)
-        end,
-        indicator = {
-          ---@type "icon" | "underline" | "none"
-          style = "icon",
-        },
-        hover = {
-          enabled = true,
-          reveal = { "close" },
-          delay = 100,
-        },
-        offsets = {
-          {
-            filetype = "neo-tree",
-            text_align = show_cwd and "left" or "center",
-            text = function()
-              return show_cwd and "CWD » " .. vim.fn.getcwd() or "~ CWD TREE VIEW ~"
-            end,
-            highlight = "BufferLineFill",
-            separator = true,
-          },
-        },
-        custom_filter = function(bufnr)
-          return not vim.tbl_contains(blacklist, vim.bo[bufnr].filetype)
-        end,
+  opts = {
+    options = {
+      offsets = {},
+      mode = "tabs",
+      diagnostics = "nvim_lsp",
+      show_close_icon = false,
+      move_wraps_at_ends = false,
+      show_buffer_icons = true,
+      show_tab_indicators = false,
+      always_show_bufferline = true,
+      ---@type "thin" | "padded_slant" | "slant" | "thick" | "none"
+      separator_style = "thin",
+      close_command = function(n)
+        require("mini.bufremove").delete(n, false)
+      end,
+      right_mouse_command = function(n)
+        require("mini.bufremove").delete(n, false)
+      end,
+      indicator = {
+        ---@type "icon" | "underline" | "none"
+        style = "icon",
       },
-    })
+      hover = {
+        enabled = true,
+        reveal = { "close" },
+        delay = 100,
+      },
+      custom_filter = function(bufnr)
+        return not vim.tbl_contains(blacklist, vim.bo[bufnr].filetype)
+      end,
+    },
+  },
 
+  config = function(_, opts)
     if not useTabs then
       ---@type "insert_after_current" | "insert_at_end" | "id" | "extension" | "relative_directory" | "directory" | "tabs"
       opts.sort_by = "insert_after_current"
@@ -212,6 +198,7 @@ return {
     end
 
     local Utils = require("neoverse.utils")
+    -- TODO: set this to catppuccin instead here...
     if Utils.lazy_has("catppuccin") and string.match(vim.g.colors_name, "catppuccin") then
       opts.highlights = get_custom_catppuccin_hls()
     end

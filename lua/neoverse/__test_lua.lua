@@ -1,2 +1,1 @@
-vim.print(vim.api.nvim_list_wins())
-
+vim.print(vim.fn.getcwd():gsub(os.getenv("HOME"), "~"))

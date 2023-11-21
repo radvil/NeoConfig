@@ -31,6 +31,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "DressingInput",
     "flash_prompt",
     "cmp_menu",
+    "NvimTree",
     "neo-tree",
     "WhichKey",
     "lspinfo",

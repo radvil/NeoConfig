@@ -115,14 +115,6 @@ M.config = function(_, opts)
     },
   })
 
-  -- if not string.match(vim.g.colors_name, "catppuccin") then
-  --   opts.defaults.borderchars = {
-  --     prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
-  --     preview = { "─", " ", " ", " ", "─", "─", " ", " " },
-  --     results = { " " },
-  --   }
-  -- end
-
   require("telescope").setup(opts)
 end
 
@@ -134,6 +126,7 @@ M.init = function()
       cwd = os.getenv("DOTFILES"),
     })()
   end, { desc = "Telescope » Open dotfiles" })
+
   ---register custom note trigger
   vim.api.nvim_create_user_command("NeoNotes", function()
     NeoTelescope("find_files", {

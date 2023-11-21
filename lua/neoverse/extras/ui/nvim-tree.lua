@@ -1,54 +1,51 @@
-if true then
-  return {}
-end
-
 return {
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    enabled = false,
-  },
-
-  {
     "akinsho/bufferline.nvim",
-    opts = {
-      options = {
-        offsets = {
-          {
-            filetype = "NvimTree",
-            text = require("neoverse.common.icons").Vim .. " NVIM TREE",
-            highlight = "BufferLineBackground",
-            text_align = "left",
-            separator = false,
-          },
-        },
-      },
-    },
+    optional = true,
+    opts = function(_, opts)
+      if opts and type(opts.options == "table") then
+        table.insert(opts.options.offsets, {
+          text_align = "left",
+          highlight = "BufferLineFill",
+          filetype = "NvimTree",
+          separator = true,
+          text = function()
+            ---"󰙅 󱉭 "
+            ---@diagnostic disable-next-line: param-type-mismatch
+            return "󱉭 " .. vim.fn.getcwd():gsub(os.getenv("HOME"), "~")
+          end,
+        })
+      end
+    end,
   },
 
   {
     "nvim-tree/nvim-tree.lua",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-      "s1n7ax/nvim-window-picker",
-    },
+    dependencies = { "nvim-tree/nvim-web-devicons", "s1n7ax/nvim-window-picker" },
     keys = {
       {
         "<Leader>e",
         function()
-          require("nvim-tree.api").tree.toggle({
-            path = require("neoverse.utils").root.get(),
-          })
+          require("nvim-tree.api").tree.toggle({ path = require("neoverse.utils").root() })
         end,
-        desc = "NvimTree » Toggle (root)",
+        desc = "nvimtree » toggle [root]",
       },
       {
         "<Leader>E",
         function()
-          require("nvim-tree.api").tree.toggle({
-            path = vim.loop.cwd(),
+          require("nvim-tree.api").tree.toggle({ path = vim.loop.cwd() })
+        end,
+        desc = "nvimtree » toggle [cwd]",
+      },
+      {
+        "<Leader>fp",
+        function()
+          require("nvim-tree.api").tree.open({
+            path = vim.fn.stdpath("data"),
+            current_window = true,
           })
         end,
-        desc = "NvimTree » Toggle",
+        desc = "nvimtree » toggle [cwd]",
       },
     },
 
@@ -68,13 +65,9 @@ return {
 
       require("nvim-tree").setup({
         hijack_netrw = false,
-        hijack_cursor = true,
-        update_focused_file = {
-          enable = true,
-        },
-        filesystem_watchers = {
-          enable = true,
-        },
+        hijack_cursor = false,
+        update_focused_file = { enable = true },
+        filesystem_watchers = { enable = true },
         git = {
           enable = true,
           ignore = false,
@@ -86,8 +79,9 @@ return {
           show_on_open_dirs = false,
         },
         view = {
+          signcolumn = "no",
           side = "left",
-          width = 36,
+          width = 40,
         },
         diagnostics = {
           enable = true,
@@ -103,19 +97,11 @@ return {
           highlight_opened_files = "name",
           root_folder_label = false,
           highlight_git = true,
-          indent_markers = {
-            enable = true,
-            icons = {
-              edge = "│",
-              corner = "»",
-              item = "┊",
-              none = "»",
-            },
-          },
+          indent_markers = { enable = true },
           icons = {
             webdev_colors = true,
-            git_placement = "after",
-            modified_placement = "after",
+            -- git_placement = "after",
+            -- modified_placement = "after",
             padding = " ",
             glyphs = {
               git = {
@@ -150,9 +136,6 @@ return {
         trash = {
           require_confirm = true,
           cmd = "trash",
-        },
-        notify = {
-          threshold = vim.log.levels.INFO,
         },
         actions = {
           use_system_clipboard = true,

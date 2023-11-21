@@ -49,7 +49,7 @@ M.opts = function()
         return require("nvim-navic").get_location()
       end,
       cond = function()
-        return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+        return not Utils.lazy_has("barbecue") and package.loaded["nvim-navic"] and require("nvim-navic").is_available()
       end,
     },
   }
