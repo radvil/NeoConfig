@@ -65,6 +65,7 @@ return {
         "which-key",
         "telescope",
         "neo-tree",
+        "NvimTree",
         "renamer",
         "notify",
         "mason",

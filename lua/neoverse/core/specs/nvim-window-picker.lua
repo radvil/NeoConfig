@@ -21,6 +21,7 @@ local popups = {
 
 local sidebars = {
   "neo-tree",
+  "NvimTree",
   "Outline",
 }
 
@@ -55,6 +56,7 @@ M.keys = {
       -- abort if current buffer ft is blacklisted
       local exclude_fts = vim.list_extend(vim.deepcopy(popups), sidebars)
       if vim.tbl_contains(exclude_fts, vim.bo.filetype) then
+        ---@diagnostic disable-next-line: missing-fields
         require("neoverse.utils").warn("Can't swap current window!", { title = "Window picker" })
         return
       end

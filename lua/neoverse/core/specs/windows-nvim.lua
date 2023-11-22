@@ -37,6 +37,7 @@ M.opts = {
       "flash_prompt",
       "cmp_menu",
       "neo-tree",
+      "NvimTree",
       "WhichKey",
       "Outline",
       "prompt",

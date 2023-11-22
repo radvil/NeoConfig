@@ -59,7 +59,7 @@ return {
         popupmenu = {
           relative = "editor",
           size = { width = 60, height = 10 },
-          position = { col = "50%", row = 8 },
+          position = { col = "50%", row = 10 },
           border = { style = "single", padding = { 0, 1 } },
         },
       },

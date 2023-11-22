@@ -60,10 +60,9 @@ return {
       })
     end,
 
-    config = function()
+    opts = function()
       local Icons = require("neoverse.config").icons
-
-      require("nvim-tree").setup({
+      return {
         hijack_netrw = false,
         hijack_cursor = false,
         update_focused_file = { enable = true },
@@ -202,46 +201,46 @@ return {
           end
 
           -- general
-          map("R", api.tree.reload, "Tree » Refresh")
-          map("H", api.tree.toggle_hidden_filter, "Tree » Toggle hidden")
-          map("K", api.node.show_info_popup, "Tree » Info")
-          map("?", api.tree.toggle_help, "Tree » Help")
+          map("R", api.tree.reload, "tree » refresh")
+          map("H", api.tree.toggle_hidden_filter, "tree » toggle hidden")
+          map("K", api.node.show_info_popup, "tree » info")
+          map("?", api.tree.toggle_help, "tree » help")
 
           -- node open
-          map("w", api.node.open.edit, "Node » Open » Edit")
-          map("<2-LeftMouse>", api.node.open.no_window_picker, "Node » Open » No picker")
-          map("l", api.node.open.no_window_picker, "Node » Open » No picker")
-          map("<CR>", api.node.open.no_window_picker, "Node » Open » No picker")
-          map("<c-v>", api.node.open.vertical, "Node » Open » Vertical")
-          map("<c-x>", api.node.open.horizontal, "Node » Open » Horizontal")
+          map("w", api.node.open.edit, "node » open [with picker]")
+          map("<2-LeftMouse>", api.node.open.no_window_picker, "node » open")
+          map("<c-t>", api.node.open.tab, "node » open [new tab]")
+          map("l", api.node.open.no_window_picker, "node » open")
+          map("<CR>", api.node.open.no_window_picker, "node » open")
+          map("<c-v>", api.node.open.vertical, "node » open [vertical]")
+          map("<c-x>", api.node.open.horizontal, "node » open [split]")
 
           -- node nav
-          map("<BS>", api.node.navigate.parent_close, "Node » Nav » Parent close")
-          map("h", api.node.navigate.parent_close, "Node » Nav » Parent close")
-          map("b", api.node.navigate.parent, "Node » Nav » Parent")
-          map("]d", api.node.navigate.diagnostics.next, "Node » Nav » Diagnostics » Next")
-          map("[d", api.node.navigate.diagnostics.prev, "Node » Nav » Diagnostics » Prev")
+          map("<BS>", api.node.navigate.parent_close, "node » close parent")
+          map("h", api.node.navigate.parent_close, "node » close parent")
+          map("]d", api.node.navigate.diagnostics.next, "node » next diagnostics")
+          map("[d", api.node.navigate.diagnostics.prev, "node » prev diagnostics")
 
           -- tree
-          map("zR", api.tree.expand_all, "Tree » Expand all")
-          map("zM", api.tree.collapse_all, "Tree » Collapse all")
-          map("<", api.tree.change_root_to_parent, "Tree » Change root backward")
-          map(">", api.tree.change_root_to_node, "Tree » Change root forward")
+          map("zR", api.tree.expand_all, "tree » expand all")
+          map("zM", api.tree.collapse_all, "tree » collapse all")
+          map("<", api.tree.change_root_to_parent, "tree » change root backward")
+          map(">", api.tree.change_root_to_node, "tree » change root forward")
 
           -- file system
-          map("a", api.fs.create, "FS » Create")
-          map("x", api.fs.cut, "FS » Cut")
-          map("d", api.fs.trash, "FS » Move to trash")
-          map("D", api.fs.remove, "FS » Delete")
-          map("c", api.fs.copy.node, "FS » Copy")
-          map("y", api.fs.copy.filename, "FS » Copy filename")
-          map("Y", api.fs.copy.relative_path, "FS » Copy relative path")
-          map("<C-y>", api.fs.copy.absolute_path, "FS » Copy absolute path")
-          map("<esc>", api.fs.clear_clipboard, "FS » Clear clipboard")
-          map("p", api.fs.paste, "FS » Paste")
-          map("r", api.fs.rename, "FS » Rename")
+          map("a", api.fs.create, "fs » create")
+          map("x", api.fs.cut, "fs » cut")
+          map("d", api.fs.trash, "fs » move to trash")
+          map("D", api.fs.remove, "fs » delete")
+          map("c", api.fs.copy.node, "fs » copy")
+          map("y", api.fs.copy.filename, "fs » copy filename")
+          map("Y", api.fs.copy.relative_path, "fs » copy relative path")
+          map("<C-y>", api.fs.copy.absolute_path, "fs » copy absolute path")
+          map("<esc>", api.fs.clear_clipboard, "fs » clear clipboard")
+          map("p", api.fs.paste, "fs » paste")
+          map("r", api.fs.rename, "fs » rename")
         end,
-      })
+      }
     end,
   },
 }

@@ -116,6 +116,7 @@ M.config = function(_, opts)
         },
         NvimTreeIndentMarker = { link = "NeoTreeIndentMarker" },
         NvimTreeGitDirty = { link = "NeoTreeGitModified" },
+        NvimTreeWinSeparator = { link = "WinSeparator" },
         SymbolsOffsetFill = {
           bg = colors.blue,
           fg = colors.mantle,
