@@ -96,7 +96,10 @@ return {
           highlight_opened_files = "name",
           root_folder_label = false,
           highlight_git = true,
-          indent_markers = { enable = true },
+          indent_markers = {
+            enable = true,
+            inline_arrows = true,
+          },
           icons = {
             webdev_colors = true,
             -- git_placement = "after",
@@ -112,6 +115,14 @@ return {
                 ignored = Icons.Git.Ignored,
                 staged = Icons.Git.Staged,
               },
+            },
+            show = {
+              git = true,
+              folder = true,
+              modified = true,
+              bookmarks = true,
+              diagnostics = true,
+              folder_arrow = true,
             },
           },
           special_files = {
@@ -236,7 +247,7 @@ return {
           map("y", api.fs.copy.filename, "fs » copy filename")
           map("Y", api.fs.copy.relative_path, "fs » copy relative path")
           map("<C-y>", api.fs.copy.absolute_path, "fs » copy absolute path")
-          map("<esc>", api.fs.clear_clipboard, "fs » clear clipboard")
+          -- map("<esc>", api.fs.clear_clipboard, "fs » clear clipboard")
           map("p", api.fs.paste, "fs » paste")
           map("r", api.fs.rename, "fs » rename")
         end,
