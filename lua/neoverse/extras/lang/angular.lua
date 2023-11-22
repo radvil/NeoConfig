@@ -36,7 +36,6 @@ end
 return {
   {
     "radvil2/nvim-treesitter-angular",
-    ft = { "typescript", "html" },
     branch = "jsx-parser-fix",
     build = ":TSUpdate",
     dependencies = {
@@ -44,7 +43,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         opts = function(_, opts)
           if type(opts.ensure_installed) == "table" then
-            vim.list_extend(opts.ensure_installed, { "scss" })
+            vim.list_extend(opts.ensure_installed, { "angular", "scss" })
           end
         end,
       },
@@ -56,12 +55,14 @@ return {
     ---@type NeoLspOpts
     opts = {
       servers = {
+        nxls = {},
         angularls = {
-          -- single_file_support = true,
+          single_file_support = true,
           root_dir = function(fname)
             local util = require("lspconfig").util
             local original = util.root_pattern("angular.json")(fname)
-            local fallback = util.root_pattern("nx.json", "workspace.json")(fname)
+            -- local fallback = util.root_pattern("nx.json", "workspace.json")(fname)
+            local fallback = util.root_pattern(".git")(fname)
             return original or fallback
           end,
         },
