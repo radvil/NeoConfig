@@ -210,7 +210,6 @@ return {
     config = get("nvim-cmp").config,
     opts = get("nvim-cmp").opts,
     event = "InsertEnter",
-    version = false,
     dependencies = {
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
@@ -226,17 +225,9 @@ return {
     opts = get("nvim-treesitter").opts,
     keys = get("nvim-treesitter").keys,
     init = get("nvim-treesitter").init,
-    version = false,
+    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+    event = { "LazyFile", "VeryLazy" },
     build = ":TSUpdate",
-    cmd = {
-      "TSUpdateSync",
-      "TSUpdate",
-      "TSInstall",
-    },
-    event = {
-      "LazyFile",
-      "VeryLazy",
-    },
   },
 
   -- editor
