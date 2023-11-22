@@ -1,22 +1,22 @@
+---@diagnostic disable: missing-fields
 local M = {}
-
-M.enabled = false
+local inlay_hint = vim.lsp.inlay_hint
 
 ---@param opts NeoLspInlayHintsOpts
 function M.setup(opts)
-  M.enabled = opts.enabled
-  local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-  require("neoverse.utils").lsp.on_attach(function(client, buffer)
-    if client.supports_method("textDocument/inlayHint") and inlay_hint then
-      inlay_hint(buffer, M.enabled)
+  local Utils = require("neoverse.utils")
+  Utils.lsp.on_attach(function(client, buffer)
+    if client.supports_method("textDocument/inlayHint") then
+      inlay_hint.enable(buffer, opts.enabled)
       vim.keymap.set("n", "<leader>uh", function()
-        M.enabled = not M.enabled
-        inlay_hint(buffer, M.enabled)
-        vim.notify(
-          "LSP » Inlay hint " .. (M.enabled and "enabled" or "disabled") .. string.format(" [%s]", buffer),
-          vim.log.levels[M.enabled and "INFO" or "WARN"]
-        )
-      end, { buffer = buffer, desc = "Toggle » Inlay hints" })
+        if inlay_hint.is_enabled(buffer) then
+          inlay_hint.enable(buffer, false)
+          Utils.warn("DISABLED", { title = "INLAY HINTS" })
+        else
+          inlay_hint.enable(buffer, true)
+          Utils.info("ENABLED", { title = "INLAY HINTS" })
+        end
+      end, { buffer = buffer, desc = "toggle inlay hints" })
     end
   end)
 end
