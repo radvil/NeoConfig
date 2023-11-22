@@ -4,9 +4,7 @@ M.opts = function()
   local cmp = require("cmp")
   local defaults = require("cmp.config.default")()
   local opts = {
-    completion = {
-      completeopt = "menu,menuone,noinsert",
-    },
+    completion = { completeopt = "menu,menuone,noinsert" },
     experimental = {
       ghost_text = {
         hl_group = "LspCodeLens",
@@ -42,8 +40,8 @@ M.opts = function()
       end,
     },
     mapping = {
-      ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-      ["<c-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Replace }),
+      ["<c-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Replace }),
       ["<cr>"] = cmp.mapping.confirm({ select = true }),
       ["<c-u>"] = cmp.mapping.scroll_docs(-4),
       ["<c-d>"] = cmp.mapping.scroll_docs(4),
