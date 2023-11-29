@@ -1,3 +1,5 @@
+---@diagnostic disable: missing-fields
+
 return {
   "nvim-treesitter/nvim-treesitter-context",
   dependencies = "nvim-treesitter/nvim-treesitter",
@@ -20,7 +22,7 @@ return {
           Utils.warn("Disabled", { title = "Treesitter Context" })
         end
       end,
-      desc = "Toggle » Treesitter Context",
+      desc = "toggle » treesitter context",
     },
   },
 }

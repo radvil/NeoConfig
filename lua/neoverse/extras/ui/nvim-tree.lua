@@ -141,6 +141,7 @@ return {
             "node_modules",
             "\\.cache",
             "dist",
+            "tmp",
           },
         },
         trash = {

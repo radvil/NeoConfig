@@ -34,20 +34,29 @@ local cmd = function(id, cmd, desc)
 end
 
 return {
+  -- {
+  --   "radvil2/nvim-treesitter-angular",
+  --   branch = "jsx-parser-fix",
+  --   build = ":TSUpdate",
+  --   dependencies = {
+  --     {
+  --       "nvim-treesitter/nvim-treesitter",
+  --       opts = function(_, opts)
+  --         if type(opts.ensure_installed) == "table" then
+  --           vim.list_extend(opts.ensure_installed, { "angular", "scss" })
+  --         end
+  --       end,
+  --     },
+  --   },
+  -- },
+
   {
-    "radvil2/nvim-treesitter-angular",
-    branch = "jsx-parser-fix",
-    build = ":TSUpdate",
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter",
-        opts = function(_, opts)
-          if type(opts.ensure_installed) == "table" then
-            vim.list_extend(opts.ensure_installed, { "angular", "scss" })
-          end
-        end,
-      },
-    },
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "angular", "scss" })
+      end
+    end,
   },
 
   {
@@ -55,15 +64,14 @@ return {
     ---@type NeoLspOpts
     opts = {
       servers = {
-        nxls = {},
         angularls = {
           single_file_support = true,
           root_dir = function(fname)
             local util = require("lspconfig").util
-            local original = util.root_pattern("angular.json")(fname)
-            -- local fallback = util.root_pattern("nx.json", "workspace.json")(fname)
-            local fallback = util.root_pattern(".git")(fname)
-            return original or fallback
+            local original = util.root_pattern("angular.json", "project.json")(fname)
+            local nx_fallback = util.root_pattern("nx.json", "workspace.json")(fname)
+            local git_fallback = util.root_pattern(".git")(fname)
+            return original or nx_fallback or git_fallback
           end,
         },
       },
