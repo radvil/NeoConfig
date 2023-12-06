@@ -79,8 +79,8 @@ return {
         },
         view = {
           signcolumn = "no",
-          side = "left",
-          width = 40,
+          side = "right",
+          width = 44,
         },
         diagnostics = {
           enable = true,

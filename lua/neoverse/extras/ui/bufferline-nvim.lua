@@ -165,7 +165,7 @@ return {
       move_wraps_at_ends = false,
       show_buffer_icons = true,
       show_tab_indicators = false,
-      always_show_bufferline = true,
+      always_show_bufferline = false,
       ---@type "thin" | "padded_slant" | "slant" | "thick" | "none"
       separator_style = "thin",
       close_command = function(n)

@@ -67,8 +67,9 @@ M.config = function(_, opts)
     },
     custom_highlights = function(colors)
       local hls = {
+        Visual = { bg = "#5e4965" },
         Folded = { bg = transparent and colors.crust or colors.mantle },
-        CursorLine = { bg = colors.surface0 },
+        -- CursorLine = { bg = colors.surface0 },
         StatusLineNC = { bg = colors.crust },
         StatusLine = {
           bold = true,

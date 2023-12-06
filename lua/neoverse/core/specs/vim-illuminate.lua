@@ -21,10 +21,12 @@ M.keys = {
 
 M.opts = {
   delay = 200,
+  under_cursor = false,
   large_file_cutoff = 2000,
-  large_file_overrides = {
-    providers = { "lsp" },
-  },
+  large_file_overrides = nil,
+  -- large_file_overrides = {
+  --   providers = { "lsp" },
+  -- },
   filetypes_denylist = {
     "fugitiveblame",
     "DiffviewFiles",

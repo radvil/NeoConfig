@@ -39,7 +39,6 @@ return {
           require("neo-tree.command").execute({
             dir = require("neoverse.utils").root.get(),
             reveal_force_cwd = true,
-            position = "left",
             selector = true,
             reveal = true,
             toggle = true,
@@ -52,7 +51,6 @@ return {
         function()
           require("neo-tree.command").execute({
             dir = vim.loop.cwd(),
-            position = "left",
             selector = true,
             toggle = true,
           })
@@ -65,7 +63,6 @@ return {
           require("neo-tree.command").execute({
             dir = require("neoverse.utils").root.get(),
             source = "buffers",
-            position = "left",
             action = "focus",
             reveal = true,
             toggle = true,
@@ -111,8 +108,8 @@ return {
       },
 
       window = {
-        -- width = 44,
-        position = "left",
+        width = 44,
+        position = "right",
         mapping_options = {
           noremap = true,
           nowait = true,

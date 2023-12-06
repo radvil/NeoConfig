@@ -122,4 +122,22 @@ function M.format(opts)
   end
 end
 
+-- TODO: LspConfig with bunx
+-- may be do not need mason to handle servers installation
+function M.has_bun_installed()
+  local bunx = vim.fn.executable("bunx")
+  if bunx == 0 then
+    return false
+  end
+  return true
+end
+
+function M.get_global_bun_modules()
+  return os.getenv("BUN_INSTALL") .. "/global/node_modules"
+end
+
+function M.get_local_node_modules()
+  return vim.fn.getcwd() .. "/node_modules"
+end
+
 return M
