@@ -13,7 +13,6 @@ M.config = function(_, opts)
   local defaults = {
     enabled = true,
     indent = {
-      -- char = "│",
       char = { "│", "»", "┊", "»" },
     },
     scope = {

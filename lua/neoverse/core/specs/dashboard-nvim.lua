@@ -28,7 +28,7 @@ _____________________                              _____________________
       header = vim.split(logo, "\n"),
       center = {
         {
-          action = "NeoSessionRestore",
+          action = "require('persistence').load()",
           desc = " Resume session",
           icon = "🕗",
           key = "s",

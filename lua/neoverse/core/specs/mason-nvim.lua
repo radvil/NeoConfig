@@ -19,7 +19,7 @@ M.opts = {
 ---@param opts MasonSettings | {ensure_installed: string[]}
 M.config = function(_, opts)
   if vim.g.neo_transparent then
-    opts.ui.border = "single"
+    opts.ui.border = "rounded"
   end
   require("mason").setup(opts)
   local mr = require("mason-registry")

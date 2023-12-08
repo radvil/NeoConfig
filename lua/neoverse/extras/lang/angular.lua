@@ -33,55 +33,6 @@ local cmd = function(id, cmd, desc)
   })
 end
 
--- local Utils = require("neoverse.utils").lsp
---
-local server_opts = {
-  single_file_support = true,
-  root_dir = function(fname)
-    local util = require("lspconfig").util
-    local original = util.root_pattern("angular.json", "project.json")(fname)
-    local nx_fallback = util.root_pattern("nx.json", "workspace.json")(fname)
-    local git_fallback = util.root_pattern(".git")(fname)
-    return original or nx_fallback or git_fallback
-  end,
-}
---
--- if Utils.has_bun_installed() then
---   local tsProbeLocations = Utils.get_global_bun_modules() .. "," .. Utils.get_local_node_modules()
---   local ngProbeLocations = Utils.get_global_bun_modules()
---     .. "/@angular/language-server/node_modules,"
---     .. Utils.get_local_node_modules()
---
---   -- local cmd_use_bun = {
---   --   "bunx",
---   --   "ngserver ",
---   --   "--stdio",
---   --   "--tsProbeLocations",
---   --   "/home/radvil/.bun/install/global/node_modules," .. vim.fn.getcwd() .. "/node_modules",
---   --   "--ngProbeLocations",
---   --   "/home/radvil/.bun/install/global/node_modules/@angular/language-server/node_modules,"
---   --     .. vim.fn.getcwd()
---   --     .. "/node_modules",
---   -- }
---
---   local cmd_use_bun = {
---     "bun",
---     "ngserver ",
---     "--stdio",
---     "--tsProbeLocations",
---     tsProbeLocations,
---     "--ngProbeLocations",
---     ngProbeLocations,
---   }
---
---   server_opts.cmd = cmd_use_bun
---   server_opts.on_new_config = function(new_config, new_root_dir)
---     print("test")
---     new_config.cmd = cmd_use_bun
---     new_config.root_dir = new_root_dir
---   end
--- end
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -97,7 +48,16 @@ return {
     ---@type NeoLspOpts
     opts = {
       servers = {
-        angularls = server_opts,
+        angularls = {
+          single_file_support = true,
+          root_dir = function(fname)
+            local util = require("lspconfig").util
+            local original = util.root_pattern("angular.json", "project.json")(fname)
+            local nx_fallback = util.root_pattern("nx.json", "workspace.json")(fname)
+            local git_fallback = util.root_pattern(".git")(fname)
+            return original or nx_fallback or git_fallback
+          end,
+        },
       },
       standalone_setups = {
         angularls = function()

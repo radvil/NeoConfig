@@ -104,7 +104,7 @@ Utils.map("n", "<leader>ux", function() Utils.toggle.diagnostics() end, { desc =
 local ft = function(cmd, root)
   local label = (type(cmd) == "table" and cmd[1] or cmd) or "Terminal"
   local opt = { size = { width = 0.6, height = 0.7 }, title = "  " .. label, title_pos = "right" }
-  opt.border = vim.g.neo_transparent and "single" or "none"
+  opt.border = vim.g.neo_transparent and "rounded" or "none"
   if root then opt.cwd = Utils.root.get() end
   Utils.terminal.open(cmd, opt)
 end

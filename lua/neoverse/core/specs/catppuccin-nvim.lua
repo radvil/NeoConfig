@@ -6,7 +6,7 @@ M.config = function(_, opts)
   ---@type CatppuccinOptions
   opts = vim.tbl_deep_extend("force", opts or {}, {
     ---@type string
-    flavour = "macchiato",
+    flavour = transparent and "mocha" or "macchiato",
     transparent_background = transparent,
     term_colors = true,
     dim_inactive = {
@@ -21,6 +21,7 @@ M.config = function(_, opts)
       dropbar = false,
       lsp_trouble = true,
       cmp = true,
+      dap = false,
       gitsigns = true,
       which_key = true,
       markdown = true,
@@ -37,7 +38,8 @@ M.config = function(_, opts)
       flash = false,
       navic = {
         enabled = true,
-        custom_bg = transparent and "NONE" or "lualine",
+        -- custom_bg = transparent and "NONE" or "lualine",
+        custom_bg = "lualine",
       },
       indent_blankline = {
         enabled = true,
@@ -69,7 +71,8 @@ M.config = function(_, opts)
       local hls = {
         Visual = { bg = "#5e4965" },
         Folded = { bg = transparent and colors.crust or colors.mantle },
-        -- CursorLine = { bg = colors.surface0 },
+        -- Folded = { bg = transparent and colors.none or colors.mantle },
+        CursorLine = { bg = colors.surface0 },
         StatusLineNC = { bg = colors.crust },
         StatusLine = {
           bold = true,
