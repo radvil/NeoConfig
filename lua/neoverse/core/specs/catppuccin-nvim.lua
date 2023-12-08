@@ -38,8 +38,7 @@ M.config = function(_, opts)
       flash = false,
       navic = {
         enabled = true,
-        -- custom_bg = transparent and "NONE" or "lualine",
-        custom_bg = "lualine",
+        custom_bg = transparent and "NONE" or "lualine",
       },
       indent_blankline = {
         enabled = true,
