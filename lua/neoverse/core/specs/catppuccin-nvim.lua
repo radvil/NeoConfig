@@ -4,38 +4,25 @@ M.config = function(_, opts)
   local palette = require("neoverse.config").palette
   local transparent = vim.g.neo_transparent
   ---@type CatppuccinOptions
-  opts = vim.tbl_deep_extend("force", opts or {}, {
+  local NeoDefaults = {
     ---@type string
     flavour = transparent and "mocha" or "macchiato",
     transparent_background = transparent,
     term_colors = true,
-    dim_inactive = {
-      enabled = false,
-      percentage = 0.13,
-      shade = "dark",
-    },
     integrations = {
-      alpha = true,
-      barbar = false,
       treesitter = true,
-      dropbar = false,
       lsp_trouble = true,
       cmp = true,
-      dap = false,
       gitsigns = true,
       which_key = true,
       markdown = true,
       ts_rainbow2 = true,
-      notify = true,
-      mini = true,
-      noice = true,
       neotree = true,
       nvimtree = true,
       harpoon = true,
       headlines = true,
       mason = true,
       illuminate = true,
-      flash = false,
       navic = {
         enabled = true,
         custom_bg = transparent and "NONE" or "lualine",
@@ -54,23 +41,11 @@ M.config = function(_, opts)
         enabled = true,
         style = "nvchad",
       },
-      barbecue = {
-        dim_dirname = true,
-        bold_basename = false,
-        dim_context = true,
-        alt_background = false,
-      },
-    },
-    color_overrides = {
-      mocha = {
-        surface0 = palette.dark2,
-      },
     },
     custom_highlights = function(colors)
-      local hls = {
+      local hl_groups = {
         Visual = { bg = "#5e4965" },
         Folded = { bg = transparent and colors.crust or colors.mantle },
-        -- Folded = { bg = transparent and colors.none or colors.mantle },
         CursorLine = { bg = colors.surface0 },
         StatusLineNC = { bg = colors.crust },
         StatusLine = {
@@ -137,29 +112,30 @@ M.config = function(_, opts)
       }
 
       if not transparent then
-        hls.WinSeparator = { fg = colors.crust }
-        hls.TelescopePromptBorder = {
+        hl_groups.WinSeparator = { fg = colors.crust }
+        hl_groups.TelescopePromptBorder = {
           bg = colors.crust,
           fg = colors.crust,
         }
-        hls.TelescopePromptNormal = { bg = colors.crust }
-        hls.TelescopePromptTitle = {
+        hl_groups.TelescopePromptNormal = { bg = colors.crust }
+        hl_groups.TelescopePromptTitle = {
           bold = true,
           bg = colors.peach,
           fg = colors.crust,
         }
-        hls.TelescopePromptPrefix = { bg = colors.crust }
-        hls.TelescopeResultsTitle = { bg = colors.yellow }
-        hls.TelescopeResultsNormal = { bg = colors.crust }
-        hls.TelescopeResultsBorder = {
+        hl_groups.TelescopePromptPrefix = { bg = colors.crust }
+        hl_groups.TelescopeResultsTitle = { bg = colors.yellow }
+        hl_groups.TelescopeResultsNormal = { bg = colors.crust }
+        hl_groups.TelescopeResultsBorder = {
           bg = colors.crust,
           fg = colors.crust,
         }
-        hls.NoiceCmdlineIcon = { fg = colors.peach }
+        hl_groups.NoiceCmdlineIcon = { fg = colors.peach }
       end
-      return hls
+      return hl_groups
     end,
-  })
+  }
+  opts = vim.tbl_deep_extend("force", NeoDefaults, opts or {})
   require("catppuccin").setup(opts)
 end
 
