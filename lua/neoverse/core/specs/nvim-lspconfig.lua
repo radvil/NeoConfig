@@ -97,8 +97,13 @@ M.config = function(_, opts)
   )
 
   local function setup(server)
+    local border = vim.g.neo_transparent and "rounded" or "none"
     local server_opts = vim.tbl_deep_extend("force", {
       capabilities = vim.deepcopy(capabilities),
+      handlers = {
+        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+      },
     }, opts.servers[server] or {})
     -- local coq = Utils.call("coq")
     -- if coq then
