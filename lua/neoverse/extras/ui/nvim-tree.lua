@@ -54,7 +54,7 @@ return {
         pattern = "*lazygit",
         callback = function()
           if require("nvim-tree.api").tree.is_visible() then
-            vim.cmd("NvimTreeRefresh")
+            vim.cmd.NvimTreeRefresh()
           end
         end,
       })
