@@ -23,7 +23,7 @@ return {
           toggle = true,
         })
       end,
-      desc = "neotree » toggle filesystem [rwd]",
+      desc = "neotree » toggle filesystem [root]",
     },
     {
       "<leader>E",
@@ -47,7 +47,7 @@ return {
           toggle = true,
         })
       end,
-      desc = "neotree » toggle buffers",
+      desc = "neotree » toggle buffers [root]",
     },
     {
       "<Leader>fp",
