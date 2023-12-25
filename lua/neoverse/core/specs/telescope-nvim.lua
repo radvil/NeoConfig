@@ -19,11 +19,13 @@ local Icons = {
 ---@param lhs string
 ---@param cmd string | function
 ---@param desc string
-local Kmap = function(lhs, cmd, desc)
+---@param mode? "n" | "v"
+local Kmap = function(lhs, cmd, desc, mode)
   return {
     lhs,
     cmd,
     desc = string.format("Telescope » %s", desc):lower(),
+    mode = mode or "n",
   }
 end
 
@@ -231,10 +233,20 @@ M.keys = {
   ),
 
   Kmap(
+    "<leader>/s",
+    NeoTelescope("grep_string", {
+      prompt_title = Icons.GrepStrings .. "Grep strings [root]",
+      layout_strategy = "vertical",
+    }),
+    "Grep strings [root]"
+  ),
+
+  Kmap(
     "<leader>/S",
     NeoTelescope("grep_string", {
-      prompt_title = Icons.GrepStrings .. "Grep strings",
+      prompt_title = Icons.GrepStrings .. "Grep strings [cwd]",
       layout_strategy = "vertical",
+      cwd = false,
     }),
     "Grep strings [cwd]"
   ),
@@ -242,11 +254,23 @@ M.keys = {
   Kmap(
     "<leader>/s",
     NeoTelescope("grep_string", {
-      prompt_title = Icons.GrepStrings .. "Grep string",
+      prompt_title = Icons.GrepStrings .. "Grep selection [root]",
+      layout_strategy = "vertical",
+      mode = "v",
+    }),
+    "Grep selection [root]",
+    "v"
+  ),
+
+  Kmap(
+    "<leader>/S",
+    NeoTelescope("grep_string", {
+      prompt_title = Icons.GrepStrings .. "Grep selection [cwd]",
       layout_strategy = "vertical",
       cwd = false,
     }),
-    "Grep strings [rwd]"
+    "Grep selection [cwd]",
+    "v"
   ),
 
   Kmap(
