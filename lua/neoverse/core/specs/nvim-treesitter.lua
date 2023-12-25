@@ -33,6 +33,7 @@ M.opts = {
     "regex",
     "toml",
     "vim",
+    "vimdoc",
     "yaml",
   },
   incremental_selection = {
