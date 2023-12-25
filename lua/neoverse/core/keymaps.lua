@@ -112,23 +112,23 @@ Utils.map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 Utils.map("t", [[<c-\>]], "<cmd>close<cr>", { desc = "floating terminal » close [rwd]" })
 Utils.map("n", [[<c-\>]], function() ft(nil, true) end, { desc = "floating terminal » open [rwd]" })
 Utils.map("n", "<leader>fT", function() ft(nil) end, { desc = "floating terminal » open [cwd]" })
-Utils.map("n", "<leader>ft", function() ft(nil, true) end, { desc = "floating terminal » open [rwd]" })
+Utils.map("n", "<leader>ft", function() ft(nil, true) end, { desc = "floating terminal » open [root]" })
 Utils.map("n", "<leader>tH", function() ft("btop") end, { desc = "floating terminal » open htop/btop" })
 Utils.map("n", "<leader>tP", function() ft({ "ping", "9.9.9.9" }) end, { desc = "floating terminal » ping test" })
 
 ---lazygit
 local lz = function(opts)
-  Utils.terminal.open({ "lazygit" }, {
-    unpack(opts or {}),
+  opts = vim.tbl_extend("force", {
     title_pos = "right",
     title = "  LazyGit ",
     border = "single",
     ctrl_hjkl = false,
     esc_esc = false,
-  })
+  }, opts or {})
+  Utils.terminal.open({ "lazygit" }, opts)
 end
-Utils.map("n", "<leader>gg", function() lz() end, { desc = "lazygit [cwd]" })
-Utils.map("n", "<leader>gG", function() lz({ cwd = Utils.root.get() }) end, { desc = "lazygit [rwd]" })
+Utils.map("n", "<leader>gg", function() lz({ cwd = vim.loop.cwd() }) end, { desc = "lazygit [cwd]" })
+Utils.map("n", "<leader>gG", function() lz({ cwd = Utils.root() }) end, { desc = "lazygit [root]" })
 
 --stylua: ignore end
 
