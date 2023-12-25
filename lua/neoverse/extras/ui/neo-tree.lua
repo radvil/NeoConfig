@@ -17,8 +17,7 @@ return {
       "<Leader>e",
       function()
         require("neo-tree.command").execute({
-          dir = require("neoverse.utils").root.get(),
-          reveal_force_cwd = true,
+          dir = require("neoverse.utils").root(),
           selector = true,
           reveal = true,
           toggle = true,
@@ -41,7 +40,7 @@ return {
       "<leader><cr>",
       function()
         require("neo-tree.command").execute({
-          dir = require("neoverse.utils").root.get(),
+          dir = require("neoverse.utils").root(),
           source = "buffers",
           action = "focus",
           reveal = true,
