@@ -34,7 +34,7 @@ function _G.NeoTelescope(builtin, opts)
     builtin = params.builtin
     opts = params.opts
     ---@type table
-    opts = vim.tbl_deep_extend("force", { cwd = NeoUtils.root.get() }, opts or {})
+    opts = vim.tbl_deep_extend("force", { cwd = NeoUtils.root() }, opts or {})
     if builtin == "files" then
       if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
         opts.show_untracked = true
@@ -146,73 +146,41 @@ M.keys = {
   Kmap("<leader>/c", ":Telescope commands<cr>", "Find available commands"),
   Kmap("<leader>/X", ":Telescope diagnostics<cr>", "Workspace diagnostics"),
   Kmap("<leader>/x", ":Telescope diagnostics bufnr=0<cr>", "Find diagnostics [cwd]"),
-
-  Kmap(
-    "<leader>/k",
-    NeoTelescope("keymaps", {
-      prompt_title = Icons.FindKeymaps .. "Keymaps",
-    }),
-    "Find keymaps"
-  ),
+  Kmap("<leader>/k", NeoTelescope("keymaps", { prompt_title = Icons.FindKeymaps .. "Keymaps" }), "Find keymaps"),
 
   Kmap(
     "<leader>/H",
-    NeoTelescope("highlights", {
-      prompt_title = Icons.FindHighlights .. "Highlights",
-    }),
+    NeoTelescope("highlights", { prompt_title = Icons.FindHighlights .. "Highlights" }),
     "Find highlights"
   ),
 
+  Kmap("<f1>", NeoTelescope("help_tags", { prompt_title = Icons.FindHelpTags .. " Help tags" }), "Find help tags"),
+  Kmap("<leader>//", NeoTelescope("resume", { prompt_title = Icons.ResumeLast .. "Continue" }), "Continue last action"),
+  Kmap("<c-p>", NeoTelescope("files", { prompt_title = Icons.FindFiles .. "Files [root]" }), "Find files [root]"),
+  Kmap("<leader>/f", NeoTelescope("files", { prompt_title = Icons.FindFiles .. "Files [root]" }), "Find files [root]"),
   Kmap(
-    "<f1>",
-    NeoTelescope("help_tags", {
-      prompt_title = Icons.FindHelpTags .. " Help tags",
-    }),
-    "Find help tags"
-  ),
-
-  Kmap(
-    "<leader>//",
-    NeoTelescope("resume", {
-      prompt_title = Icons.ResumeLast .. "Continue",
-    }),
-    "Continue last action"
-  ),
-
-  Kmap(
-    "<c-p>",
-    NeoTelescope("find_files", {
-      prompt_title = Icons.FindFiles .. "Files [cwd]",
-    }),
+    "<leader>/F",
+    NeoTelescope("files", { prompt_title = Icons.FindFiles .. "Files [cwd]", cwd = false }),
     "Find files [cwd]"
-  ),
-
-  Kmap(
-    "<leader>/f",
-    NeoTelescope("find_files", {
-      prompt_title = Icons.FindFiles .. "Files [rwd]",
-      cwd = false,
-    }),
-    "Find files [rwd]"
   ),
 
   Kmap(
     "<leader>/w",
     NeoTelescope("live_grep", {
-      prompt_title = Icons.LiveGrepWords .. "Live grep word [cwd]",
+      prompt_title = Icons.LiveGrepWords .. "Live grep word [root]",
       layout_strategy = "vertical",
     }),
-    "Live grep word [cwd]"
+    "Live grep word [root]"
   ),
 
   Kmap(
     "<leader>/W",
     NeoTelescope("live_grep", {
-      prompt_title = Icons.LiveGrepWords .. "Live grep word [rwd]",
+      prompt_title = Icons.LiveGrepWords .. "Live grep word [cwd]",
       layout_strategy = "vertical",
       cwd = false,
     }),
-    "Live grep word [rwd]"
+    "Live grep word [cwd]"
   ),
 
   Kmap(
