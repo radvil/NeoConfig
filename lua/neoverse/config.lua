@@ -22,6 +22,7 @@ local defaults = {
     light = "#ffffff",
     light2 = "#c8d3f5",
     sky = "#51AFEF",
+    blue = "#89b4fa",
     pink = "#ff007c",
     pink2 = "#E76EB1",
     yellow = "#ffc777",
