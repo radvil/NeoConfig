@@ -118,7 +118,7 @@ M.opts = function()
   end
 
   return {
-    extensions = { "neo-tree", "lazy" },
+    extensions = { "neo-tree", "lazy", "oil" },
     options = {
       theme = "auto",
       globalstatus = true,
