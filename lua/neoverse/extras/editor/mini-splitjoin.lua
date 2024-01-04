@@ -11,6 +11,6 @@ return {
     })
     vim.keymap.set("n", "<leader>uj", function()
       require("mini.splitjoin").toggle()
-    end, { desc = "Toggle » Split/join" })
+    end, { desc = "toggle » split/join" })
   end,
 }

@@ -14,7 +14,7 @@ return {
           require("lazy.core.util").info("Enabled", { title = "Indentscope Marker" })
         end
       end,
-      desc = "Toggle » Mini Indentscope",
+      desc = "toggle » mini indentscope",
     },
   },
 

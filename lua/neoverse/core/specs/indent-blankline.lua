@@ -4,7 +4,7 @@ M.keys = {
   {
     "<leader>ui",
     ":IBLToggle<CR>",
-    desc = "Toggle » Indentation guide",
+    desc = "toggle » indentation guide",
   },
 }
 

@@ -16,7 +16,7 @@ function M.setup(opts)
           inlay_hint.enable(buffer, true)
           Utils.info("ENABLED", { title = "INLAY HINTS" })
         end
-      end, { buffer = buffer, desc = "toggle inlay hints" })
+      end, { buffer = buffer, desc = "toggle » inlay hints" })
     end
   end)
 end

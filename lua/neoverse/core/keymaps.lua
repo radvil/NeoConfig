@@ -136,8 +136,8 @@ Utils.map("n", "<leader>uH", function()
   local next = vim.b.ts_highlight and "stop" or "start"
   vim.treesitter[next]()
   if next == "stop" then
-    Utils.warn("Highlight stopped!", { title = "Treesitter Highlight" })
+    Utils.warn("Highlight stopped!", { title = "treesitter highlight" })
   else
-    Utils.info("Highlight started!", { title = "Treesitter Highlight" })
+    Utils.info("Highlight started!", { title = "treesitter highlight" })
   end
-end, { desc = "Toggle » Treesitter Highlight" })
+end, { desc = "toggle » treesitter highlight" })
