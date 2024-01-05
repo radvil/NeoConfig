@@ -1,7 +1,9 @@
 local M = {}
 
+---@class NeoSnippetOpts
 M.opts = {
   delete_check_events = "TextChanged",
+  json_snippets = {},
   history = true,
 }
 
@@ -30,17 +32,11 @@ M.keys = {
   },
 }
 
-M.config = function()
-  local vscode_loader = require("luasnip.loaders.from_vscode")
-  vscode_loader.lazy_load()
-  local user_snippets = {}
-  local dir_opts = vim.g.neo_snippet_dirs
-  if type(dir_opts) == "string" then
-    vim.list_extend(user_snippets, { dir_opts })
-  else
-    vim.list_extend(user_snippets, dir_opts or {})
+M.config = function(_, opts)
+  local json_snippets = opts.json_snippets
+  if type(json_snippets) == "table" then
+    require("luasnip.loaders.from_vscode").lazy_load({ paths = json_snippets })
   end
-  vscode_loader.lazy_load({ paths = user_snippets })
 end
 
 return M

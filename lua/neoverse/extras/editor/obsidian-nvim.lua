@@ -67,7 +67,6 @@ M.keys = {
 M.opts = {
   mappings = {},
   finder = "telescope.nvim",
-  dir = vim.g.neo_notesdir,
   completion = { nvim_cmp = true },
   daily_notes = {
     folder = "+daily",
