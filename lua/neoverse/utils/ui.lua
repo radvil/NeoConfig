@@ -3,20 +3,10 @@ local M = {}
 
 ---@alias Sign {name:string, text:string, texthl:string, priority:number}
 
--- Returns a list of regular and extmark signs sorted by priority (low to high)
----@return Sign[]
----@param buf number
----@param lnum number
 function M.get_signs(buf, lnum)
   -- Get regular signs
   ---@type Sign[]
-  local signs = vim.tbl_map(function(sign)
-    ---@type Sign
-    local ret = vim.fn.sign_getdefined(sign.name)[1]
-    ret.priority = sign.priority
-    return ret
-  end, vim.fn.sign_getplaced(buf, { group = "*", lnum = lnum })[1].signs)
-  -- Get extmark signs
+  local signs = {}
   local extmarks = vim.api.nvim_buf_get_extmarks(
     buf,
     -1,

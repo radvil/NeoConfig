@@ -1,40 +1,5 @@
+---@diagnostic disable: missing-fields
 local M = {}
-local Utils = require("neoverse.utils")
-
-M.keys = {
-  {
-    "<leader>gr",
-    function()
-      require("gitsigns").refresh()
-      Utils.info("Gitsigns refreshed", { title = "Gitsigns" })
-    end,
-    desc = "Gitsigns » Refresh view",
-  },
-  {
-    "<leader>gu",
-    desc = "Gitsigns » Toggle",
-  },
-  {
-    "<leader>gun",
-    ":Gitsigns toggle_numhl<cr>",
-    desc = "Gitsigns » Toggle Number Hl",
-  },
-  {
-    "<leader>guu",
-    ":Gitsigns toggle_signs<cr>",
-    desc = "Gitsigns » Toggle SignColumn Hl",
-  },
-  {
-    "<leader>gub",
-    ":Gitsigns toggle_current_line_blame<cr>",
-    desc = "Gitsigns » Toggle Line Blame",
-  },
-  {
-    "<leader>gud",
-    ":Gitsigns toggle_word_diff<cr>",
-    desc = "Gitsigns » Toggle Word Diff",
-  },
-}
 
 M.opts = {
   signcolumn = true,
@@ -53,6 +18,20 @@ M.opts = {
     virt_text_priority = 100,
     delay = 300,
   },
+  on_attach = function(buffer)
+    local gs = package.loaded.gitsigns
+    local Utils = require("neoverse.utils")
+    local function Kmap(mode, l, r, desc)
+      vim.keymap.set(mode, l, r, { buffer = buffer, desc = string.format("gitsigns %s", desc) })
+    end
+
+    -- stylua: ignore start
+    Kmap("n", "<leader>gr", function() gs.refresh() Utils.info("refreshed", { title = "gitsigns" }) end, "refresh view")
+    Kmap("n", "<leader>gun", gs.toggle_numhl, "toggle number")
+    Kmap("n", "<leader>guu", gs.toggle_signs, "toggle signcolumn")
+    Kmap("n", "<leader>gud", gs.toggle_word_diff, "toggle word diff")
+    Kmap("n", "<leader>gub", gs.toggle_current_line_blame, "toggle current line blame")
+  end,
 }
 
 return M
