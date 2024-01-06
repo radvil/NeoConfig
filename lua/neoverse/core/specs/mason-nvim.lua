@@ -9,7 +9,9 @@ M.keys = {
 }
 
 M.opts = {
-  ui = { border = "none" },
+  ui = {
+    border = vim.g.neo_transparent and "rounded" or "none",
+  },
   ensure_installed = {
     "stylua",
     "shfmt",
@@ -18,9 +20,6 @@ M.opts = {
 
 ---@param opts MasonSettings | {ensure_installed: string[]}
 M.config = function(_, opts)
-  if vim.g.neo_transparent then
-    opts.ui.border = "rounded"
-  end
   require("mason").setup(opts)
   local mr = require("mason-registry")
   mr:on("package:install:success", function()
