@@ -190,14 +190,6 @@ function M.opts(name)
   return Plugin.values(plugin, "opts", false)
 end
 
--- function M.map(mode, lhs, rhs, opts)
---   opts = vim.tbl_extend("force", {
---     noremap = true,
---     silent = true,
---   }, opts or {})
---   vim.keymap.set(mode, lhs, rhs, opts)
--- end
-
 -- Wrapper around vim.keymap.set that will
 -- not create a keymap if a lazy key handler exists.
 -- It will also set `silent` to true by default.
