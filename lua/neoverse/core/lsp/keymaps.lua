@@ -17,19 +17,16 @@ function M.get()
   end
     -- stylua: ignore
     M._keys =  {
-      { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-      { "gd", ":Telescope lsp_definitions reuse_win=true<cr>", desc = "Code » Definitions", has = "definition" },
-      { "gT", ":Telescope lsp_type_definitions reuse_win=true<cr>", desc = "Code » Type definitions" },
-      { "gI", ":Telescope lsp_implementations reuse_win=true<cr>", desc = "Code » Implementations" },
-      { "gr", ":Telescope lsp_references reuse_win=true<cr>", desc = "Code » References" },
-      { "gD", vim.lsp.buf.declaration, desc = "Code » Declaration" },
+      { "<leader>cl", "<cmd>LspInfo<cr>", desc = "code » lsp info" },
+      { "gd", ":Telescope lsp_definitions reuse_win=true<cr>", desc = "code » definitions", has = "definition" },
+      { "gT", ":Telescope lsp_type_definitions reuse_win=true<cr>", desc = "code » type definitions" },
+      { "gI", ":Telescope lsp_implementations reuse_win=true<cr>", desc = "code » implementations" },
+      { "gr", ":Telescope lsp_references reuse_win=true<cr>", desc = "code » references" },
+      { "gD", vim.lsp.buf.declaration, desc = "code » declaration" },
       {
         "K",
         function()
-          local ufo = Utils.call("ufo")
-          if not ufo or not ufo.peekFoldedLinesUnderCursor() then
-            vim.lsp.buf.hover()
-          end
+          return Utils.call("ufo").peekFoldedLinesUnderCursor() or vim.lsp.buf.hover()
         end,
         desc = "Hover",
         has = "hover",
@@ -43,14 +40,14 @@ function M.get()
       {
         "<leader>ca",
         vim.lsp.buf.code_action,
-        desc = "Code » Code Action",
+        desc = "code » code action",
         mode = { "n", "v" },
         has = "codeAction"
       },
       {
         "<leader>cx",
         vim.diagnostic.open_float,
-        desc = "Code » Diagnostic open float"
+        desc = "code » diagnostic open float"
       },
       {
         "<leader>cA",
@@ -62,7 +59,7 @@ function M.get()
             },
           })
         end,
-        desc = "Code » Source Action",
+        desc = "code » source action",
         has = "codeAction",
       }
     }
@@ -73,7 +70,7 @@ function M.get()
         local inc_rename = require("inc_rename")
         return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand("<cword>")
       end,
-      desc = "Code » Rename under cursor",
+      desc = "code » rename under cursor",
       has = "rename",
       expr = true,
     }
@@ -81,7 +78,7 @@ function M.get()
     M._keys[#M._keys + 1] = {
       "<leader>cr",
       vim.lsp.buf.rename,
-      desc = "Code » Rename under cursor",
+      desc = "code » rename under cursor",
       has = "rename",
     }
   end
