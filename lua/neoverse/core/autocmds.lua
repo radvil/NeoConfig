@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = Utils.create_augroup("close_with_<q>"),
+  group = Utils.create_augroup("on_popup_ui_opened"),
   pattern = {
     "neo-tree-popup",
     "spectre_panel",
