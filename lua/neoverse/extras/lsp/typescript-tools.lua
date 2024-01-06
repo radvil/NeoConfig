@@ -13,37 +13,10 @@ return {
   },
   {
     "pmizio/typescript-tools.nvim",
-    event = "LazyFile",
+    ft = { "typescript", "typescriptreact", "tsx" },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "neovim/nvim-lspconfig",
-    },
-    keys = {
-      {
-        "<leader>cm",
-        "<cmd>TSToolsAddMissingImports<cr>",
-        desc = "typescript » add missing imports",
-      },
-      {
-        "<leader>co",
-        "<cmd>TSToolsOrganizeImports<cr>",
-        desc = "typescript » add organize imports",
-      },
-      {
-        "<leader>cc",
-        "<cmd>TSToolsRemoveUnusedImports<cr>",
-        desc = "typescript » add clear imports",
-      },
-      {
-        "<leader>cR",
-        "<cmd>TSToolsRenameFile<cr>",
-        desc = "typescript » rename file",
-      },
-      {
-        "gs",
-        "<cmd>TSToolsGoToSourceDefinition<cr>",
-        desc = "typescript » add clear imports",
-      },
     },
     opts = {
       settings = {
@@ -66,5 +39,18 @@ return {
         tsserver_plugins = {},
       },
     },
+    config = function(_, opts)
+      require("typescript-tools").setup(opts)
+      local Kmap = function(lhs, cmd, desc)
+        cmd = string.format("<cmd>TSTools%s<cr>", cmd)
+        desc = string.format("typescript » %s", desc)
+        return require("neoverse.utils").map("n", lhs, cmd, { desc = desc })
+      end
+      Kmap("gs", "GoToSourceDefinition", "goto source definition")
+      Kmap("<leader>cm", "AddMissingImports", "add missing imports")
+      Kmap("<leader>co", "OrganizeImports", "organize imports")
+      Kmap("<leader>cc", "RemoveUnusedImports", "clear imports")
+      Kmap("<leader>cR", "RenameFile", "rename file")
+    end,
   },
 }
