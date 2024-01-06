@@ -1,5 +1,5 @@
----@type LazySpec
-local M = {
+---@diagnostic disable: missing-fields, duplicate-set-field
+return {
   "rcarriga/nvim-notify",
 
   keys = {
@@ -12,37 +12,52 @@ local M = {
     },
   },
 
-  config = function()
-    ---@type notify.Config
-    require("notify").setup({
-      background_colour = vim.g.neo_transparent and "#000000" or "NotifyBackground",
-      render = "default",
-      timeout = 1000,
-      icons = {
-        DEBUG = "",
-        ERROR = "",
-        INFO = "",
-        TRACE = "✎",
-        WARN = "",
-      },
-      max_height = function()
-        return math.floor(vim.o.lines * 0.75)
-      end,
-      max_width = function()
-        return math.floor(vim.o.columns * 0.36)
-      end,
+  ---@type notify.Config
+  opts = {
+    background_colour = "NotifyBackground",
+    -- stylua: ignore start
+    max_height = function() return math.floor(vim.o.lines * 0.75) end,
+    max_width = function() return math.floor(vim.o.columns * 0.36) end,
+    -- stylua: ignore end
+
+    ---@type "default" | "minimal" | "simple" | "compact" | "wrapped-compact"
+    render = "wrapped-compact",
+    ---@type "fade_in_slide_out" | "fade" | "slide" | "static"
+    stages = "fade",
+    timeout = 1000,
+    icons = {
+      DEBUG = "",
+      ERROR = "",
+      INFO = "",
+      TRACE = "✎",
+      WARN = "",
+    },
+
+    --custom config
+    banned_messages = {},
+  },
+
+  config = function(_, opts)
+    require("notify").setup(opts)
+    vim.api.nvim_set_hl(0, "NotifyBackground", {
+      background = "#000000",
+      blend = 0,
     })
   end,
 
   init = function()
     local Util = require("neoverse.utils")
-    -- when noice is not enabled, install notify on VeryLazy
     if not Util.lazy_has("noice.nvim") then
+      local origin = vim.notify
       Util.on_very_lazy(function()
-        vim.notify = require("notify")
+        vim.notify = function(msg, ...)
+          if vim.list_contains(Util.opts("nvim-notify").banned_messages, msg) then
+            return origin(msg)
+          else
+            return require("notify")(msg, ...)
+          end
+        end
       end)
     end
   end,
 }
-
-return M
