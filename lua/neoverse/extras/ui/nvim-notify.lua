@@ -21,7 +21,7 @@ return {
     -- stylua: ignore end
 
     ---@type "default" | "minimal" | "simple" | "compact" | "wrapped-compact"
-    render = "wrapped-compact",
+    render = "default",
     ---@type "fade_in_slide_out" | "fade" | "slide" | "static"
     stages = "fade",
     timeout = 1000,
@@ -52,7 +52,7 @@ return {
       Util.on_very_lazy(function()
         vim.notify = function(msg, ...)
           if vim.list_contains(Util.opts("nvim-notify").banned_messages, msg) then
-            return origin(msg)
+            return origin(msg, ...)
           else
             return require("notify")(msg, ...)
           end
