@@ -18,4 +18,9 @@ return {
       desc = "toggle » auto pairs",
     },
   },
+  init = function()
+    if not vim.g.neo_autopairs then
+      require("nvim-autopairs").disable()
+    end
+  end,
 }
