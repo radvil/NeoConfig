@@ -5,6 +5,7 @@ M.keys = {
     "<leader>mf",
     function()
       require("harpoon.mark").add_file()
+      ---@diagnostic disable-next-line: missing-fields
       require("neoverse.utils").info("file marked", {
         title = "Harpoon",
         icon = "📌",

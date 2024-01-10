@@ -86,8 +86,9 @@ end
 -- NeoVerse global options
 vim.g.neo_autoformat = true
 vim.g.neo_transparent = not vim.g.neovide
-vim.g.neo_notesdir = vim.fn.expand("~") .. "/Documents/neoverse-notes"
-vim.g.neo_snippet_dirs = {}
+vim.g.neo_autocomplete = true
+vim.g.neo_autopairs = true
+vim.g.neo_winborder = vim.g.neo_transparent and "rounded" or "none"
 
 -- NeoVerse root dir detection
 -- Each entry can be:

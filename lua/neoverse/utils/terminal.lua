@@ -20,6 +20,7 @@ local terminals = {}
 function M.open(cmd, opts)
   opts = vim.tbl_deep_extend("force", {
     ft = "lazyterm",
+    border = vim.g.neo_winborder,
     size = { width = 0.9, height = 0.9 },
   }, opts or {}, { persistent = true }) --[[@as NeoTermOpts]]
 

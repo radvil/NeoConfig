@@ -117,7 +117,10 @@ local V = {}
 ---@return NeoPluginView
 function V.new()
   local self = setmetatable({}, { __index = V })
-  self.float = LazyFloat.new({ title = "NeoVerse Extras" })
+  self.float = LazyFloat.new({
+    title = "NeoVerse Extras",
+    border = vim.g.neo_winborder,
+  })
   self.float:on_key("x", function()
     self:toggle()
   end, "Toggle extra")

@@ -8,7 +8,7 @@ M.opts = {
   capabilities = {},
   ---@class NeoLspDiagOpts
   diagnostics = {
-    float = { border = "rounded" },
+    float = { border = vim.g.neo_winborder },
     update_in_insert = false,
     severity_sort = true,
     underline = true,
@@ -69,9 +69,8 @@ M.opts = {
 }
 
 M.config = function(_, opts)
-  if vim.g.neo_transparent then
-    require("lspconfig.ui.windows").default_options.border = "rounded"
-  end
+  local border = vim.g.neo_winborder
+  require("lspconfig.ui.windows").default_options.border = border
 
   if Utils.lazy_has("neoconf.nvim") then
     local plugin = require("lazy.core.config").spec.plugins["neoconf.nvim"]
@@ -87,7 +86,6 @@ M.config = function(_, opts)
   require("neoverse.core.lsp.diagnostics").setup(opts.diagnostics)
   require("neoverse.core.lsp.inlay-hints").setup(opts.inlay_hints)
 
-  local border = vim.g.neo_transparent and "rounded" or "none"
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
   -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
   --- https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345

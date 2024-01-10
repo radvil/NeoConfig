@@ -11,7 +11,7 @@ M.keys = {
 ---@type MasonSettings
 M.opts = {
   ui = {
-    border = vim.g.neo_transparent and "rounded" or "none",
+    border = vim.g.neo_winborder,
   },
   ensure_installed = {
     "stylua",

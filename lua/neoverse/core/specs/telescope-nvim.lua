@@ -68,6 +68,7 @@ M.config = function(_, opts)
   local actions = require("telescope.actions")
   local basics = {
     ["<c-t>"] = actions.select_tab,
+    ["<a-cr>"] = actions.select_tab,
     ["<c-p>"] = actions.move_selection_previous,
     ["<c-n>"] = actions.move_selection_next,
     ["<c-h>"] = actions.select_horizontal,

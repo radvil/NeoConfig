@@ -2,7 +2,7 @@ return {
   "folke/which-key.nvim",
   event = "VeryLazy",
   opts = {
-    show_help = false,
+    show_help = true,
     plugins = {
       marks = true,
       registers = true,
@@ -12,7 +12,7 @@ return {
       },
     },
     window = {
-      border = vim.g.neo_transparent and "rounded" or "none",
+      border = vim.g.neo_winborder,
       padding = vim.g.neo_transparent and { 0, 0, 0, 0 } or { 1, 2, 1, 2 },
     },
     icons = {
