@@ -21,7 +21,7 @@ return {
 
   opts = {
     silent = true,
-    respect_selectwon_type = true,
+    respect_selection_type = true,
     mappings = {
       add = "so",
       delete = "sd",
@@ -33,13 +33,13 @@ return {
     },
   },
 
-  init = function()
-    local Utils = require("neoverse.utils")
-    if Utils.call("which-key") then
+  config = function(_, opts)
+    require("mini.surround").setup(opts)
+    require("neoverse.utils").on_load("which-key.nvim", function()
       require("which-key").register({
         mode = { "n", "x" },
-        s = { name = "Surround" },
+        ["s"] = { name = "surround" },
       })
-    end
+    end)
   end,
 }

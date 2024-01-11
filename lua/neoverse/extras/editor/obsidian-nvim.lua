@@ -88,7 +88,8 @@ M.opts = {
   end,
 }
 
-M.init = function()
+M.config = function(_, opts)
+  require("obsidian").setu(opts)
   local Utils = require("neoverse.utils")
   Utils.map("n", "gf", function()
     if require("obsidian").util.cursor_on_markdown_link() then
@@ -97,9 +98,9 @@ M.init = function()
       return "gf"
     end
   end, { desc = "obsidian » follow link" })
-  if Utils.lazy_has("which-key.nvim") then
+  Utils.on_load("which-key.nvim", function()
     require("which-key").register({ mode = "n", ["<leader>n"] = { name = "note[obsidian]" } })
-  end
+  end)
 end
 
 return M

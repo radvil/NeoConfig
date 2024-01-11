@@ -2,17 +2,17 @@ return {
   "folke/noice.nvim",
   event = "VeryLazy",
   dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-  -- stylua: ignore
-  keys = {
-    { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
-    { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, expr = true, desc = "Noice » Scroll backward", mode = {"i", "n", "s"} },
-    ---@diagnostic disable-next-line: param-type-mismatch
-    { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Noice » Redirect cmdline" },
-    { "<leader>ll", function() require("noice").cmd("last") end, desc = "Logger » Noice last message" },
-    { "<leader>lh", function() require("noice").cmd("history") end, desc = "Logger » Noice message history" },
-    { "<leader>la", function() require("noice").cmd("all") end, desc = "Logger » All noice messages" },
-    { "<leader>ld", function() require("noice").cmd("dismiss") end, desc = "Logger » Dismiss noice messages" },
-  },
+    -- stylua: ignore
+    keys = {
+      { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, expr = true, desc = "Noice » Scroll forward", mode = {"i", "n", "s"} },
+      { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, expr = true, desc = "Noice » Scroll backward", mode = {"i", "n", "s"} },
+      ---@diagnostic disable-next-line: param-type-mismatch
+      { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Noice » Redirect cmdline" },
+      { "<leader>ll", function() require("noice").cmd("last") end, desc = "Logger » Noice last message" },
+      { "<leader>lh", function() require("noice").cmd("history") end, desc = "Logger » Noice message history" },
+      { "<leader>la", function() require("noice").cmd("all") end, desc = "Logger » All noice messages" },
+      { "<leader>ld", function() require("noice").cmd("dismiss") end, desc = "Logger » Dismiss noice messages" },
+    },
 
   ---@param opts NoiceConfig
   opts = function(_, opts)
@@ -95,9 +95,13 @@ return {
     return opts
   end,
 
-  init = function()
-    if require("neoverse.utils").lazy_has("which-key.nvim") then
-      require("which-key").register({ mode = "n", ["<leader>l"] = { name = "logger/noice" } })
-    end
+  config = function(_, opts)
+    require("noice").setup(opts)
+    require("neoverse.utils").on_load("which-key.nvim", function()
+      require("which-key").register({
+        mode = "n",
+        ["<leader>l"] = { name = "logger/noice" },
+      })
+    end)
   end,
 }

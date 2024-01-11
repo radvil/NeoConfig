@@ -86,22 +86,24 @@ M.config = function(_, opts)
   require("neoverse.core.lsp.diagnostics").setup(opts.diagnostics)
   require("neoverse.core.lsp.inlay-hints").setup(opts.inlay_hints)
 
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
-  -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-  --- https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
-  vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
-    config = config or {}
-    config.border = border
-    config.focus_id = ctx.method
-    if not (result and result.contents) then
-      return
+  if not Utils.lazy_has("noice.nvim") then
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+    --- https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
+    vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
+      config = config or {}
+      config.border = border
+      config.focus_id = ctx.method
+      if not (result and result.contents) then
+        return
+      end
+      local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+      -- markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
+      if vim.tbl_isempty(markdown_lines) then
+        return
+      end
+      return vim.lsp.util.open_floating_preview(markdown_lines, "markdown", config)
     end
-    local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
-    -- markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
-    if vim.tbl_isempty(markdown_lines) then
-      return
-    end
-    return vim.lsp.util.open_floating_preview(markdown_lines, "markdown", config)
   end
 
   local cmp_nvim_lsp = Utils.call("cmp_nvim_lsp")
