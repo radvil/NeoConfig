@@ -1,5 +1,3 @@
-local M = {}
-
 local ftMap = {
   popups = {
     "TelescopeResults",
@@ -82,139 +80,138 @@ local jump_and_open = function()
   end)
 end
 
----@type LazySpec
-M[1] = {
-  "folke/flash.nvim",
-  lazy = true,
-  ---@type function
-  keys = function()
-    return {
-      {
-        "<a-m>",
-        mode = "n",
-        function()
-          require("flash").jump({
-            search = {
-              exclude = ftMap.popups,
-              autojump = false,
-              forward = true,
-              wrap = true,
-            },
-          })
-        end,
-        desc = "flash » jump",
-      },
-      -- NOTE: Experimental keymap
-      {
-        "go",
-        mode = "n",
-        jump_and_open,
-        desc = "flash » jump and open",
-      },
-      {
-        "<a-m>",
-        mode = { "x", "o" },
-        function()
-          require("flash").jump({
-            search = {
-              multi_window = false,
-              forward = true,
-              wrap = true,
-            },
-          })
-        end,
-        desc = "flash » jump",
-      },
-      {
-        "<a-s>",
-        mode = { "x", "v" },
-        function()
-          require("flash").treesitter()
-        end,
-        desc = "flash » select node",
-      },
-      {
-        "<a-s>",
-        mode = "n",
-        function()
-          require("flash").treesitter_search({
-            search = {
-              exclude = ftMap.excludes,
-            },
-          })
-        end,
-        desc = "treesitter » search range",
-      },
-    }
-  end,
-
-  opts = {
-    labels = "asdfghjklqwertyuiopzxcvbnm",
-    search = {
-      mode = "exact",
-      forward = true,
-      multi_window = true,
-      incremental = false,
-    },
-    jump = {
-      jumplist = true,
-      pos = "start", ---@type "start" | "end" | "range"
-      history = false,
-      register = false,
-      nohlsearch = true,
-      autojump = false,
-      -- --stylua: ignore
-      filetype_exclude = ftMap.excludes,
-    },
-    label = {
-      current = true,
-      after = false,
-      before = true,
-      reuse = "lowercase",
-    },
-    highlight = {
-      backdrop = true,
-      matches = true,
-      groups = {
-        match = "FlashMatch",
-        current = "FlashCurrent",
-        backdrop = "FlashBackdrop",
-        label = "FlashLabel",
-      },
-    },
-    modes = {
-      search = { enabled = false },
-      char = { enabled = false },
-      treesitter = {
-        labels = "abcdefghijklmnopqrstuvwxyz",
-        jump = { pos = "range" },
-        backdrop = false,
-        matches = false,
-        label = {
-          before = true,
-          after = true,
-          style = "inline",
+return {
+  {
+    "nvim-telescope/telescope.nvim",
+    optional = true,
+    opts = {
+      defaults = {
+        mappings = {
+          ["n"] = { ["<a-m>"] = telescope_pick },
+          ["i"] = { ["<a-m>"] = telescope_pick },
         },
-        highlight = {
+      },
+    },
+  },
+
+  ---@type LazySpec
+  {
+    "folke/flash.nvim",
+    lazy = true,
+    ---@type function
+    keys = function()
+      return {
+        {
+          "<a-m>",
+          mode = "n",
+          function()
+            require("flash").jump({
+              search = {
+                exclude = ftMap.popups,
+                autojump = false,
+                forward = true,
+                wrap = true,
+              },
+            })
+          end,
+          desc = "flash » jump",
+        },
+        -- NOTE: Experimental keymap
+        {
+          "go",
+          mode = "n",
+          jump_and_open,
+          desc = "flash » jump and open",
+        },
+        {
+          "<a-m>",
+          mode = { "x", "o" },
+          function()
+            require("flash").jump({
+              search = {
+                multi_window = false,
+                forward = true,
+                wrap = true,
+              },
+            })
+          end,
+          desc = "flash » jump",
+        },
+        {
+          "<a-s>",
+          mode = { "x", "v" },
+          function()
+            require("flash").treesitter()
+          end,
+          desc = "flash » select node",
+        },
+        {
+          "<a-s>",
+          mode = "n",
+          function()
+            require("flash").treesitter_search({
+              search = {
+                exclude = ftMap.excludes,
+              },
+            })
+          end,
+          desc = "treesitter » search range",
+        },
+      }
+    end,
+    opts = {
+      labels = "asdfghjklqwertyuiopzxcvbnm",
+      search = {
+        mode = "exact",
+        forward = true,
+        multi_window = true,
+        incremental = false,
+      },
+      jump = {
+        jumplist = true,
+        pos = "start", ---@type "start" | "end" | "range"
+        history = false,
+        register = false,
+        nohlsearch = true,
+        autojump = false,
+        -- --stylua: ignore
+        filetype_exclude = ftMap.excludes,
+      },
+      label = {
+        current = true,
+        after = false,
+        before = true,
+        reuse = "lowercase",
+      },
+      highlight = {
+        backdrop = true,
+        matches = true,
+        groups = {
+          match = "FlashMatch",
+          current = "FlashCurrent",
+          backdrop = "FlashBackdrop",
+          label = "FlashLabel",
+        },
+      },
+      modes = {
+        search = { enabled = false },
+        char = { enabled = false },
+        treesitter = {
+          labels = "abcdefghijklmnopqrstuvwxyz",
+          jump = { pos = "range" },
           backdrop = false,
           matches = false,
+          label = {
+            before = true,
+            after = true,
+            style = "inline",
+          },
+          highlight = {
+            backdrop = false,
+            matches = false,
+          },
         },
       },
     },
   },
 }
-
-M[2] = {
-  "nvim-telescope/telescope.nvim",
-  optional = true,
-  opts = {
-    defaults = {
-      mappings = {
-        ["n"] = { ["<a-m>"] = telescope_pick },
-        ["i"] = { ["<a-m>"] = telescope_pick },
-      },
-    },
-  },
-}
-
-return M

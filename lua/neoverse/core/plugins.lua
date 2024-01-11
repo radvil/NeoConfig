@@ -40,7 +40,7 @@ return {
     "s1n7ax/nvim-window-picker",
     opts = get("nvim-window-picker").opts,
     keys = get("nvim-window-picker").keys,
-    event = "VeryLazy",
+    event = "BufAdd",
   },
   {
     "ThePrimeagen/harpoon",
@@ -50,7 +50,7 @@ return {
   },
   {
     "radvil2/windows.nvim",
-    event = "VeryLazy",
+    lazy = true,
     dependencies = { "anuvyklack/middleclass", "anuvyklack/animation.nvim" },
     opts = get("windows-nvim").opts,
     keys = get("windows-nvim").keys,
@@ -273,7 +273,7 @@ return {
   },
   {
     "tpope/vim-repeat",
-    event = "VeryLazy",
+    event = "BufReadPre",
   },
   {
     "folke/persistence.nvim",
