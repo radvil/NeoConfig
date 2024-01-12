@@ -12,6 +12,7 @@ local blacklist = {
   "prompt",
   "notify",
   "noice",
+  "lazy",
 
   -- windows
   "DiffviewFiles",
