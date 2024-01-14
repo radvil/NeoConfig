@@ -14,7 +14,7 @@ return {
 
   ---@type notify.Config
   opts = {
-    background_colour = "NotifyBackground",
+    background_colour = "NeoNotify",
     -- stylua: ignore start
     max_height = function() return math.floor(vim.o.lines * 0.75) end,
     max_width = function() return math.floor(vim.o.columns * 0.36) end,
@@ -39,10 +39,7 @@ return {
 
   config = function(_, opts)
     require("notify").setup(opts)
-    vim.api.nvim_set_hl(0, "NotifyBackground", {
-      background = "#000000",
-      blend = 0,
-    })
+    vim.api.nvim_set_hl(0, "NeoNotify", { link = "Normal" })
   end,
 
   init = function()
