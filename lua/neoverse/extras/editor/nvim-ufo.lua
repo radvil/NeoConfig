@@ -55,8 +55,10 @@ return {
     opts = {
       provider_selector = function(_, filetype, _)
         return ({
-          typescript = { "treesitter", "indent" },
-          html = { "treesitter", "indent" },
+          -- typescript = { "treesitter", "indent" },
+          typescript = { "lsp", "treesitter" },
+          -- html = { "treesitter", "indent" },
+          html = { "treesitter", "lsp" },
           python = { "indent" },
           vim = "indent",
           git = "",
