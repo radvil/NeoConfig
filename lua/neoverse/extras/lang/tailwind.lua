@@ -5,13 +5,6 @@ return {
     opts = {
       servers = {
         tailwindcss = {
-          -- cmd = {
-          --   -- /home/radvil/.nvm/versions/node/v18.19.0/bin/bun run /home/radvil/.local/share/nvmini/mason/bin/tailwindcss-language-server --stdio
-          --   "bun",
-          --   "run",
-          --   "/home/radvil/.local/share/nvmini/mason/bin/tailwindcss-language-server",
-          --   "--stdio",
-          -- },
           -- exclude a filetype from the default_config
           filetypes_exclude = { "markdown" },
           -- add additional filetypes to the default_config
