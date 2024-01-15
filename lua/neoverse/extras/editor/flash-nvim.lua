@@ -137,7 +137,7 @@ return {
         desc = "flash » jump and open",
       },
       {
-        "<a-z>",
+        "<leader>z",
         mode = "n",
         jump_and_toggle_fold,
         desc = "flash » jump and toggle fold",
