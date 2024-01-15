@@ -22,17 +22,17 @@ return {
       {
         "zR",
         function() require("ufo").openAllFolds() end,
-        desc = "UFO » Open all folds",
+        desc = "ufo » open all folds",
       },
       {
         "zr",
         function() require("ufo").openFoldsExceptKinds() end,
-        desc = "UFO » Open folds excepts kinds",
+        desc = "ufo » open folds excepts kinds",
       },
       {
         "zM",
         function() require("ufo").closeAllFolds() end,
-        desc = "UFO » Close all folds",
+        desc = "ufo » close all folds",
       },
       {
         "[z",
@@ -40,7 +40,7 @@ return {
           require("ufo").goPreviousClosedFold()
           vim.schedule(function() require("ufo").peekFoldedLinesUnderCursor() end)
         end,
-        desc = "UFO » Peek prev fold",
+        desc = "ufo » peek prev fold",
       },
       {
         "]z",
@@ -48,7 +48,7 @@ return {
           require("ufo").goNextClosedFold()
           vim.schedule(function() require("ufo").peekFoldedLinesUnderCursor() end)
         end,
-        desc = "UFO » Peek next fold",
+        desc = "ufo » peek next fold",
       },
     },
 
