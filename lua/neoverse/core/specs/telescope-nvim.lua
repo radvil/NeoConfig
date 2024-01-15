@@ -32,11 +32,11 @@ end
 function _G.NeoTelescope(builtin, opts)
   local params = { builtin = builtin, opts = opts }
   return function()
-    local NeoUtils = require("neoverse.utils")
+    local Utils = require("neoverse.utils")
     builtin = params.builtin
     opts = params.opts
     ---@type table
-    opts = vim.tbl_deep_extend("force", { cwd = NeoUtils.root() }, opts or {})
+    opts = vim.tbl_deep_extend("force", { cwd = Utils.root() }, opts or {})
     if builtin == "files" then
       if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
         opts.show_untracked = true
@@ -47,12 +47,15 @@ function _G.NeoTelescope(builtin, opts)
     end
     if opts.cwd and opts.cwd ~= vim.loop.cwd() then
       opts.attach_mappings = function(_, map)
-        map("i", "<a-c>", function()
+        map("i", "<c-c>", function()
           local action_state = require("telescope.actions.state")
           local line = action_state.get_current_line()
           NeoTelescope(
             params.builtin,
-            vim.tbl_deep_extend("force", {}, params.opts or {}, { cwd = false, default_text = line })
+            vim.tbl_deep_extend("force", {}, params.opts or {}, {
+              default_text = line,
+              cwd = false,
+            })
           )()
         end)
         return true
@@ -66,13 +69,19 @@ local M = {}
 
 M.config = function(_, opts)
   local actions = require("telescope.actions")
-  local basics = {
-    ["<c-t>"] = actions.select_tab,
+  local mappings = {
+    ["<a-space>"] = actions.close,
+    ["<cr>"] = actions.select_default,
+    ["<c-v>"] = actions.select_vertical,
+    ["<c-x>"] = actions.select_horizontal,
     ["<a-cr>"] = actions.select_tab,
+    ["<c-t>"] = actions.select_tab,
     ["<c-p>"] = actions.move_selection_previous,
     ["<c-n>"] = actions.move_selection_next,
-    ["<c-h>"] = actions.select_horizontal,
-    ["<c-v>"] = actions.select_vertical,
+    ["<a-j>"] = actions.cycle_history_next,
+    ["<a-k>"] = actions.cycle_history_prev,
+    ["<c-u>"] = actions.preview_scrolling_up,
+    ["<c-d>"] = actions.preview_scrolling_down,
     ["<a-d>"] = function()
       local action_state = require("telescope.actions.state")
       local line = action_state.get_current_line()
@@ -97,22 +106,10 @@ M.config = function(_, opts)
       prompt_prefix = " 🔭 ",
       selection_caret = "👉",
       mappings = {
-        ["i"] = vim.tbl_extend("force", basics, {
-          ["<a-space>"] = actions.close,
-          ["<cr>"] = actions.select_default,
-          ["<a-j>"] = actions.cycle_history_next,
-          ["<a-k>"] = actions.cycle_history_prev,
-          ["<c-d>"] = actions.preview_scrolling_down,
-          ["<c-u>"] = actions.preview_scrolling_up,
-        }),
-        ["n"] = vim.tbl_extend("force", basics, {
-          ["q"] = actions.close,
+        ["i"] = mappings,
+        ["n"] = vim.tbl_extend("force", mappings, {
           ["<esc>"] = actions.close,
-          ["<a-space>"] = actions.close,
-          ["<c-p>"] = actions.move_selection_previous,
-          ["<c-n>"] = actions.move_selection_next,
-          ["<c-h>"] = actions.select_horizontal,
-          ["<c-v>"] = actions.select_vertical,
+          ["q"] = actions.close,
         }),
       },
     },
@@ -123,20 +120,24 @@ end
 
 M.init = function()
   ---register telescope dotfiles on VimEnter here
-  vim.api.nvim_create_user_command("NeoDotfiles", function()
+  vim.api.nvim_create_user_command(
+    "NeoDotfiles",
     NeoTelescope("files", {
       prompt_title = "🔧 DOTFILES",
       cwd = os.getenv("DOTFILES"),
-    })()
-  end, { desc = "Telescope » Open dotfiles" })
+    }),
+    { desc = "telescope » open dotfiles" }
+  )
 
   ---register custom note trigger
-  vim.api.nvim_create_user_command("NeoNotes", function()
+  vim.api.nvim_create_user_command(
+    "NeoNotes",
     NeoTelescope("find_files", {
       prompt_title = Icons.FindNotes .. "Find notes",
       cwd = vim.g.neo_notesdir,
-    })()
-  end, { desc = "Telescope » Find notes" })
+    }),
+    { desc = "telescope » find notes" }
+  )
 end
 
 M.keys = {
