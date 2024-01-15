@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 local Utils = require("neoverse.utils")
 
 -- reset
