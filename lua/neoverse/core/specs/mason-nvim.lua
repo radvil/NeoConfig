@@ -4,7 +4,7 @@ M.keys = {
   {
     "<leader>fm",
     vim.cmd.Mason,
-    desc = "Float » Mason",
+    desc = "float » mason",
   },
 }
 
