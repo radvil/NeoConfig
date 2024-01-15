@@ -54,30 +54,45 @@ local telescope_pick = function(prompt_bufnr)
 end
 
 local jump_and_open = function()
-  vim.schedule(function()
-    require("flash").jump({
-      search = {
-        exclude = ftMap.popups,
-        multi_window = true,
-        autojump = false,
-        forward = true,
-      },
-      action = function(target, state)
-        state:hide()
-        vim.api.nvim_set_current_win(target.win)
-        vim.api.nvim_win_set_cursor(target.win, target.pos)
-        if vim.tbl_contains(ftMap.sidebars, vim.bo.filetype) then
-          vim.schedule(function()
-            vim.cmd.execute([["normal \<CR>"]])
-          end)
-        else
-          vim.schedule(function()
-            vim.cmd.execute([["normal gd"]])
-          end)
-        end
-      end,
-    })
-  end)
+  require("flash").jump({
+    search = {
+      exclude = ftMap.popups,
+      multi_window = true,
+      autojump = false,
+      forward = true,
+    },
+    ---@param state Flash.State
+    action = function(target, state)
+      state:hide()
+      vim.api.nvim_set_current_win(target.win)
+      vim.api.nvim_win_set_cursor(target.win, target.pos)
+      if vim.tbl_contains(ftMap.sidebars, vim.bo.filetype) then
+        vim.cmd.execute([["normal \<CR>"]])
+      else
+        vim.cmd.execute([["normal gd"]])
+      end
+    end,
+  })
+end
+
+-- jump and fold
+local jump_and_toggle_fold = function()
+  require("flash").jump({
+    search = {
+      exclude = ftMap.excludes,
+      multi_window = true,
+      autojump = false,
+      forward = true,
+    },
+    ---@param state Flash.State
+    action = function(target, state)
+      state:hide()
+      vim.api.nvim_set_current_win(target.win)
+      vim.api.nvim_win_set_cursor(target.win, target.pos)
+      vim.cmd.execute([["normal za"]])
+      state:restore()
+    end,
+  })
 end
 
 return {
@@ -98,67 +113,70 @@ return {
   {
     "folke/flash.nvim",
     lazy = true,
-    ---@type function
-    keys = function()
-      return {
-        {
-          "<a-m>",
-          mode = "n",
-          function()
-            require("flash").jump({
-              search = {
-                exclude = ftMap.popups,
-                autojump = false,
-                forward = true,
-                wrap = true,
-              },
-            })
-          end,
-          desc = "flash » jump",
-        },
-        -- NOTE: Experimental keymap
-        {
-          "go",
-          mode = "n",
-          jump_and_open,
-          desc = "flash » jump and open",
-        },
-        {
-          "<a-m>",
-          mode = { "x", "o" },
-          function()
-            require("flash").jump({
-              search = {
-                multi_window = false,
-                forward = true,
-                wrap = true,
-              },
-            })
-          end,
-          desc = "flash » jump",
-        },
-        {
-          "<a-s>",
-          mode = { "x", "v" },
-          function()
-            require("flash").treesitter()
-          end,
-          desc = "flash » select node",
-        },
-        {
-          "<a-s>",
-          mode = "n",
-          function()
-            require("flash").treesitter_search({
-              search = {
-                exclude = ftMap.excludes,
-              },
-            })
-          end,
-          desc = "treesitter » search range",
-        },
-      }
-    end,
+    keys = {
+      {
+        "<a-m>",
+        mode = "n",
+        function()
+          require("flash").jump({
+            search = {
+              exclude = ftMap.popups,
+              autojump = false,
+              forward = true,
+              wrap = true,
+            },
+          })
+        end,
+        desc = "flash » jump",
+      },
+      -- NOTE: Experimental keymaps
+      {
+        "go",
+        mode = "n",
+        jump_and_open,
+        desc = "flash » jump and open",
+      },
+      {
+        "<a-z>",
+        mode = "n",
+        jump_and_toggle_fold,
+        desc = "flash » jump and toggle fold",
+      },
+      {
+        "<a-m>",
+        mode = { "x", "o" },
+        function()
+          require("flash").jump({
+            search = {
+              multi_window = false,
+              forward = true,
+              wrap = true,
+            },
+          })
+        end,
+        desc = "flash » jump",
+      },
+      {
+        "<a-s>",
+        mode = { "x", "v" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "flash » select node",
+      },
+      {
+        "<a-s>",
+        mode = "n",
+        function()
+          require("flash").treesitter_search({
+            search = {
+              exclude = ftMap.excludes,
+            },
+          })
+        end,
+        desc = "treesitter » search range",
+      },
+    },
     opts = {
       labels = "asdfghjklqwertyuiopzxcvbnm",
       search = {
