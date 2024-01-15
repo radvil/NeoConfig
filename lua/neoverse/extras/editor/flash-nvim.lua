@@ -157,10 +157,12 @@ return {
         desc = "flash » jump",
       },
       {
-        "<a-s>",
-        mode = { "x", "v" },
+        "<a-space>",
+        mode = { "x", "v", "o" },
         function()
-          require("flash").treesitter()
+          require("flash").treesitter({
+            label = { rainbow = { enabled = true } },
+          })
         end,
         desc = "flash » select node",
       },
@@ -169,9 +171,7 @@ return {
         mode = "n",
         function()
           require("flash").treesitter_search({
-            search = {
-              exclude = ftMap.excludes,
-            },
+            label = { rainbow = { enabled = true } },
           })
         end,
         desc = "treesitter » search range",
