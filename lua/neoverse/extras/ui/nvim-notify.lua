@@ -14,7 +14,9 @@ return {
 
   ---@type notify.Config
   opts = {
-    background_colour = "NeoNotify",
+    background_colour = function()
+      return vim.g.neo_transparent and "#00000000" or "#000000"
+    end,
     -- stylua: ignore start
     max_height = function() return math.floor(vim.o.lines * 0.75) end,
     max_width = function() return math.floor(vim.o.columns * 0.36) end,
@@ -36,11 +38,6 @@ return {
     --custom config
     banned_messages = {},
   },
-
-  config = function(_, opts)
-    require("notify").setup(opts)
-    vim.api.nvim_set_hl(0, "NeoNotify", { link = "Normal" })
-  end,
 
   init = function()
     local Util = require("neoverse.utils")
