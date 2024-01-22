@@ -14,6 +14,7 @@ return {
 
   ---@type notify.Config
   opts = {
+    ---@diagnostic disable-next-line: assign-type-mismatch
     background_colour = function()
       return vim.g.neo_transparent and "#00000000" or "#000000"
     end,
