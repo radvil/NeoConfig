@@ -35,6 +35,7 @@ vim.opt.foldenable = true
 vim.opt.pumblend = 0
 vim.opt.pumheight = 10
 vim.opt.smoothscroll = true
+vim.opt.conceallevel = 2
 
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.wildmode = "longest:full,full"
