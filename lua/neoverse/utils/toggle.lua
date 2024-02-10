@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 local Utils = require("neoverse.utils")
 
 ---@class neoverse.utils.toggle
@@ -43,6 +44,11 @@ end
 
 local enabled = true
 function M.diagnostics()
+  -- if this Neovim version supports checking if diagnostics are enabled
+  -- then use that for the current state
+  if vim.diagnostic.is_disabled then
+    enabled = not vim.diagnostic.is_disabled()
+  end
   enabled = not enabled
   if enabled then
     vim.diagnostic.enable()
