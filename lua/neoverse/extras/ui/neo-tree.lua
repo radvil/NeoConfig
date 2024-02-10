@@ -144,6 +144,12 @@ return {
           ["p"] = "paste_from_clipboard",
           ["c"] = "copy",
           ["x"] = "cut_to_clipboard",
+          ["<space>"] = "none",
+          ["Y"] = function(state)
+            local node = state.tree:get_node()
+            local path = node:get_id()
+            vim.fn.setreg("+", path, "c")
+          end,
         },
       },
     },
