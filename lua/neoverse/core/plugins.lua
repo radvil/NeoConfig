@@ -151,7 +151,6 @@ return {
       "williamboman/mason.nvim",
       {
         "folke/neoconf.nvim",
-        dependencies = "neovim/nvim-lspconfig",
         cmd = "Neoconf",
         config = false,
       },
