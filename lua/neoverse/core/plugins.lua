@@ -280,7 +280,6 @@ return {
     event = "BufReadPre",
     keys = get("persistence-nvim").keys,
     opts = get("persistence-nvim").opts,
-    config = get("persistence-nvim").config,
   },
 
   -- extensions loader
