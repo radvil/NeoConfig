@@ -200,16 +200,6 @@ return {
       "hrsh7th/cmp-path",
     },
   },
-  {
-    "L3MON4D3/LuaSnip",
-    build = (not jit.os:find("Windows"))
-        and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-      or nil,
-    dependencies = get("luasnip").dependencies,
-    config = get("luasnip").config,
-    opts = get("luasnip").opts,
-    keys = get("luasnip").keys,
-  },
 
   -- treesitter
   {
