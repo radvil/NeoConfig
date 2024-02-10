@@ -194,12 +194,6 @@ return {
     build = (not jit.os:find("Windows"))
         and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
       or nil,
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
-    },
     config = get("luasnip").config,
     opts = get("luasnip").opts,
     keys = get("luasnip").keys,
@@ -210,7 +204,6 @@ return {
     opts = get("nvim-cmp").opts,
     event = "InsertEnter",
     dependencies = {
-      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",

@@ -1,12 +1,5 @@
 local M = {}
 
----@class NeoSnippetOpts
-M.opts = {
-  delete_check_events = "TextChanged",
-  json_snippets = {},
-  history = true,
-}
-
 M.keys = {
   {
     "<Tab>",
@@ -30,6 +23,36 @@ M.keys = {
     end,
     mode = { "i", "s" },
   },
+}
+
+M.dependencies = {
+  "rafamadriz/friendly-snippets",
+  config = function()
+    require("luasnip.loaders.from_vscode").lazy_load()
+  end,
+  {
+    "nvim-cmp",
+    dependencies = {
+      "saadparwaiz1/cmp_luasnip",
+    },
+    opts = function(_, opts)
+      if type(opts) == "table" then
+        opts.snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+          end,
+        }
+        table.insert(opts.sources, { name = "luasnip" })
+      end
+    end,
+  },
+}
+
+---@class NeoSnippetOpts
+M.opts = {
+  delete_check_events = "TextChanged",
+  json_snippets = {},
+  history = true,
 }
 
 M.config = function(_, opts)
