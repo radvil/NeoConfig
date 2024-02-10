@@ -22,12 +22,8 @@ M.opts = {
   restore_win_options = false,
   delete_to_trash = true,
   cleanup_delay_ms = 500,
-  view_options = {
-    show_hidden = true,
-  },
-  buf_options = {
-    buflisted = true,
-  },
+  view_options = { show_hidden = true },
+  buf_options = { buflisted = true },
   keymaps = {
     ["q"] = "actions.close",
     ["g?"] = "actions.show_help",
