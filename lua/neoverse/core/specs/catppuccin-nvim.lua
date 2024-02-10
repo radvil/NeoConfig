@@ -49,7 +49,7 @@ M.config = function(_, opts)
         CursorLine = { bg = colors.surface0 },
         StatusLineNC = { bg = colors.crust },
         StatusLine = {
-          bold = true,
+          bold = false,
           bg = colors.base,
           fg = colors.rosewater,
         },
