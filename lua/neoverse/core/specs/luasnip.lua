@@ -26,15 +26,15 @@ M.keys = {
 }
 
 M.dependencies = {
-  "rafamadriz/friendly-snippets",
-  config = function()
-    require("luasnip.loaders.from_vscode").lazy_load()
-  end,
+  {
+    "rafamadriz/friendly-snippets",
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
+  },
   {
     "nvim-cmp",
-    dependencies = {
-      "saadparwaiz1/cmp_luasnip",
-    },
+    dependencies = "saadparwaiz1/cmp_luasnip",
     opts = function(_, opts)
       if type(opts) == "table" then
         opts.snippet = {
