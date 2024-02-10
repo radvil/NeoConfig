@@ -50,25 +50,7 @@ return {
               desc = "code » add missing imports",
             },
           },
-          settings = {
-            typescript = {
-              format = {
-                convertTabsToSpaces = vim.o.expandtab,
-                indentSize = vim.o.shiftwidth,
-                tabSize = vim.o.tabstop,
-              },
-            },
-            javascript = {
-              format = {
-                convertTabsToSpaces = vim.o.expandtab,
-                indentSize = vim.o.shiftwidth,
-                tabSize = vim.o.tabstop,
-              },
-            },
-            completions = {
-              completeFunctionCalls = false,
-            },
-          },
+          settings = {},
         },
       },
     },
