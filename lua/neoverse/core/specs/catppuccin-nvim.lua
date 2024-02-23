@@ -135,6 +135,7 @@ M.config = function(_, opts)
       return hl_groups
     end,
   }
+
   opts = vim.tbl_deep_extend("force", NeoDefaults, opts or {})
   require("catppuccin").setup(opts)
 end
