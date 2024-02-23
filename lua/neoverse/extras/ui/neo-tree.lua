@@ -173,8 +173,8 @@ return {
     },
 
     source_selector = {
-      winbar = false,
-      statusline = false,
+      winbar = vim.opt.laststatus == 3,
+      statusline = vim.opt.laststatus ~= 3,
     },
   },
 
