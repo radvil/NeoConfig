@@ -121,7 +121,7 @@ M.opts = function()
     extensions = { "neo-tree", "lazy", "oil" },
     options = {
       theme = "auto",
-      globalstatus = true,
+      globalstatus = vim.opt.laststatus:get() == 3,
       disabled_filetypes = {
         statusline = {
           "dashboard",
