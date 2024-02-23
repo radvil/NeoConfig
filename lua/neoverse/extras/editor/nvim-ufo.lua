@@ -1,6 +1,6 @@
 return {
   {
-    "neovim/nvim-lspconfig",
+    "nvim-lspconfig",
     opts = {
       capabilities = {
         textDocument = {
@@ -16,7 +16,7 @@ return {
   {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
-    event = { "LazyFile" },
+    event = "LazyFile",
     -- stylua: ignore
     keys = {
       {
