@@ -3,7 +3,6 @@ return {
   priority = 999,
   lazy = false,
   config = function(_, opts)
-    local Config = require("neoverse.config")
     local NeoDefaults = {
       ---@type "classic" | "octagon" | "pro" | "machine" | "ristretto" | "spectrum"
       filter = "octagon",
@@ -22,33 +21,52 @@ return {
           context_start_underline = false,
         },
       },
-      override = function()
+      override = function(c)
+        local colors = {
+          none = "NONE",
+          base = c.base.background,
+          surface1 = "#45475a",
+          surface0 = "#313244",
+          rosewater = "#f5e0dc",
+          peach = c.base.blue,
+        }
         return {
+          Visual = { bg = "#363b54" },
+          ZenBg = { bg = c.base.dark },
+          Folded = { bg = c.base.black },
           LazyNormal = { link = "Normal" },
           LspInlayHint = { link = "Comment" },
-          ZenBg = { bg = Config.palette.dark },
-          Visual = {
-            bg = "#55435b",
-          },
-          TelescopeSelectionCaret = {
-            link = "Visual",
-          },
-          TelescopeMatching = {
-            fg = Config.palette.yellow,
-          },
+          IblIndent = { fg = colors.surface1 },
           FlashCurrent = {
-            fg = Config.palette.dark,
-            bg = Config.palette.yellow,
+            fg = c.base.black,
+            bg = c.base.yellow,
             bold = true,
           },
           FlashMatch = {
-            fg = Config.palette.dark2,
-            bg = Config.palette.sky,
+            fg = c.base.black,
+            bg = c.base.cyan,
           },
           FlashLabel = {
-            fg = Config.palette.light,
-            bg = Config.palette.pink2,
+            fg = c.base.white,
+            bg = c.base.red,
             bold = true,
+          },
+          NeoTreeGitModified = { fg = colors.rosewater },
+          NeoTreeGitUntracked = { fg = colors.peach },
+          NeoTreeGitRenamed = { fg = c.base.yellow },
+          NeoTreeTabInactive = { bg = colors.base },
+          NeoTreeTabActive = {
+            bg = colors.surface0,
+            fg = colors.text,
+            bold = false,
+          },
+          NeoTreeTabSeparatorInactive = {
+            bg = colors.base,
+            fg = colors.base,
+          },
+          NeoTreeTabSeparatorActive = {
+            bg = colors.surface0,
+            fg = colors.peach,
           },
         }
       end,
