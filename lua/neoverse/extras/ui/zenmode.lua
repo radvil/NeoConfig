@@ -13,7 +13,7 @@ return {
   opts = {
     window = {
       backdrop = 0.95,
-      width = 120,
+      width = 130,
       height = 1,
       options = {
         foldcolumn = "0",
