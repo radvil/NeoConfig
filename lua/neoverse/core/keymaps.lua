@@ -127,8 +127,8 @@ local lz = function(opts)
   }, opts or {})
   Utils.terminal.open({ "lazygit" }, opts)
 end
-Utils.map("n", "<leader>gg", function() lz({ cwd = vim.loop.cwd() }) end, { desc = "lazygit [cwd]" })
-Utils.map("n", "<leader>gG", function() lz({ cwd = Utils.root() }) end, { desc = "lazygit [root]" })
+Utils.map("n", "<leader>gg", function() lz({ cwd = Utils.root() }) end, { desc = "lazygit [root]" })
+Utils.map("n", "<leader>gG", function() lz({ cwd = vim.loop.cwd() }) end, { desc = "lazygit [cwd]" })
 
 --stylua: ignore end
 
