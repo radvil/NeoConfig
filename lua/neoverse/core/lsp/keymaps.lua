@@ -26,7 +26,12 @@ function M.get()
       {
         "K",
         function()
-          return Utils.call("ufo").peekFoldedLinesUnderCursor() or vim.lsp.buf.hover()
+          local ufo = Utils.call("ufo")
+          if ufo then
+            return Utils.call("ufo").peekFoldedLinesUnderCursor()
+          else
+            return vim.lsp.buf.hover()
+          end
         end,
         desc = "Hover",
         has = "hover",
