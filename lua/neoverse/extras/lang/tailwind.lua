@@ -5,6 +5,11 @@ return {
     opts = {
       servers = {
         tailwindcss = {
+          -- mason = false,
+          -- cmd = {
+          --   os.getenv("HOME") .. "/.bun/bin/tailwindcss-language-server",
+          --   "--stdio",
+          -- },
           -- exclude a filetype from the default_config
           filetypes_exclude = { "markdown" },
           -- add additional filetypes to the default_config

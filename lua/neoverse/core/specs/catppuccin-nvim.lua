@@ -39,7 +39,7 @@ M.config = function(_, opts)
       },
       telescope = {
         enabled = true,
-        style = "nvchad",
+        style = vim.g.neo_winborder == "none" and "nvchad" or "classic",
       },
     },
     custom_highlights = function(colors)
@@ -113,6 +113,10 @@ M.config = function(_, opts)
 
       if not transparent then
         hl_groups.WinSeparator = { fg = colors.crust }
+        hl_groups.NoiceCmdlineIcon = { fg = colors.peach }
+      end
+
+      if vim.g.neo_winborder == "none" then
         hl_groups.TelescopePromptBorder = {
           bg = colors.crust,
           fg = colors.crust,
@@ -130,12 +134,11 @@ M.config = function(_, opts)
           bg = colors.crust,
           fg = colors.crust,
         }
-        hl_groups.NoiceCmdlineIcon = { fg = colors.peach }
       end
+
       return hl_groups
     end,
   }
-
   opts = vim.tbl_deep_extend("force", NeoDefaults, opts or {})
   require("catppuccin").setup(opts)
 end

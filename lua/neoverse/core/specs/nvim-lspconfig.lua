@@ -24,10 +24,33 @@ M.opts = {
   },
   servers = {
     bashls = {},
-    html = {},
-    cssls = {},
-    emmet_language_server = {},
+    html = {
+      mason = false,
+      cmd = {
+        os.getenv("HOME") .. "/.bun/bin/vscode-html-language-server",
+        "--stdio",
+      },
+    },
+    cssls = {
+      mason = false,
+      cmd = {
+        os.getenv("HOME") .. "/.bun/bin/vscode-css-language-server",
+        "--stdio",
+      },
+    },
+    emmet_language_server = {
+      mason = false,
+      cmd = {
+        os.getenv("HOME") .. "/.bun/bin/emmet-language-server",
+        "--stdio",
+      },
+    },
     jsonls = {
+      mason = false,
+      cmd = {
+        os.getenv("HOME") .. "/.bun/bin/vscode-json-language-server",
+        "--stdio",
+      },
       on_new_config = function(new_config)
         new_config.settings.json.schemas = new_config.settings.json.schemas or {}
         vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())

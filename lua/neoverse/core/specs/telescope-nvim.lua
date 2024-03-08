@@ -43,7 +43,7 @@ function _G.NeoTelescope(builtin, opts)
         opts.prompt_title = opts.prompt_title .. " <git>"
         opts.layout_config = {
           prompt_position = "bottom",
-          height = 0.9,
+          height = 0.6,
         }
       end
       if builtin == "files" then
@@ -57,7 +57,7 @@ function _G.NeoTelescope(builtin, opts)
       end
       opts.layout_config = {
         prompt_position = "top",
-        height = 0.6,
+        height = 0.9,
       }
     end
     if opts.cwd and opts.cwd ~= vim.loop.cwd() then
@@ -87,6 +87,7 @@ M.config = function(_, opts)
   local mappings = {
     ["<a-space>"] = actions.close,
     ["<cr>"] = actions.select_default,
+    ["<c-y>"] = actions.select_default,
     ["<c-v>"] = actions.select_vertical,
     ["<c-x>"] = actions.select_horizontal,
     ["<a-cr>"] = actions.select_tab,
@@ -115,7 +116,7 @@ M.config = function(_, opts)
       layout_config = {
         prompt_position = "top",
         width = 0.9,
-        height = 0.6,
+        height = 0.9,
       },
       sorting_strategy = "ascending",
       prompt_prefix = " 🔭 ",
@@ -129,6 +130,7 @@ M.config = function(_, opts)
       },
     },
   }
+  -- vim.print("telescope.nvim setup call with border » " .. vim.g.neo_winborder)
   if vim.g.neo_winborder == "single" then
     NeoDefaults.defaults.borderchars = {
       "─",

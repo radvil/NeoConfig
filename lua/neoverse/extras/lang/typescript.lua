@@ -12,9 +12,10 @@ local invoke = function(name)
   end
 end
 
+---@type LazySpec[]
 return {
   {
-    "nvim-treesitter/nvim-treesitter",
+    "nvim-treesitter",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
         vim.list_extend(opts.ensure_installed, {
@@ -25,14 +26,22 @@ return {
       end
     end,
   },
-
+  -- {
+  --   "dmmulroy/ts-error-translator.nvim",
+  --   ft = { "typescript", "tsx" },
+  -- },
   {
-    "neovim/nvim-lspconfig",
+    "nvim-lspconfig",
     ---@type NeoLspOpts
     opts = {
       servers = {
         ---@type lspconfig.options.tsserver
         tsserver = {
+          -- mason = false,
+          -- cmd = {
+          --   os.getenv("HOME") .. "/.bun/bin/typescript-language-server",
+          --   "--stdio",
+          -- },
           keys = {
             {
               "<leader>co",

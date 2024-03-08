@@ -8,7 +8,7 @@ end
 return {
   "nvim-neo-tree/neo-tree.nvim",
   deactivate = function()
-    vim.cmd([[Neotree close]])
+    vim.cmd("Neotree close")
   end,
   dependencies = { "nvim-tree/nvim-web-devicons", "s1n7ax/nvim-window-picker" },
 

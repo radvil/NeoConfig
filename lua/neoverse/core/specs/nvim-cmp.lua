@@ -38,12 +38,12 @@ M.opts = function()
     mapping = {
       ["<c-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-      ["<cr>"] = cmp.mapping.confirm({ select = true }),
+      ["<c-y>"] = cmp.mapping.confirm({ select = true }),
       ["<c-u>"] = cmp.mapping.scroll_docs(-4),
       ["<c-d>"] = cmp.mapping.scroll_docs(4),
       ["<c-space>"] = cmp.mapping.complete(),
-      ["<a-q>"] = cmp.mapping.abort(),
-      ["<c-x>"] = cmp.mapping.abort(),
+      -- ["<a-q>"] = cmp.mapping.abort(),
+      ["<c-e>"] = cmp.mapping.close(),
     },
     sorting = defaults.sorting,
   }
