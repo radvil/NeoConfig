@@ -93,6 +93,16 @@ end
 
 ---@param prios table<string,number>
 function M.get_specs_by_prios(prios)
+  local used = {} ---@type table<string, boolean>
+  ---@type string[]
+  Config.json.data.extras = vim.tbl_filter(function(extra)
+    if used[extra] then
+      return false
+    end
+    used[extra] = true
+    return true
+  end, Config.json.data.extras)
+
   table.sort(Config.json.data.extras, function(a, b)
     local pa = prios[a] or 10
     local pb = prios[b] or 10
