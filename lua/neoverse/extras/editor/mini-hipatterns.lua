@@ -1,19 +1,3 @@
----@type LazySpec
--- return {
---   "echasnovski/mini.hipatterns",
---   event = "BufReadPre",
---   config = function()
---     local hipatterns = require("mini.hipatterns")
---     hipatterns.setup({
---       delay = { text_change = 200, scroll = 50 },
---       highlighters = {
---         debug = { pattern = "%f[%w]()TOGGLE()%f[%W]", group = "NvimMiniYellow" },
---         hex_color = hipatterns.gen_highlighter.hex_color(),
---       },
---     })
---   end,
--- }
-
 local M = {}
 
 ---@type table<string,true>
@@ -25,7 +9,7 @@ M.plugin = {
   opts = function()
     local hi = require("mini.hipatterns")
     return {
-      -- extend default opts with custom option to enable the tailwind integration
+      -- custom option to enable the tailwind integration
       tailwind = {
         enabled = true,
         ft = { "typescriptreact", "javascriptreact", "css", "javascript", "typescript", "html" },
@@ -35,10 +19,30 @@ M.plugin = {
       },
       highlighters = {
         hex_color = hi.gen_highlighter.hex_color({ priority = 2000 }),
+        shorthand = {
+          pattern = "()#%x%x%x()%f[^%x%w]",
+          group = function(_, _, data)
+            ---@type string
+            local match = data.full_match
+            local r, g, b = match:sub(2, 2), match:sub(3, 3), match:sub(4, 4)
+            local hex_color = "#" .. r .. r .. g .. g .. b .. b
+
+            return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
+          end,
+          extmark_opts = { priority = 2000 },
+        },
       },
     }
   end,
   config = function(_, opts)
+    -- backward compatibility
+    if opts.tailwind == true then
+      opts.tailwind = {
+        enabled = true,
+        ft = { "typescriptreact", "javascriptreact", "css", "javascript", "typescript", "html" },
+        style = "full",
+      }
+    end
     if type(opts.tailwind) == "table" and opts.tailwind.enabled then
       -- reset hl groups when colorscheme changes
       vim.api.nvim_create_autocmd("ColorScheme", {
