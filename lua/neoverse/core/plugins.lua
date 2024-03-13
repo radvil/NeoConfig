@@ -270,6 +270,6 @@ return {
     ["neoverse.extras.ui.which-key-nvim"] = 9997,
     ["neoverse.extras.ui.legendary-nvim"] = 9996,
     ["neoverse.extras.completion.codeium"] = 9994,
-    ["neoverse.extras.editor.symbols-outline"] = 100,
+    ["neoverse.extras.editor.outline"] = 100,
   }),
 }
