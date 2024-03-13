@@ -15,6 +15,8 @@ function M.setup()
   cmd("I", "Telescope lsp_implementations", "Find implementations")
   cmd("L", "Telescope lsp_references", "Find references")
   cmd("T", "Telescope lsp_type_definitions", "Find type defintions")
+  cmd("L", vim.lsp.codelens.run, "Run Codelens")
+  cmd("C", vim.lsp.codelens.refresh, "Refresh & Display Codelens")
 end
 
 return M

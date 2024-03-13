@@ -22,6 +22,13 @@ M.opts = {
   inlay_hints = {
     enabled = false,
   },
+  -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+  -- Be aware that you also will need to properly configure your LSP server to
+  -- provide the code lenses.
+  ---@class NeoLspCodeLensOpts
+  codelens = {
+    enabled = false,
+  },
   servers = {
     bashls = {},
     html = {
@@ -67,6 +74,7 @@ M.opts = {
       settings = {
         Lua = {
           workspace = { checkThirdParty = false },
+          codeLens = { enable = true },
           completion = { callSnippet = "Replace" },
           hint = {
             enable = true,
@@ -108,6 +116,7 @@ M.config = function(_, opts)
   require("neoverse.core.lsp.keymaps").setup()
   require("neoverse.core.lsp.diagnostics").setup(opts.diagnostics)
   require("neoverse.core.lsp.inlay-hints").setup(opts.inlay_hints)
+  require("neoverse.core.lsp.codelens").setup(opts.codelens)
 
   if not Utils.lazy_has("noice.nvim") then
     vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
