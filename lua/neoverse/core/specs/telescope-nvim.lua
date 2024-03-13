@@ -46,7 +46,12 @@ function _G.NeoTelescope(builtin, opts)
           height = 0.6,
         }
       end
-      if builtin == "files" then
+      if
+        builtin == "files"
+        and vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git")
+        and not vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.ignore")
+        and not vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.rgignore")
+      then
         builtin = "git_files"
         opts.show_untracked = true
       end
