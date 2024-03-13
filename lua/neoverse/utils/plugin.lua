@@ -108,6 +108,15 @@ function M.lazy_file()
   })
 end
 
+function M.extra_idx(name)
+  local Config = require("lazy.core.config")
+  for i, extra in ipairs(Config.spec.modules) do
+    if extra == "lazyvim.plugins.extras." .. name then
+      return i
+    end
+  end
+end
+
 function M.setup()
   M.lazy_notify()
   M.lazy_file()
