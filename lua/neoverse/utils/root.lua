@@ -194,7 +194,7 @@ function M.setup()
   vim.api.nvim_create_user_command("NeoRoot", function()
     Utils.root.info()
   end, { desc = "Neoverse roots for the current buffer" })
-  vim.api.nvim_create_autocmd({ "LspAttach", "BufWritePost" }, {
+  vim.api.nvim_create_autocmd({ "LspAttach", "BufWritePost", "DirChanged" }, {
     group = vim.api.nvim_create_augroup("neoverse_root_cache", { clear = true }),
     callback = function(event)
       M.cache[event.buf] = nil
