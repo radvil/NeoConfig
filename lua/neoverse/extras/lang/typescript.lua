@@ -37,11 +37,11 @@ return {
       servers = {
         ---@type lspconfig.options.tsserver
         tsserver = {
-          -- mason = false,
-          -- cmd = {
-          --   os.getenv("HOME") .. "/.bun/bin/typescript-language-server",
-          --   "--stdio",
-          -- },
+          mason = false,
+          cmd = {
+            os.getenv("HOME") .. "/.bun/bin/typescript-language-server",
+            "--stdio",
+          },
           keys = {
             {
               "<leader>co",
