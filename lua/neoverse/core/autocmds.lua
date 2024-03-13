@@ -47,6 +47,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "lazy",
     "help",
     "qf",
+    "augroup"
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -55,6 +56,15 @@ vim.api.nvim_create_autocmd("FileType", {
       buffer = event.buf,
       silent = true,
     })
+  end,
+})
+
+-- make it easier to close man-files when opened inline
+vim.api.nvim_create_autocmd("FileType", {
+  group = Utils.create_augroup("man_unlisted"),
+  pattern = { "man" },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
   end,
 })
 
