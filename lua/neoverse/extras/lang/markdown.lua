@@ -72,7 +72,7 @@ return {
         "<leader>um",
         ft = "markdown",
         "<cmd>MarkdownPreviewToggle<cr>",
-        desc = "Toggle » Markdown Preview",
+        desc = "markdown » preview current file",
       },
     },
     config = function()
