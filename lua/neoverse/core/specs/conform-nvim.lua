@@ -43,6 +43,7 @@ M.opts = function()
     Utils.error({
       "Don't set `plugin.config` for `conform.nvim`.\n",
       "This will break **NeoVerse** formatting.\n",
+      ---@diagnostic disable-next-line: missing-fields
     }, { title = "NeoVerse" })
   end
   ---@class ConformOpts
