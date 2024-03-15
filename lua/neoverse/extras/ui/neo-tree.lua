@@ -106,6 +106,7 @@ return {
         ["<a-cr>"] = "open_tabnew",
 
         ["h"] = "close_node",
+        ["z"] = false,
         ["za"] = "toggle_node",
         ["zc"] = "close_node",
         ["zM"] = "close_all_nodes",
