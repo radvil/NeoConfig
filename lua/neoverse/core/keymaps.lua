@@ -117,7 +117,9 @@ Utils.map("n", "<leader>tH", function() ft("btop") end, { desc = "floating termi
 Utils.map("n", "<leader>tP", function() ft({ "ping", "9.9.9.9" }) end, { desc = "floating terminal » ping test" })
 
 ---lazygit
-local lz = function(opts)
+---@param opts NeoTermOpts
+---@param custom_cmd? string | string[]
+local lz = function(opts, custom_cmd)
   opts = vim.tbl_extend("force", {
     title_pos = "right",
     title = "  LazyGit ",
@@ -125,10 +127,14 @@ local lz = function(opts)
     ctrl_hjkl = false,
     esc_esc = false,
   }, opts or {})
-  Utils.terminal.open({ "lazygit" }, opts)
+  Utils.terminal.open(custom_cmd or { "lazygit" }, opts)
 end
-Utils.map("n", "<leader>gg", function() lz({ cwd = Utils.root() }) end, { desc = "lazygit [root]" })
-Utils.map("n", "<leader>gG", function() lz({ cwd = vim.loop.cwd() }) end, { desc = "lazygit [cwd]" })
+Utils.map("n", "<leader>gg", function() lz({ cwd = Utils.root() }) end, { desc = "lazygit open root" })
+Utils.map("n", "<leader>gG", function() lz({ cwd = vim.loop.cwd() }) end, { desc = "lazygit » open cwd" })
+Utils.map("n", "<leader>gf", function()
+  local git_path = vim.fn.system("git ls-files --full-name " .. vim.api.nvim_buf_get_name(0))
+  lz({}, { "lazygit", "-f", vim.trim(git_path) })
+end, { desc = "lazygit » current file history" })
 
 --stylua: ignore end
 
