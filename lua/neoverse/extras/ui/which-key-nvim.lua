@@ -68,7 +68,7 @@ return {
     },
     defaults = {
       mode = { "n", "x" },
-      ["g"] = { name = "go" },
+      ["g"] = { name = "goto" },
       ["z"] = { name = "fold" },
       ["]"] = { name = "next" },
       ["["] = { name = "previous" },
