@@ -1,3 +1,4 @@
+---@class NeoFlashFtExcludes
 local ftMap = {
   popups = {
     "TelescopeResults",
@@ -31,7 +32,7 @@ local ftMap = {
     "NvimTree",
     "neo-tree",
     "Outline",
-  },
+  }
 }
 
 local telescope_pick = function(prompt_bufnr)
@@ -49,48 +50,6 @@ local telescope_pick = function(prompt_bufnr)
     action = function(match)
       local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
       picker:set_selection(match.pos[1] - 1)
-    end,
-  })
-end
-
-local jump_and_open = function()
-  require("flash").jump({
-    search = {
-      exclude = ftMap.popups,
-      multi_window = true,
-      autojump = false,
-      forward = true,
-    },
-    ---@param state Flash.State
-    action = function(target, state)
-      state:hide()
-      vim.api.nvim_set_current_win(target.win)
-      vim.api.nvim_win_set_cursor(target.win, target.pos)
-      if vim.tbl_contains(ftMap.sidebars, vim.bo.filetype) then
-        vim.cmd.execute([["normal \<CR>"]])
-      else
-        vim.cmd.execute([["normal gd"]])
-      end
-    end,
-  })
-end
-
--- jump and fold
-local jump_and_toggle_fold = function()
-  require("flash").jump({
-    search = {
-      exclude = ftMap.excludes,
-      multi_window = true,
-      autojump = false,
-      forward = true,
-    },
-    ---@param state Flash.State
-    action = function(target, state)
-      state:hide()
-      vim.api.nvim_set_current_win(target.win)
-      vim.api.nvim_win_set_cursor(target.win, target.pos)
-      vim.cmd.execute([["normal za"]])
-      state:restore()
     end,
   })
 end
@@ -129,19 +88,6 @@ return {
         end,
         desc = "flash » jump",
       },
-      -- NOTE: Experimental keymaps
-      {
-        "go",
-        mode = "n",
-        jump_and_open,
-        desc = "flash » jump and open",
-      },
-      {
-        "<leader>z",
-        mode = "n",
-        jump_and_toggle_fold,
-        desc = "flash » jump and toggle fold",
-      },
       {
         "<a-m>",
         mode = { "x", "o" },
@@ -156,28 +102,10 @@ return {
         end,
         desc = "flash » jump",
       },
-      {
-        "<a-space>",
-        mode = { "x", "v", "o" },
-        function()
-          require("flash").treesitter({
-            label = { rainbow = { enabled = true } },
-          })
-        end,
-        desc = "flash » select node",
-      },
-      {
-        "<a-s>",
-        mode = "n",
-        function()
-          require("flash").treesitter_search({
-            label = { rainbow = { enabled = true } },
-          })
-        end,
-        desc = "treesitter » search range",
-      },
     },
     opts = {
+      -- NOTE: custom filetype options to be expossed
+      neo_filetype_excludes = ftMap,
       labels = "asdfghjklqwertyuiopzxcvbnm",
       search = {
         mode = "exact",
