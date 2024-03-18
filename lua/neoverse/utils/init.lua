@@ -241,4 +241,27 @@ function M.create_augroup(scope, clear)
   return vim.api.nvim_create_augroup("neoverse_" .. scope, { clear = clear })
 end
 
+---@param fpath string
+function M.open_with_system_default(fpath)
+  ---@diagnostic disable-next-line: undefined-field
+  local uname = vim.loop.os_uname()
+  local OS = uname.sysname
+  local is_mac = OS == "Darwin"
+  local is_linux = OS == "Linux"
+  local is_windows = OS:find("Windows") and true or false
+  local is_wsl = is_linux and uname.release:lower():find("microsoft") and true or false
+  if is_mac then
+    os.execute("open " .. string.format("'%s'", fpath))
+  elseif is_wsl then
+    os.execute("wslview " .. string.format("'%s'", fpath))
+  elseif is_linux then
+    os.execute("xdg-open " .. string.format("'%s'", fpath))
+  elseif is_windows then
+    os.execute("start " .. string.format("'%s'", fpath))
+  else
+    ---@diagnostic disable-next-line: missing-fields
+    M.warn("OS not detected", { title = "Neo-Tree" })
+  end
+end
+
 return M
