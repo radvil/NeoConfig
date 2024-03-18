@@ -6,7 +6,7 @@ M.config = function(_, opts)
   ---@type CatppuccinOptions
   local NeoDefaults = {
     ---@type string
-    flavour = transparent and "mocha" or "macchiato",
+    flavour = "mocha",
     transparent_background = transparent,
     term_colors = true,
     integrations = {
