@@ -4,22 +4,22 @@ M.keys = {
   {
     "<Leader>bd",
     "<cmd>BD<cr>",
-    desc = "buffer » delete",
+    desc = "[d]elete buffer",
   },
   {
     "<Leader>bf",
     "<cmd>BF<cr>",
-    desc = "buffer » delete [force]",
+    desc = "[f]orce delete buffer",
   },
   {
     "<Leader>bD",
     "<cmd>BAD<cr>",
-    desc = "buffer » delete all",
+    desc = "[D]elete buffers",
   },
   {
     "<Leader>bF",
     "<cmd>BAF<cr>",
-    desc = "buffer » delete all [force]",
+    desc = "[F]orce delete buffers",
   },
 }
 
@@ -30,7 +30,7 @@ M.init = function()
 
   vim.api.nvim_create_user_command("BAD", function()
     for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-      if vim.api.nvim_buf_is_loaded(bufnr) then
+      if vim.bo[bufnr].buftype == "" then
         require("mini.bufremove").delete(bufnr, false)
       end
     end
@@ -42,7 +42,7 @@ M.init = function()
 
   vim.api.nvim_create_user_command("BAF", function()
     for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-      if vim.api.nvim_buf_is_loaded(bufnr) then
+      if vim.bo[bufnr].buftype == "" then
         require("mini.bufremove").delete(bufnr, true)
       end
     end
