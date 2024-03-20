@@ -1,6 +1,7 @@
 return {
   {
-    "nvim-treesitter/nvim-treesitter",
+    "nvim-treesitter",
+    optional = true,
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
         vim.list_extend(opts.ensure_installed, { "markdown", "markdown_inline" })
@@ -8,14 +9,15 @@ return {
     end,
   },
   {
-    "williamboman/mason.nvim",
+    "mason.nvim",
+    optional = true,
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, { "markdownlint", "marksman" })
     end,
   },
   {
-    "nvimtools/none-ls.nvim",
+    "none-ls.nvim",
     optional = true,
     opts = function(_, opts)
       local nls = require("null-ls")
@@ -25,7 +27,7 @@ return {
     end,
   },
   {
-    "mfussenegger/nvim-lint",
+    "nvim-lint",
     optional = true,
     opts = {
       linters_by_ft = {
@@ -41,6 +43,8 @@ return {
       },
     },
   },
+
+  -- TODO: Do I really need this ??
   {
     "lukas-reineke/headlines.nvim",
     opts = function()
@@ -69,6 +73,7 @@ return {
     end,
   },
 
+  -- TODO: Do I really need this ??
   -- Markdown preview
   {
     "iamcco/markdown-preview.nvim",
