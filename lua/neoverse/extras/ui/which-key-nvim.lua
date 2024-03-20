@@ -1,5 +1,6 @@
 return {
   "folke/which-key.nvim",
+  event = "VeryLazy",
   opts = {
     show_help = true,
     plugins = {
@@ -46,25 +47,21 @@ return {
         "qf",
       },
     },
-    triggers = {
-      "<leader>",
-      "g",
-      "s",
-      "`",
-      '"',
-      "'",
-      "[",
-      "]",
-      "z",
+    triggers_blacklist = {
+      n = {
+        "[",
+        "]",
+        "z",
+        "`",
+      },
     },
-    triggers_nowait = {
-      "`",
-      "'",
-      '"',
-      "g`",
-      "g'",
-      "z=",
-      "s",
+    layout = {
+      align = "left",
+      spacing = 5,
+      height = {
+        min = 3,
+        max = 9,
+      },
     },
     defaults = {
       mode = { "n", "x" },
@@ -86,9 +83,9 @@ return {
       ["<Leader>t"] = { name = "terminal" },
     },
   },
-
   config = function(_, opts)
-    require("which-key").setup(opts)
-    require("which-key").register(opts.defaults)
+    local wk = require("which-key")
+    wk.setup(opts)
+    wk.register(opts.defaults)
   end,
 }
