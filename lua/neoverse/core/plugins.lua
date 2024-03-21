@@ -108,18 +108,6 @@ return {
           require("telescope").load_extension("fzf")
         end,
       },
-      {
-        "rcarriga/nvim-notify",
-        keys = {
-          {
-            "<leader>/n",
-            function()
-              require("telescope").extensions.notify.notify()
-            end,
-            desc = "telescope » notifications",
-          },
-        },
-      },
     },
   },
 
