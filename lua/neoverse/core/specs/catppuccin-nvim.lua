@@ -127,13 +127,16 @@ M.config = function(_, opts)
           bg = colors.peach,
           fg = colors.crust,
         }
-        hl_groups.TelescopePromptPrefix = { bg = colors.crust }
-        hl_groups.TelescopeResultsTitle = { bg = colors.yellow }
-        hl_groups.TelescopeResultsNormal = { bg = colors.crust }
+        hl_groups.TelescopeResultsTitle = {
+          bg = colors.yellow,
+          fg = colors.crust,
+        }
         hl_groups.TelescopeResultsBorder = {
           bg = colors.crust,
           fg = colors.crust,
         }
+        hl_groups.TelescopePromptPrefix = { bg = colors.crust }
+        hl_groups.TelescopeResultsNormal = { bg = colors.crust }
       end
 
       return hl_groups
