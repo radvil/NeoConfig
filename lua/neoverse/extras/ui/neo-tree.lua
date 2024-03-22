@@ -29,7 +29,7 @@ return {
       "<leader>E",
       function()
         require("neo-tree.command").execute({
-          dir = vim.loop.cwd(),
+          dir = vim.uv.cwd(),
           selector = true,
           toggle = true,
         })

@@ -127,7 +127,7 @@ local lz = function(opts, custom_cmd)
   Lonard.terminal.open(custom_cmd or { "lazygit" }, opts)
 end
 Lonard.map("n", "<leader>gg", function() lz({ cwd = Lonard.root() }) end, { desc = "lazygit open root" })
-Lonard.map("n", "<leader>gG", function() lz({ cwd = vim.loop.cwd() }) end, { desc = "lazygit » open cwd" })
+Lonard.map("n", "<leader>gG", function() lz({ cwd = vim.uv.cwd() }) end, { desc = "lazygit » open cwd" })
 Lonard.map("n", "<leader>gf", function()
   local git_path = vim.fn.system("git ls-files --full-name " .. vim.api.nvim_buf_get_name(0))
   lz({}, { "lazygit", "-f", vim.trim(git_path) })

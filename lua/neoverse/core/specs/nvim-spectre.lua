@@ -25,7 +25,7 @@ M.keys = {
     "<leader>sW",
     function()
       require("spectre").open_visual({
-        cwd = vim.loop.cwd(),
+        cwd = vim.uv.cwd(),
         select_word = true,
       })
     end,

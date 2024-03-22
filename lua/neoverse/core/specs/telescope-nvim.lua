@@ -36,7 +36,7 @@ function _G.NeoTelescope(builtin, opts)
     opts = params.opts
     ---@type table
     opts = vim.tbl_deep_extend("force", { cwd = Lonard.root() }, opts or {})
-    local is_git_root = vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git")
+    local is_git_root = vim.uv.fs_stat((opts.cwd or vim.uv.cwd()) .. "/.git")
     if is_git_root then
       if builtin == "files" or builtin == "live_grep" or builtin == "grep_string" then
         opts.prompt_title = opts.prompt_title .. " <git>"
@@ -47,9 +47,9 @@ function _G.NeoTelescope(builtin, opts)
       end
       if
         builtin == "files"
-        and vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git")
-        and not vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.ignore")
-        and not vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.rgignore")
+        and vim.uv.fs_stat((opts.cwd or vim.uv.cwd()) .. "/.git")
+        and not vim.uv.fs_stat((opts.cwd or vim.uv.cwd()) .. "/.ignore")
+        and not vim.uv.fs_stat((opts.cwd or vim.uv.cwd()) .. "/.rgignore")
       then
         builtin = "git_files"
         opts.show_untracked = true
@@ -64,7 +64,7 @@ function _G.NeoTelescope(builtin, opts)
         height = 0.9,
       }
     end
-    if opts.cwd and opts.cwd ~= vim.loop.cwd() then
+    if opts.cwd and opts.cwd ~= vim.uv.cwd() then
       opts.attach_mappings = function(_, map)
         map("i", "<c-c>", function()
           local action_state = require("telescope.actions.state")
@@ -205,7 +205,7 @@ M.keys = {
     "<leader>/F",
     NeoTelescope("files", {
       prompt_title = Icons.FindFiles .. "Files",
-      cwd = vim.loop.cwd(),
+      cwd = vim.uv.cwd(),
     }),
     "Find files [cwd]"
   ),
@@ -224,7 +224,7 @@ M.keys = {
     NeoTelescope("live_grep", {
       prompt_title = Icons.LiveGrepWords .. "Live grep word",
       layout_strategy = "vertical",
-      cwd = vim.loop.cwd(),
+      cwd = vim.uv.cwd(),
     }),
     "Live grep word [cwd]"
   ),
@@ -252,7 +252,7 @@ M.keys = {
     NeoTelescope("oldfiles", {
       prompt_title = Icons.FindRecentFiles .. "Recent files [cwd]",
       initial_mode = "normal",
-      cwd = vim.loop.cwd(),
+      cwd = vim.uv.cwd(),
     }),
     "Recent files [cwd]"
   ),
@@ -292,7 +292,7 @@ M.keys = {
     NeoTelescope("grep_string", {
       prompt_title = Icons.GrepStrings .. "Grep strings",
       layout_strategy = "vertical",
-      cwd = vim.loop.cwd(),
+      cwd = vim.uv.cwd(),
     }),
     "Grep strings [cwd]"
   ),
@@ -302,7 +302,7 @@ M.keys = {
     NeoTelescope("grep_string", {
       prompt_title = Icons.GrepStrings .. "Grep selection",
       layout_strategy = "vertical",
-      cwd = vim.loop.cwd(),
+      cwd = vim.uv.cwd(),
     }),
     "Grep selection [cwd]",
     "v"
@@ -332,7 +332,7 @@ M.keys = {
       prompt_title = Icons.FindRecentFiles .. "Buffers [cwd]",
       ignore_current_buffer = false,
       initial_mode = "normal",
-      cwd = vim.loop.cwd(),
+      cwd = vim.uv.cwd(),
     }),
     "Buffers [cwd]"
   ),

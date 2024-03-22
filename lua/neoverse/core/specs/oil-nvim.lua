@@ -9,7 +9,7 @@ M.keys = {
   },
   {
     "<Leader>fE",
-    function() require("oil").open(vim.loop.cwd()) end,
+    function() require("oil").open(vim.uv.cwd()) end,
     desc = "file explorer » open [cwd]",
   },
 }

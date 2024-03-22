@@ -33,7 +33,7 @@ return {
       {
         "<Leader>E",
         function()
-          require("nvim-tree.api").tree.toggle({ path = vim.loop.cwd() })
+          require("nvim-tree.api").tree.toggle({ path = vim.uv.cwd() })
         end,
         desc = "nvimtree » toggle [cwd]",
       },

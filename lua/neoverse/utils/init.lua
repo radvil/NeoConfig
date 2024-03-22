@@ -27,7 +27,7 @@ setmetatable(M, {
 })
 
 function M.is_win()
-  return vim.loop.os_uname().sysname:find("Windows") ~= nil
+  return vim.uv.os_uname().sysname:find("Windows") ~= nil
 end
 
 ---check buffer against given mapping list or string
@@ -247,7 +247,7 @@ function M.open_with_system_default(fpath)
     vim.ui.open(fpath)
   else
     ---@diagnostic disable-next-line: undefined-field
-    local uname = vim.loop.os_uname()
+    local uname = vim.uv.os_uname()
     local OS = uname.sysname
     local is_mac = OS == "Darwin"
     local is_linux = OS == "Linux"
