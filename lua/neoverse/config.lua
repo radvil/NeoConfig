@@ -1,5 +1,5 @@
 ---@diagnostic disable: inject-field
-local Utils = require("neoverse.utils")
+_G.Lonard = require("neoverse.utils")
 
 ---@type NeoVerseOpts
 local M = {}
@@ -114,7 +114,7 @@ function M.json.load()
     if ok then
       M.json.data = vim.tbl_deep_extend("force", M.json.data, json or {}) or {}
       if M.json.data.version ~= M.json.version then
-        Utils.json.migrate()
+        Lonard.json.migrate()
       end
     end
   end
@@ -127,7 +127,7 @@ local options = nil
 function M.load(name)
   local function _load(mod)
     if require("lazy.core.cache").find(mod)[1] then
-      Utils.try(function()
+      Lonard.try(function()
         require(mod)
       end, { msg = "Failed loading " .. mod })
     end
@@ -167,14 +167,14 @@ function M.bootstrap(opts)
         vim.cmd([[Lazy! load all]])
         vim.cmd([[checkhealth]])
       end, { desc = "Load all plugins and run :checkhealth" })
-      Utils.root.setup()
-      Utils.format.setup()
-      Utils.extras.setup()
+      Lonard.root.setup()
+      Lonard.format.setup()
+      Lonard.extras.setup()
     end,
   })
 
-  Utils.track("colorscheme")
-  Utils.try(function()
+  Lonard.track("colorscheme")
+  Lonard.try(function()
     if type(M.colorscheme) == "function" then
       M.colorscheme()
     else
@@ -183,11 +183,11 @@ function M.bootstrap(opts)
   end, {
     msg = "Could not load your colorscheme",
     on_error = function(msg)
-      Utils.error(msg)
+      Lonard.error(msg)
       vim.cmd.colorscheme("habamax")
     end,
   })
-  Utils.track()
+  Lonard.track()
 end
 
 M.did_init = false
@@ -198,6 +198,7 @@ function M.init()
   M.did_init = true
   local plugin = require("lazy.core.config").spec.plugins.NeoVerse
   if plugin then
+    ---@diagnostic disable-next-line: undefined-field
     vim.opt.rtp:append(plugin.dir)
   end
 
@@ -205,7 +206,7 @@ function M.init()
   -- this is needed to make sure options will be correctly applied
   -- after installing missing plugins
   M.load("options")
-  Utils.plugin.setup()
+  Lonard.plugin.setup()
   M.json.load()
 end
 

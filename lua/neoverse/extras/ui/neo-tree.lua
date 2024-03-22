@@ -17,7 +17,7 @@ return {
       "<Leader>e",
       function()
         require("neo-tree.command").execute({
-          dir = require("neoverse.utils").root(),
+          dir = Lonard.root(),
           selector = true,
           reveal = true,
           toggle = true,
@@ -40,7 +40,7 @@ return {
       "<leader><cr>",
       function()
         require("neo-tree.command").execute({
-          dir = require("neoverse.utils").root(),
+          dir = Lonard.root(),
           source = "buffers",
           action = "focus",
           reveal = true,
@@ -183,9 +183,8 @@ return {
   },
 
   config = function(_, opts)
-    local Utils = require("neoverse.utils")
     local function on_move(data)
-      Utils.lsp.on_rename(data.source, data.destination)
+      Lonard.lsp.on_rename(data.source, data.destination)
     end
 
     local events = require("neo-tree.events")
@@ -198,7 +197,7 @@ return {
 
     require("neo-tree").setup(opts)
     vim.api.nvim_create_autocmd("TermClose", {
-      group = Utils.create_augroup("neotree_reload_gitstatus", true),
+      group = Lonard.create_augroup("neotree_reload_gitstatus", true),
       pattern = "*lazygit",
       callback = function()
         if package.loaded["neo-tree.sources.git_status"] then

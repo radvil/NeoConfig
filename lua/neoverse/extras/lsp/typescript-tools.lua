@@ -44,7 +44,7 @@ return {
       local Kmap = function(lhs, cmd, desc)
         cmd = string.format("<cmd>TSTools%s<cr>", cmd)
         desc = string.format("typescript » %s", desc)
-        return require("neoverse.utils").map("n", lhs, cmd, { desc = desc })
+        return Lonard.map("n", lhs, cmd, { desc = desc })
       end
       Kmap("gs", "GoToSourceDefinition", "goto source definition")
       Kmap("<leader>cm", "AddMissingImports", "add missing imports")

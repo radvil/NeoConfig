@@ -1,5 +1,4 @@
 local Config = require("neoverse.config")
-local Utils = require("neoverse.utils")
 
 ---@class neoverse.utils.json
 local M = {}
@@ -14,7 +13,7 @@ local function encode(value, indent)
   elseif t == "number" or t == "boolean" then
     return tostring(value)
   elseif t == "table" then
-    local is_list = Utils.is_list(value)
+    local is_list = Lonard.is_list(value)
     local parts = {}
     local next_indent = indent .. "  "
 
@@ -51,13 +50,13 @@ function M.save()
   local path = vim.fn.stdpath("config") .. "/neoverse.json"
   local f = io.open(path, "w")
   if f then
-    f:write(Utils.json.encode(Config.json.data))
+    f:write(Lonard.json.encode(Config.json.data))
     f:close()
   end
 end
 
 function M.migrate()
-  Utils.info("Migrating `neoverse.json` to version `" .. Config.json.version .. "`")
+  Lonard.info("Migrating `neoverse.json` to version `" .. Config.json.version .. "`")
   local json = Config.json
 
   -- v0

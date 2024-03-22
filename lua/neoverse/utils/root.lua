@@ -1,6 +1,3 @@
----@diagnostic disable: missing-fields
-local Utils = require("neoverse.utils")
-
 ---@class neoverse.utils.root
 ---@overload fun(): string
 local M = setmetatable({}, {
@@ -33,7 +30,7 @@ function M.detectors.lsp(buf)
     return {}
   end
   local roots = {} ---@type string[]
-  for _, client in pairs(Utils.lsp.get_clients({ bufnr = buf })) do
+  for _, client in pairs(Lonard.lsp.get_clients({ bufnr = buf })) do
     local workspace = client.config.workspace_folders
     for _, ws in pairs(workspace or {}) do
       roots[#roots + 1] = vim.uri_to_fname(ws.uri)
@@ -43,7 +40,7 @@ function M.detectors.lsp(buf)
     end
   end
   return vim.tbl_filter(function(path)
-    path = Utils.norm(path)
+    path = Lonard.norm(path)
     return path and bufpath:find(path, 1, true) == 1
   end, roots)
 end
@@ -109,7 +106,7 @@ function M.realpath(path)
     return nil
   end
   path = vim.loop.fs_realpath(path) or path
-  return Utils.norm(path)
+  return Lonard.norm(path)
 end
 
 function M.pretty_path()
@@ -117,7 +114,7 @@ function M.pretty_path()
   if path == "" then
     return ""
   end
-  path = Utils.norm(path)
+  path = Lonard.norm(path)
   if M.pretty_cache[path] then
     return M.pretty_cache[path]
   end
@@ -161,7 +158,7 @@ function M.info()
   lines[#lines + 1] = "```lua"
   lines[#lines + 1] = "vim.g.neo_root_spec = " .. vim.inspect(spec)
   lines[#lines + 1] = "```"
-  Utils.info(lines, { title = "Neoverse Roots" })
+  Lonard.info(lines, { title = "Neoverse Roots" })
   return roots[1] and roots[1].paths[1] or vim.loop.cwd()
 end
 
@@ -187,12 +184,12 @@ function M.get(opts)
   if opts and opts.normalize then
     return ret
   end
-  return Utils.is_win() and ret:gsub("/", "\\") or ret
+  return Lonard.is_win() and ret:gsub("/", "\\") or ret
 end
 
 function M.setup()
   vim.api.nvim_create_user_command("NeoRoot", function()
-    Utils.root.info()
+    Lonard.root.info()
   end, { desc = "Neoverse roots for the current buffer" })
   vim.api.nvim_create_autocmd({ "LspAttach", "BufWritePost", "DirChanged" }, {
     group = vim.api.nvim_create_augroup("neoverse_root_cache", { clear = true }),

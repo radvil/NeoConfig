@@ -80,7 +80,7 @@ return {
       standalone_setups = {
         angularls = function()
           ---@param client lsp.Client
-          require("neoverse.utils").lsp.on_attach(function(client)
+          Lonard.lsp.on_attach(function(client)
             if client.name == "angularls" then
               client.server_capabilities.renameProvider = false
               cmd("c", goToComponentFile, "Go to component file")

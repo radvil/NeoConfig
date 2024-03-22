@@ -1,6 +1,3 @@
----@diagnostic disable: missing-fields
-local Utils = require("neoverse.utils")
-
 ---@class neoverse.utils.toggle
 local M = {}
 
@@ -15,15 +12,15 @@ function M.option(option, silent, values)
       ---@diagnostic disable-next-line: no-unknown
       vim.opt_local[option] = values[1]
     end
-    return Utils.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
+    return Lonard.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
   end
   ---@diagnostic disable-next-line: no-unknown
   vim.opt_local[option] = not vim.opt_local[option]:get()
   if not silent then
     if vim.opt_local[option]:get() then
-      Utils.info("Enabled " .. option, { title = "Option" })
+      Lonard.info("Enabled " .. option, { title = "Option" })
     else
-      Utils.warn("Disabled " .. option, { title = "Option" })
+      Lonard.warn("Disabled " .. option, { title = "Option" })
     end
   end
 end
@@ -34,11 +31,11 @@ function M.number()
     nu = { number = vim.opt_local.number:get(), relativenumber = vim.opt_local.relativenumber:get() }
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
-    Utils.warn("Disabled line numbers", { title = "Option" })
+    Lonard.warn("Disabled line numbers", { title = "Option" })
   else
     vim.opt_local.number = nu.number
     vim.opt_local.relativenumber = nu.relativenumber
-    Utils.info("Enabled line numbers", { title = "Option" })
+    Lonard.info("Enabled line numbers", { title = "Option" })
   end
 end
 
@@ -52,10 +49,10 @@ function M.diagnostics()
   enabled = not enabled
   if enabled then
     vim.diagnostic.enable()
-    Utils.info("Enabled diagnostics", { title = "Diagnostics" })
+    Lonard.info("Enabled diagnostics", { title = "Diagnostics" })
   else
     vim.diagnostic.disable()
-    Utils.warn("Disabled diagnostics", { title = "Diagnostics" })
+    Lonard.warn("Disabled diagnostics", { title = "Diagnostics" })
   end
 end
 

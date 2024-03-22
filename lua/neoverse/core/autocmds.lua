@@ -1,7 +1,5 @@
-local Utils = require("neoverse.utils")
-
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = Utils.create_augroup("checktime"),
+  group = Lonard.create_augroup("checktime"),
   callback = function()
     if vim.o.buftype ~= "nofile" then
       vim.cmd("checktime")
@@ -10,14 +8,14 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = Utils.create_augroup("highlight_on_yanked"),
+  group = Lonard.create_augroup("highlight_on_yanked"),
   callback = function()
     vim.highlight.on_yank({ timeout = 99 })
   end,
 })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
-  group = Utils.create_augroup("goto_last_loc"),
+  group = Lonard.create_augroup("goto_last_loc"),
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -28,7 +26,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = Utils.create_augroup("on_popup_ui_opened"),
+  group = Lonard.create_augroup("on_popup_ui_opened"),
   pattern = {
     "neo-tree-popup",
     "spectre_panel",
@@ -68,7 +66,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- make it easier to close man-files when opened inline
 vim.api.nvim_create_autocmd("FileType", {
-  group = Utils.create_augroup("man_unlisted"),
+  group = Lonard.create_augroup("man_unlisted"),
   pattern = { "man" },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -76,7 +74,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  group = Utils.create_augroup("wrap_and_spell"),
+  group = Lonard.create_augroup("wrap_and_spell"),
   pattern = { "gitcommit", "markdown" },
   callback = function()
     vim.opt_local.wrap = true
@@ -85,7 +83,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
-  group = Utils.create_augroup("resize_splits"),
+  group = Lonard.create_augroup("resize_splits"),
   callback = function()
     vim.cmd("tabdo wincmd =")
   end,
@@ -93,7 +91,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 
 -- Fix conceallevel for json files
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = Utils.create_augroup("json_conceal"),
+  group = Lonard.create_augroup("json_conceal"),
   pattern = { "json", "jsonc", "json5" },
   callback = function()
     vim.opt_local.conceallevel = 0

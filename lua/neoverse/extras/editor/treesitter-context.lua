@@ -13,13 +13,12 @@ return {
     {
       "<leader>ut",
       function()
-        local Utils = require("neoverse.utils")
         local tsc = require("treesitter-context")
         tsc.toggle()
-        if Utils.inject.get_upvalue(tsc.toggle, "enabled") then
-          Utils.info("Enabled", { title = "Treesitter Context" })
+        if Lonard.inject.get_upvalue(tsc.toggle, "enabled") then
+          Lonard.info("Enabled", { title = "Treesitter Context" })
         else
-          Utils.warn("Disabled", { title = "Treesitter Context" })
+          Lonard.warn("Disabled", { title = "Treesitter Context" })
         end
       end,
       desc = "toggle » treesitter context",

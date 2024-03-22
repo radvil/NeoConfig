@@ -254,7 +254,7 @@ return {
   },
 
   -- extensions loader
-  require("neoverse.utils").extras.get_specs_by_prios({
+  Lonard.extras.get_specs_by_prios({
     ["neoverse.extras.ui.which-key-nvim"] = 9997,
     ["neoverse.extras.ui.legendary-nvim"] = 9996,
     ["neoverse.extras.completion.codeium"] = 9994,

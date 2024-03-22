@@ -2,9 +2,8 @@
 local M = {}
 ---@param opts NeoLspCodeLensOpts
 function M.setup(opts)
-  local Utils = require("neoverse.utils")
   if opts.enabled and vim.lsp.codelens then
-    Utils.lsp.on_attach(function(client, buffer)
+    Lonard.lsp.on_attach(function(client, buffer)
       if client.supports_method("textDocument/codeLens") then
         vim.lsp.codelens.refresh()
         --- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()

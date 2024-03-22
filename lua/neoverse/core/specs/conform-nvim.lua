@@ -1,7 +1,5 @@
 local M = {}
 
-local Utils = require("neoverse.utils")
-
 M.keys = {
   {
     "<leader>cF",
@@ -15,8 +13,8 @@ M.keys = {
 
 M.init = function()
   -- Install the conform formatter on VeryLazy
-  Utils.on_very_lazy(function()
-    Utils.format.register({
+  Lonard.on_very_lazy(function()
+    Lonard.format.register({
       name = "conform.nvim",
       priority = 100,
       primary = true,
@@ -24,7 +22,7 @@ M.init = function()
         local plugin = require("lazy.core.config").plugins["conform.nvim"]
         local Plugin = require("lazy.core.plugin")
         local opts = Plugin.values(plugin, "opts", false)
-        require("conform").format(Utils.merge(opts.format, { bufnr = buf }))
+        require("conform").format(Lonard.merge(opts.format, { bufnr = buf }))
       end,
       sources = function(buf)
         local ret = require("conform").list_formatters(buf)
@@ -40,7 +38,7 @@ end
 M.opts = function()
   local plugin = require("lazy.core.config").plugins["conform.nvim"]
   if plugin.config ~= M.config then
-    Utils.error({
+    Lonard.error({
       "Don't set `plugin.config` for `conform.nvim`.\n",
       "This will break **NeoVerse** formatting.\n",
       ---@diagnostic disable-next-line: missing-fields

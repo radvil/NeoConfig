@@ -1,5 +1,3 @@
-local Utils = require("neoverse.utils")
-
 ---@diagnostic disable: param-type-mismatch
 local M = {}
 
@@ -103,7 +101,7 @@ M.config = function(_, opts)
   local border = vim.g.neo_winborder
   require("lspconfig.ui.windows").default_options.border = border
 
-  if Utils.lazy_has("neoconf.nvim") then
+  if Lonard.lazy_has("neoconf.nvim") then
     local plugin = require("lazy.core.config").spec.plugins["neoconf.nvim"]
     require("neoconf").setup(require("lazy.core.plugin").values(plugin, "opts", false))
   end
@@ -111,14 +109,14 @@ M.config = function(_, opts)
   require("neoverse.core.lsp.autocmds").setup()
 
   -- register formatter along with autoformat
-  Utils.format.register(Utils.lsp.formatter())
+  Lonard.format.register(Lonard.lsp.formatter())
 
   require("neoverse.core.lsp.keymaps").setup()
   require("neoverse.core.lsp.diagnostics").setup(opts.diagnostics)
   require("neoverse.core.lsp.inlay-hints").setup(opts.inlay_hints)
   require("neoverse.core.lsp.codelens").setup(opts.codelens)
 
-  if not Utils.lazy_has("noice.nvim") then
+  if not Lonard.lazy_has("noice.nvim") then
     vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
     -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
     --- https://github.com/neovim/neovim/issues/20457#issuecomment-1266782345
@@ -138,7 +136,7 @@ M.config = function(_, opts)
     end
   end
 
-  local cmp_nvim_lsp = Utils.call("cmp_nvim_lsp")
+  local cmp_nvim_lsp = Lonard.call("cmp_nvim_lsp")
   local capabilities = vim.tbl_deep_extend(
     "force",
     {},
@@ -174,7 +172,7 @@ M.config = function(_, opts)
 
   local mlsp_servers = {}
   local ensure_installed = {}
-  local mason_lspconfig = Utils.call("mason-lspconfig")
+  local mason_lspconfig = Lonard.call("mason-lspconfig")
 
   if mason_lspconfig then
     local server_pairs = require("mason-lspconfig.mappings.server")
@@ -201,10 +199,10 @@ M.config = function(_, opts)
     })
   end
 
-  if Utils.lsp.get_config("denols") and Utils.lsp.get_config("tsserver") then
+  if Lonard.lsp.get_config("denols") and Lonard.lsp.get_config("tsserver") then
     local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
-    Utils.lsp.disable("tsserver", is_deno)
-    Utils.lsp.disable("denols", function(root_dir)
+    Lonard.lsp.disable("tsserver", is_deno)
+    Lonard.lsp.disable("denols", function(root_dir)
       return not is_deno(root_dir)
     end)
   end

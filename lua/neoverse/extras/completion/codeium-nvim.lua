@@ -30,7 +30,7 @@ return {
     optional = true,
     event = "VeryLazy",
     opts = function(_, opts)
-      table.insert(opts.sections.lualine_y, 2, require("neoverse.utils").lualine.cmp_source("codeium"))
+      table.insert(opts.sections.lualine_y, 2, Lonard.lualine.cmp_source("codeium"))
     end,
   },
 }

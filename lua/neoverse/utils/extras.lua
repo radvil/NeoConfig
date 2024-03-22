@@ -1,7 +1,6 @@
 ---@diagnostic disable: inject-field
 
 local Config = require("neoverse.config")
-local Utils = require("neoverse.utils")
 local LazyFloat = require("lazy.view.float")
 local LazyConfig = require("lazy.core.config")
 local LazyPlugin = require("lazy.core.plugin")
@@ -41,9 +40,9 @@ function M.get()
   M.state = M.state or LazyConfig.spec.modules
   local extras = {} ---@type NeoExtra[]
   for _, source in ipairs(M.sources) do
-    local root = Utils.find_root(source.module)
+    local root = Lonard.find_root(source.module)
     if root then
-      Utils.walk(root, function(path, name, type)
+      Lonard.walk(root, function(path, name, type)
         if type == "file" and name:match("%.lua$") then
           name = path:sub(#root + 2, -5):gsub("/", ".")
           extras[#extras + 1] = M.get_extras(source, source.module .. "." .. name)
@@ -151,7 +150,7 @@ function V:toggle()
   for _, plug in ipairs(self.extras) do
     if plug.row == pos[1] then
       if not plug.managed then
-        Utils.error(
+        Lonard.error(
           "Not managed by NeoExtras. Remove from your config to enable/disable here.",
           { title = "NeoExtras" }
         )
@@ -169,8 +168,8 @@ function V:toggle()
         M.state[#M.state + 1] = plug.module
       end
       table.sort(Config.json.data.extras)
-      Utils.json.save()
-      Utils.info(
+      Lonard.json.save()
+      Lonard.info(
         "`"
           .. plug.name
           .. "`"

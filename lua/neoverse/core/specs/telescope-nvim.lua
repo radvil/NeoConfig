@@ -32,11 +32,10 @@ end
 function _G.NeoTelescope(builtin, opts)
   local params = { builtin = builtin, opts = opts }
   return function()
-    local Utils = require("neoverse.utils")
     builtin = params.builtin
     opts = params.opts
     ---@type table
-    opts = vim.tbl_deep_extend("force", { cwd = Utils.root() }, opts or {})
+    opts = vim.tbl_deep_extend("force", { cwd = Lonard.root() }, opts or {})
     local is_git_root = vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git")
     if is_git_root then
       if builtin == "files" or builtin == "live_grep" or builtin == "grep_string" then

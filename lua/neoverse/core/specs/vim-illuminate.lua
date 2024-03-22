@@ -59,7 +59,7 @@ M.init = function()
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
     callback = function()
-      if require("neoverse.utils").buf_has_keymaps({ "<A-n>", "<A-p>" }) then
+      if Lonard.buf_has_keymaps({ "<A-n>", "<A-p>" }) then
         pcall(vim.keymap.del, "n", "<A-n>", { buffer = true })
         pcall(vim.keymap.del, "n", "<A-p>", { buffer = true })
       end

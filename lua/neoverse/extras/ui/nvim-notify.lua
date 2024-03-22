@@ -48,8 +48,7 @@ return {
       },
     },
     init = function()
-      local Util = require("neoverse.utils")
-      Util.on_very_lazy(function()
+      Lonard.on_very_lazy(function()
         vim.notify = require("notify")
       end)
     end,

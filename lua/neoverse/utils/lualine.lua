@@ -1,5 +1,3 @@
-local Util = require("neoverse.utils")
-
 ---@class neoverse.utils.lualine
 local M = {}
 
@@ -34,9 +32,9 @@ function M.cmp_source(name, icon)
   end
 
   local colors = {
-    ok = Util.lualine.fg("Character"),
-    error = Util.lualine.fg("DiagnosticError"),
-    pending = Util.lualine.fg("DiagnosticWarn"),
+    ok = Lonard.lualine.fg("Character"),
+    error = Lonard.lualine.fg("DiagnosticError"),
+    pending = Lonard.lualine.fg("DiagnosticWarn"),
   }
 
   return {
@@ -101,8 +99,8 @@ function M.pretty_path(opts)
     if path == "" then
       return ""
     end
-    local root = Util.root.get({ normalize = true })
-    local cwd = Util.root.cwd()
+    local root = Lonard.root.get({ normalize = true })
+    local cwd = Lonard.root.cwd()
 
     if opts.relative == "cwd" and path:find(cwd, 1, true) == 1 then
       path = path:sub(#cwd + 2)
@@ -142,8 +140,8 @@ function M.root_dir(opts)
   }, opts or {})
 
   local function get()
-    local cwd = Util.root.cwd()
-    local root = Util.root.get({ normalize = true })
+    local cwd = Lonard.root.cwd()
+    local root = Lonard.root.get({ normalize = true })
     local name = vim.fs.basename(root)
 
     if root == cwd then

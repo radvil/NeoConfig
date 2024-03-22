@@ -5,7 +5,7 @@ M.keys = {
     "<leader>sw",
     function()
       require("spectre").open_visual({
-        cwd = require("neoverse.utils").root.get(),
+        cwd = Lonard.root.get(),
         select_word = true,
       })
     end,
@@ -15,7 +15,7 @@ M.keys = {
     "<leader>sw",
     function()
       require("spectre").open_visual({
-        cwd = require("neoverse.utils").root.get(),
+        cwd = Lonard.root.get(),
       })
     end,
     desc = "spectre search » selected words [root]",

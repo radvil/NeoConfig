@@ -20,8 +20,7 @@ M.opts = function()
   vim.o.laststatus = vim.g.lualine_laststatus
 
   local Config = require("neoverse.config")
-  local Utils = require("neoverse.utils")
-  local A = { "mode", Utils.lualine.root_dir() }
+  local A = { "mode", Lonard.lualine.root_dir() }
   local B = {
     {
       "filetype",
@@ -32,7 +31,7 @@ M.opts = function()
         right = 0,
       },
     },
-    { Utils.lualine.pretty_path() },
+    { Lonard.lualine.pretty_path() },
   }
   local C = {
     {
@@ -49,7 +48,7 @@ M.opts = function()
         return require("nvim-navic").get_location()
       end,
       cond = function()
-        return not Utils.lazy_has("barbecue") and package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+        return not Lonard.lazy_has("barbecue") and package.loaded["nvim-navic"] and require("nvim-navic").is_available()
       end,
     },
   }
@@ -61,12 +60,12 @@ M.opts = function()
       cond = function()
         return package.loaded["noice"] and require("noice").api.status.mode.has()
       end,
-      color = Utils.lualine.fg("Constant"),
+      color = Lonard.lualine.fg("Constant"),
     },
     {
       require("lazy.status").updates,
       cond = require("lazy.status").has_updates,
-      color = Utils.lualine.fg("Special"),
+      color = Lonard.lualine.fg("Special"),
     },
     {
       "diff",

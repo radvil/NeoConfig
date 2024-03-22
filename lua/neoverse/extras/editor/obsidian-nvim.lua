@@ -97,8 +97,7 @@ return {
     },
     config = function(_, opts)
       require("obsidian").setu(opts)
-      local Utils = require("neoverse.utils")
-      Utils.map("n", "gf", function()
+      Lonard.map("n", "gf", function()
         if require("obsidian").util.cursor_on_markdown_link() then
           return "<cmd>ObsidianFollowLink<cr>"
         else

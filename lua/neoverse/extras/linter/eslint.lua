@@ -1,5 +1,3 @@
-local Utils = require("neoverse.utils")
-
 return {
   "neovim/nvim-lspconfig",
   -- other settings removed for brevity
@@ -16,10 +14,10 @@ return {
     standalone_setups = {
       eslint = function()
         local function get_client(buf)
-          return Utils.lsp.get_clients({ name = "eslint", bufnr = buf })[1]
+          return Lonard.lsp.get_clients({ name = "eslint", bufnr = buf })[1]
         end
 
-        local formatter = Utils.lsp.formatter({
+        local formatter = Lonard.lsp.formatter({
           name = "eslint: lsp",
           primary = false,
           priority = 200,
@@ -45,7 +43,7 @@ return {
         end
 
         -- register the formatter with LazyVim
-        Utils.format.register(formatter)
+        Lonard.format.register(formatter)
       end,
     },
   },

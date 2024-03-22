@@ -1,5 +1,3 @@
-local Utils = require("neoverse.utils")
-
 ---@class neoverse.utils.lsp
 local M = {}
 
@@ -87,10 +85,10 @@ function M.formatter(opts)
     primary = true,
     priority = 1,
     format = function(buf)
-      M.format(Utils.merge(filter, { bufnr = buf }))
+      M.format(Lonard.merge(filter, { bufnr = buf }))
     end,
     sources = function(buf)
-      local clients = M.get_clients(Utils.merge(filter, { bufnr = buf }))
+      local clients = M.get_clients(Lonard.merge(filter, { bufnr = buf }))
       ---@param client lsp.Client
       local ret = vim.tbl_filter(function(client)
         return client.supports_method("textDocument/formatting")
@@ -102,14 +100,14 @@ function M.formatter(opts)
       end, ret)
     end,
   }
-  return Utils.merge(ret, opts) --[[@as NeoFormatter]]
+  return Lonard.merge(ret, opts) --[[@as NeoFormatter]]
 end
 
 ---@alias lsp.Client.format {timeout_ms?: number, format_options?: table} | lsp.Client.filter
 
 ---@param opts? lsp.Client.format
 function M.format(opts)
-  opts = vim.tbl_deep_extend("force", {}, opts or {}, require("neoverse.utils").opts("nvim-lspconfig").format or {})
+  opts = vim.tbl_deep_extend("force", {}, opts or {}, Lonard.opts("nvim-lspconfig").format or {})
   local ok, conform = pcall(require, "conform")
   -- use conform for formatting with LSP when available,
   -- since it has better format diffing

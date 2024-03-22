@@ -26,7 +26,7 @@ return {
       {
         "<Leader>e",
         function()
-          require("nvim-tree.api").tree.toggle({ path = require("neoverse.utils").root() })
+          require("nvim-tree.api").tree.toggle({ path = Lonard.root() })
         end,
         desc = "nvimtree » toggle [root]",
       },

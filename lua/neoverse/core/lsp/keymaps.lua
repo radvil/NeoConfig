@@ -1,6 +1,5 @@
 ---@diagnostic disable: inject-field
 local M = {}
-local Utils = require("neoverse.utils")
 
 ---@type NeoKeysLspSpec[]|nil
 M._keys = nil
@@ -26,9 +25,9 @@ function M.get()
       {
         "K",
         function()
-          local ufo = Utils.call("ufo")
+          local ufo = Lonard.call("ufo")
           if ufo then
-            return Utils.call("ufo").peekFoldedLinesUnderCursor() or vim.lsp.buf.hover()
+            return Lonard.call("ufo").peekFoldedLinesUnderCursor() or vim.lsp.buf.hover()
           else
             return vim.lsp.buf.hover()
           end
@@ -70,7 +69,7 @@ function M.get()
       -- { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
       -- { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
     }
-  if Utils.lazy_has("inc-rename.nvim") then
+  if Lonard.lazy_has("inc-rename.nvim") then
     M._keys[#M._keys + 1] = {
       "<leader>cr",
       function()
@@ -95,7 +94,7 @@ end
 ---@param method string
 function M.has(buffer, method)
   method = method:find("/") and method or "textDocument/" .. method
-  local clients = Utils.lsp.get_clients({ bufnr = buffer })
+  local clients = Lonard.lsp.get_clients({ bufnr = buffer })
   for _, client in ipairs(clients) do
     if client.supports_method(method) then
       return true
@@ -111,8 +110,8 @@ function M.resolve(buffer)
     return {}
   end
   local spec = M.get()
-  local opts = Utils.opts("nvim-lspconfig")
-  local clients = Utils.lsp.get_clients({ bufnr = buffer })
+  local opts = Lonard.opts("nvim-lspconfig")
+  local clients = Lonard.lsp.get_clients({ bufnr = buffer })
   for _, client in ipairs(clients) do
     local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
     vim.list_extend(spec, maps)
@@ -139,7 +138,7 @@ function M.setup()
     return
   end
 
-  Utils.lsp.on_attach(function(client, buffer)
+  Lonard.lsp.on_attach(function(client, buffer)
     M.on_attach(client, buffer)
   end)
   local register_capability = vim.lsp.handlers["client/registerCapability"]

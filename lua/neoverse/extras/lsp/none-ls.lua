@@ -1,19 +1,17 @@
-local Utils = require("neoverse.utils")
-
 return {
   "nvimtools/none-ls.nvim",
   dependencies = "williamboman/mason.nvim",
   event = "LazyFile",
 
   init = function()
-    Utils.on_very_lazy(function()
+    Lonard.on_very_lazy(function()
       -- register the formatter with LazyVim
-      Utils.format.register({
+      Lonard.format.register({
         name = "none-ls.nvim",
         priority = 200, -- set higher than conform, the builtin formatter
         primary = true,
         format = function(buf)
-          return Utils.lsp.format({
+          return Lonard.lsp.format({
             bufnr = buf,
             filter = function(client)
               return client.name == "null-ls"
