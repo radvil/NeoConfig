@@ -1,6 +1,12 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Optionally setup the terminal to use
+-- This sets `vim.o.shell` and does some additional configuration for:
+-- * pwsh
+-- * powershell
+-- Lonard.terminal.setup("pwsh")
+
 vim.opt.wrap = false
 vim.opt.autowrite = true
 vim.opt.confirm = true
