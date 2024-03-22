@@ -51,13 +51,17 @@ function _G.NeoTelescope(builtin, opts)
         and not vim.uv.fs_stat((opts.cwd or vim.uv.cwd()) .. "/.ignore")
         and not vim.uv.fs_stat((opts.cwd or vim.uv.cwd()) .. "/.rgignore")
       then
+        if opts.show_untracked == nil then
+          opts.show_untracked = true
+        end
         builtin = "git_files"
-        opts.show_untracked = true
       end
     else
       if builtin == "files" then
+        if opts.show_untracked == nil then
+          opts.show_untracked = false
+        end
         builtin = "find_files"
-        opts.show_untracked = false
       end
       opts.layout_config = {
         prompt_position = "top",
