@@ -1,3 +1,4 @@
+---@diagnostic disable: duplicate-set-field
 ---@class neoverse.utils.lualine
 local M = {}
 
@@ -90,7 +91,8 @@ function M.pretty_path(opts)
     -- modified_hl = "@constructor.lua",
     modified_hl = "MatchParen",
     directory_hl = "",
-    filename_hl = "Bold",
+    -- filename_hl = "Bold",
+    filename_hl = "@markup",
   }, opts or {})
 
   return function(self)

@@ -124,11 +124,17 @@ M.config = function(_, opts)
         hl_groups.TelescopePromptNormal = { bg = colors.crust }
         hl_groups.TelescopePromptTitle = {
           bold = true,
-          bg = colors.peach,
+          bg = colors.maroon,
           fg = colors.crust,
         }
         hl_groups.TelescopeResultsTitle = {
-          bg = colors.yellow,
+          -- these should set to invisible
+          bg = colors.crust,
+          fg = colors.crust,
+        }
+        hl_groups.TelescopePreviewTitle = {
+          bold = true,
+          bg = colors.blue,
           fg = colors.crust,
         }
         hl_groups.TelescopeResultsBorder = {
