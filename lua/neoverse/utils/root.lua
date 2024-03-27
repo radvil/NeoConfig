@@ -109,6 +109,13 @@ function M.realpath(path)
   return Lonard.norm(path)
 end
 
+function M.git()
+  local root = M.get()
+  local git_root = vim.fs.find(".git", { path = root, upward = true })[1]
+  local ret = git_root and vim.fn.fnamemodify(git_root, ":h") or root
+  return ret
+end
+
 function M.pretty_path()
   local path = vim.fn.expand("%:p") --[[@as string]]
   if path == "" then

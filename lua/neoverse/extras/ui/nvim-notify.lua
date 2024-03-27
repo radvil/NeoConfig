@@ -37,7 +37,7 @@ return {
       ---@type "default" | "minimal" | "simple" | "compact" | "wrapped-compact"
       render = "default",
       ---@type "fade_in_slide_out" | "fade" | "slide" | "static"
-      stages = "fade",
+      stages = "static",
       timeout = 1000,
       icons = {
         DEBUG = "",

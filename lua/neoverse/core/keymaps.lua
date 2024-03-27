@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 -- reset
 Lonard.map({ "n", "x", "v" }, "<nL>", "<nop>")
 Lonard.map("", "<c-z>", ":undo<cr>", { nowait = true })
@@ -114,24 +115,12 @@ Lonard.map("n", "<leader>tH", function() ft("btop") end, { desc = "floating term
 Lonard.map("n", "<leader>tP", function() ft({ "ping", "9.9.9.9" }) end, { desc = "floating terminal » ping test" })
 
 ---lazygit
----@param opts NeoTermOpts
----@param custom_cmd? string | string[]
-local lz = function(opts, custom_cmd)
-  opts = vim.tbl_extend("force", {
-    title_pos = "right",
-    title = "  LazyGit ",
-    border = "single",
-    ctrl_hjkl = false,
-    esc_esc = false,
-  }, opts or {})
-  Lonard.terminal.open(custom_cmd or { "lazygit" }, opts)
-end
-Lonard.map("n", "<leader>gg", function() lz({ cwd = Lonard.root() }) end, { desc = "lazygit open root" })
-Lonard.map("n", "<leader>gG", function() lz({ cwd = vim.uv.cwd() }) end, { desc = "lazygit » open cwd" })
+Lonard.map("n", "<leader>gg", function() Lonard.lazygit({ cwd = Lonard.root.git() }) end, { desc = "lazygit <root>" })
+Lonard.map("n", "<leader>gG", function() Lonard.lazygit() end, { desc = "lazygit <cwd>" })
 Lonard.map("n", "<leader>gf", function()
-  local git_path = vim.fn.system("git ls-files --full-name " .. vim.api.nvim_buf_get_name(0))
-  lz({}, { "lazygit", "-f", vim.trim(git_path) })
-end, { desc = "lazygit » current file history" })
+  local git_path = vim.api.nvim_buf_get_name(0)
+  Lonard.lazygit({ args = { "lazygit", "-f", vim.trim(git_path) } })
+end, { desc = "lazygit current file history" })
 
 --stylua: ignore end
 

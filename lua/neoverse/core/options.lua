@@ -60,7 +60,7 @@ vim.opt.fillchars = {
   foldopen = "",
   foldsep = " ",
   diff = "/",
-  fold = " ",
+  -- fold = " ",
   eob = " ",
 }
 
@@ -103,3 +103,7 @@ vim.g.neo_winborder = vim.g.neo_transparent and "rounded" or "none"
 -- * a pattern or array of patterns like `.git` or `lua`.
 -- * a function with signature `function(buf) -> string|string[]`
 vim.g.neo_root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+
+-- theme will be based on the active colorscheme.
+-- Set to false to disable.
+vim.g.lazygit_config = true

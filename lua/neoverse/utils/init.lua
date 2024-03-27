@@ -4,6 +4,7 @@ local LazyUtil = require("lazy.core.util")
 
 ---@class neoverse.utils: LazyUtilCore
 ---@field terminal neoverse.utils.terminal
+---@field lazygit neoverse.utils.lazygit
 ---@field lualine neoverse.utils.lualine
 ---@field inject neoverse.utils.inject
 ---@field toggle neoverse.utils.toggle
