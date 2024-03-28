@@ -107,6 +107,7 @@ return {
 
         ["h"] = "close_node",
         ["z"] = false,
+        ["o"] = false,
         ["za"] = "toggle_node",
         ["zc"] = "close_node",
         ["zM"] = "close_all_nodes",
