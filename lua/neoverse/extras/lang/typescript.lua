@@ -26,13 +26,17 @@ return {
       end
     end,
   },
-  -- {
-  --   "dmmulroy/ts-error-translator.nvim",
-  --   ft = { "typescript", "tsx" },
-  -- },
   {
     "nvim-lspconfig",
     ---@type NeoLspOpts
+    dependencies = {
+      "dmmulroy/ts-error-translator.nvim",
+      ft = {
+        "typescriptreact",
+        "typescript",
+        "tsx"
+      },
+    },
     opts = {
       servers = {
         ---@type lspconfig.options.tsserver
