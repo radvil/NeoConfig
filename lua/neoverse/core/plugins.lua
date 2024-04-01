@@ -44,9 +44,12 @@ return {
   },
   {
     "ThePrimeagen/harpoon",
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    lazy = true,
     opts = get("harpoon").opts,
     keys = get("harpoon").keys,
-    lazy = true,
+    init = get("harpoon").init,
   },
   {
     "radvil2/windows.nvim",

@@ -1,47 +1,53 @@
+---@diagnostic disable: missing-fields
 local M = {}
 
 M.keys = {
   {
-    "<leader>mf",
+    "<Leader>ma",
     function()
-      require("harpoon.mark").add_file()
-      ---@diagnostic disable-next-line: missing-fields
-      Lonard.info("file marked", {
+      require("harpoon"):list():append()
+      Lonard.info("file appended to bookmarked", {
         title = "Harpoon",
         icon = "📌",
       })
     end,
-    desc = "harpoon » mark",
+    desc = "[harpoon] append to list",
   },
   {
-    [[<leader>\]],
+    "<Leader>mI",
     function()
-      require("harpoon.ui").toggle_quick_menu()
+      require("harpoon"):list():prepend()
+      Lonard.info("file prepended to bookmarked", {
+        title = "Harpoon",
+        icon = "📌",
+      })
     end,
-    desc = "harpoon » toggle file list",
+    desc = "[harpoon] prepend to list",
+  },
+  {
+    [[<Leader>\]],
+    function()
+      require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())
+    end,
+    desc = "[harpoon] toggle quick menu",
   },
   {
     "[f",
     function()
-      require("harpoon.ui").nav_prev()
+      require("harpoon"):list():prev()
     end,
-    desc = "harpoon » goto the prev file",
+    desc = "[harpoon] goto previous file",
   },
   {
     "]f",
     function()
-      require("harpoon.ui").nav_next()
+      require("harpoon"):list():next()
     end,
-    desc = "harpoon » goto the next file",
+    desc = "[harpoon] goto next file",
   },
 }
 
 M.opts = {
-  mark_branch = false,
-  save_on_change = false,
-  save_on_toggle = false,
-  enter_on_sendcmd = false,
-  tmux_autoclose_windows = false,
   menu = {
     width = vim.api.nvim_win_get_width(0) - 50,
   },
@@ -86,5 +92,16 @@ M.opts = {
     "qf",
   },
 }
+
+M.init = function()
+  vim.api.nvim_create_user_command("M", function()
+    require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())
+  end, { desc = "[harpoon] toggle quick menu" })
+  for i = 1, 5 do
+    vim.api.nvim_create_user_command("M" .. i, function()
+      require("harpoon"):list():select(i)
+    end, { desc = "[harpoon] select file #" .. i })
+  end
+end
 
 return M
