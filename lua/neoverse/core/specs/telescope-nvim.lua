@@ -42,7 +42,7 @@ function _G.NeoTelescope(builtin, opts)
         opts.prompt_title = opts.prompt_title .. " <git>"
         opts.layout_config = {
           prompt_position = "bottom",
-          height = 0.6,
+          height = 0.75,
         }
       end
       if
