@@ -43,8 +43,8 @@ return {
     event = "BufAdd",
   },
   {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
+    "radvil/harpoon",
+    branch = "api/expose-index",
     dependencies = "nvim-lua/plenary.nvim",
     lazy = true,
     opts = get("harpoon").opts,

@@ -19,43 +19,47 @@ end
 
 local append = function()
   local harpoon = require("harpoon")
-  -- NOTE: hint for index
-  local item = harpoon:list():get_by_display(get_buf_filepath())
+  local item, index = harpoon:list():get_by_display(get_buf_filepath())
   if not item then
-    harpoon:list():append()
-    Lonard.info("Appended to bookmark", {
+    local list = harpoon:list()
+    list:append()
+    Lonard.info("Appended to bookmark as #" .. list:length(), {
       title = feature_name,
       icon = "📌",
     })
   else
     -- Get index of file bookmarked previously
-    Lonard.warn("Already in the bookmark", { title = feature_name })
+    Lonard.warn("Already in the bookmark as #" .. index , {
+      title = feature_name,
+    })
   end
 end
 
 local prepend = function()
   local harpoon = require("harpoon")
-  local item = harpoon:list():get_by_display(get_buf_filepath())
+  local item, index = harpoon:list():get_by_display(get_buf_filepath())
   if not item then
-    harpoon:list():prepend()
-    Lonard.info("Prepended to bookmark", {
+    local list = harpoon:list():prepend()
+    Lonard.info("Prepended to bookmark as #" .. list:length(), {
       title = feature_name,
       icon = "📌",
     })
   else
-    Lonard.warn("Already in the bookmark", { title = feature_name })
+    Lonard.warn("Already in the bookmark as #" .. index, {
+      title = feature_name,
+    })
   end
 end
 
 M.keys = {
   {
     "<Leader>ma",
-    desc = "[harpoon] append to list",
+    desc = "[harpoon] [a]ppend to bottom",
     append,
   },
   {
-    "<Leader>mI",
-    desc = "[harpoon] prepend to list",
+    "<Leader>mi",
+    desc = "[harpoon] [i]insert/prepend to top",
     prepend,
   },
   {
@@ -123,10 +127,6 @@ M.opts = {
   settings = {
     save_on_toggle = true,
     sync_on_ui_close = false,
-    key = function()
-      ---@diagnostic disable-next-line: return-type-mismatch
-      return vim.uv.cwd()
-    end,
   },
   default = {
     get_root_config = function()
