@@ -63,11 +63,11 @@ return {
     opts = {
       servers = {
         angularls = {
-          mason = false,
-          -- single_file_support = true,
-          on_new_config = function(new_config, new_root_dir)
-            new_config.cmd = getNgCmd(new_root_dir)
-          end,
+          -- mason = false,
+          single_file_support = true,
+          -- on_new_config = function(new_config, new_root_dir)
+          --   new_config.cmd = getNgCmd(new_root_dir)
+          -- end,
           root_dir = function(fname)
             local util = require("lspconfig").util
             local original = util.root_pattern("angular.json", "project.json")(fname)
