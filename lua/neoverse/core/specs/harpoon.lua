@@ -1,3 +1,5 @@
+local feature_name = "Harpoon"
+
 ---@diagnostic disable: missing-fields
 ---@type LazySpec
 local M = {}
@@ -8,28 +10,53 @@ local user_cmd = function(name, opts)
   vim.api.nvim_create_user_command(name, opts.callback, { desc = "[harpoon] " .. opts.desc })
 end
 
+local function get_buf_filepath()
+  local opts = Lonard.opts("harpoon")
+  local root = opts.default and opts.default.get_root_config and opts.default.get_root_config() or vim.uv.cwd()
+  local buf_name = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
+  return require("plenary.path"):new(buf_name):make_relative(root)
+end
+
+local append = function()
+  local harpoon = require("harpoon")
+  -- NOTE: hint for index
+  local item = harpoon:list():get_by_display(get_buf_filepath())
+  if not item then
+    harpoon:list():append()
+    Lonard.info("Appended to bookmark", {
+      title = feature_name,
+      icon = "📌",
+    })
+  else
+    -- Get index of file bookmarked previously
+    Lonard.warn("Already in the bookmark", { title = feature_name })
+  end
+end
+
+local prepend = function()
+  local harpoon = require("harpoon")
+  local item = harpoon:list():get_by_display(get_buf_filepath())
+  if not item then
+    harpoon:list():prepend()
+    Lonard.info("Prepended to bookmark", {
+      title = feature_name,
+      icon = "📌",
+    })
+  else
+    Lonard.warn("Already in the bookmark", { title = feature_name })
+  end
+end
+
 M.keys = {
   {
     "<Leader>ma",
-    function()
-      require("harpoon"):list():append()
-      Lonard.info("file appended to bookmarked", {
-        title = "Harpoon",
-        icon = "📌",
-      })
-    end,
     desc = "[harpoon] append to list",
+    append,
   },
   {
     "<Leader>mI",
-    function()
-      require("harpoon"):list():prepend()
-      Lonard.info("file prepended to bookmarked", {
-        title = "Harpoon",
-        icon = "📌",
-      })
-    end,
     desc = "[harpoon] prepend to list",
+    prepend,
   },
   {
     [[<Leader>\]],
@@ -97,6 +124,12 @@ M.opts = {
     save_on_toggle = true,
     sync_on_ui_close = false,
     key = function()
+      ---@diagnostic disable-next-line: return-type-mismatch
+      return vim.uv.cwd()
+    end,
+  },
+  default = {
+    get_root_config = function()
       return vim.uv.cwd()
     end,
   },
@@ -173,6 +206,16 @@ M.init = function()
     callback = function()
       require("harpoon"):list():prev()
     end,
+  })
+
+  user_cmd("MA", {
+    desc = "[harpoon] append to list",
+    callback = append,
+  })
+
+  user_cmd("MI", {
+    desc = "[harpoon] prepend to list",
+    callback = prepend,
   })
 
   for i = 1, 5 do
