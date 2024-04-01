@@ -1,16 +1,34 @@
 return {
   "echasnovski/mini.splitjoin",
-  event = "BufReadPre",
-  config = function()
-    require("mini.splitjoin").setup({
-      mappings = {
-        toggle = "",
-        split = "",
-        join = "",
-      },
-    })
-    vim.keymap.set("n", "<leader>uj", function()
-      require("mini.splitjoin").toggle()
-    end, { desc = "toggle » split/join" })
-  end,
+  -- event = "BufReadPre",
+  keys = {
+    {
+      "<leader>uj",
+      function()
+        require("mini.splitjoin").toggle()
+      end,
+      desc = "toggle » split/join",
+    },
+    {
+      "gS",
+      function()
+        require("mini.splitjoin").split()
+      end,
+      desc = "split arguments",
+    },
+    {
+      "gJ",
+      function()
+        require("mini.splitjoin").join()
+      end,
+      desc = "join arguments",
+    },
+  },
+  opts = {
+    mappings = {
+      toggle = "",
+      split = "",
+      join = "",
+    },
+  },
 }
