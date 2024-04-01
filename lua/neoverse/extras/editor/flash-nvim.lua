@@ -32,7 +32,7 @@ local ftMap = {
     "NvimTree",
     "neo-tree",
     "Outline",
-  }
+  },
 }
 
 local telescope_pick = function(prompt_bufnr)
@@ -71,7 +71,6 @@ return {
   ---@type LazySpec
   {
     "folke/flash.nvim",
-    lazy = true,
     keys = {
       {
         "<a-m>",
@@ -158,6 +157,12 @@ return {
           },
         },
       },
-    },
+    }, -- [EOL opts]
+    config = function(_, opts)
+      require("flash").setup(opts)
+      vim.api.nvim_create_user_command("FlashToggleSearch", function()
+        require("flash").toggle()
+      end, { desc = "flash.nvim » toggle search" })
+    end,
   },
 }

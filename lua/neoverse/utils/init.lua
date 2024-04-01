@@ -236,7 +236,7 @@ function M.map(mode, lhs, rhs, opts)
 end
 
 ---@param scope string
----@param clear? boolean
+---@param clear? boolean default to true
 function M.create_augroup(scope, clear)
   clear = type(clear) == "nil" and true or clear
   return vim.api.nvim_create_augroup("neoverse_" .. scope, { clear = clear })
