@@ -44,7 +44,7 @@ M.config = function(_, opts)
     },
     custom_highlights = function(colors)
       local hl_groups = {
-        Visual = { bg = "#5e4965" },
+        -- Visual = { bg = "#5e4965" },
         Folded = {
           bg = transparent and colors.crust or colors.mantle,
           fg = colors.maroon,
