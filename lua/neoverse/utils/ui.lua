@@ -112,6 +112,9 @@ function M.statuscolumn()
     end
     components[2] = "%=" .. components[2] .. " " -- right align
   end
+  if vim.v.virtnum ~= 0 then
+    components[2] = "%= "
+  end
   return table.concat(components, "")
 end
 
