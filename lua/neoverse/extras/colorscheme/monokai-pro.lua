@@ -33,7 +33,7 @@ return {
         return {
           Visual = { bg = "#363b54" },
           ZenBg = { bg = c.base.dark },
-          Folded = { bg = c.base.black },
+          Folded = { bg = c.base.black, fg = c.base.blue },
           LazyNormal = { link = "Normal" },
           LspInlayHint = { link = "Comment" },
           IblIndent = { fg = colors.surface1 },
