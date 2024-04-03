@@ -1,20 +1,5 @@
-local Icons = {
-  FindHiddens = "󰈈 ",
-  FindNotes = "󱙓 ",
-  FindKeymaps = "󰌌 ",
-  FindHighlights = " ",
-  FindHelpTags = "󰋖",
-  FindFiles = " ",
-  ResumeLast = " ",
-  LiveGrepWords = "󱀽 ",
-  FindColorschemes = " ",
-  FindInstalledPlugins = " ",
-  FindRecentFiles = " ",
-  GrepStrings = " ",
-  MarkList = "󰙒 ",
-  JumpList = " ",
-  Buffers = " ",
-}
+local Config = require("neoverse.config")
+local Icons = Config.icons.Misc
 
 ---@param lhs string
 ---@param cmd string | function
@@ -211,15 +196,26 @@ M.keys = {
   ),
 
   {
+    "<leader>bs",
+    function()
+      require("telescope.builtin").lsp_document_symbols({
+        prompt_title = Icons.FindSymbols .. "[b]uffer [s]ymbols",
+        symbols = Config.get_kind_filter(),
+      })
+    end,
+    desc = "[b]uffer [s]ymbols",
+  },
+
+  {
     "<c-p>",
     NeoTelescope("files", { prompt_title = Icons.FindFiles .. "[p]ick file" }),
-    desc = "[p]ick file (root)"
+    desc = "[p]ick file (root)",
   },
 
   {
     "<f1>",
     NeoTelescope("help_tags", { prompt_title = Icons.FindHelpTags .. " help tags" }),
-    desc = "<f1>nd tags"
+    desc = "<f1>nd tags",
   },
 
   Kmap(
