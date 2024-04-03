@@ -100,6 +100,7 @@ local defaults = {
     markdown = false,
     help = false,
     default = {
+      "Array",
       "Class",
       "Constructor",
       "Enum",
@@ -117,6 +118,7 @@ local defaults = {
     -- you can specify a different filter for each filetype
     lua = {
       "Class",
+      "Constant",
       "Constructor",
       "Enum",
       "Field",
@@ -129,6 +131,7 @@ local defaults = {
       "Property",
       "Struct",
       "Trait",
+      "Variable",
     },
   },
 }
