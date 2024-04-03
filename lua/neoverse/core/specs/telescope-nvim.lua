@@ -77,6 +77,26 @@ local M = {}
 
 M.config = function(_, opts)
   local actions = require("telescope.actions")
+  local find_files_no_ignore = function()
+    local action_state = require("telescope.actions.state")
+    local line = action_state.get_current_line()
+    NeoTelescope("find_files", {
+      prompt_title = Icons.FindHiddens .. "files + [i]gnored",
+      sorting_strategy = "descending",
+      default_text = line,
+      no_ignore = true,
+    })()
+  end
+  local find_files_with_hidden = function()
+    local action_state = require("telescope.actions.state")
+    local line = action_state.get_current_line()
+    NeoTelescope("find_files", {
+      prompt_title = Icons.FindHiddens .. "files + [h]idden",
+      sorting_strategy = "descending",
+      default_text = line,
+      hidden = true,
+    })()
+  end
   local mappings = {
     ["<a-space>"] = actions.close,
     ["<cr>"] = actions.select_default,
@@ -91,17 +111,8 @@ M.config = function(_, opts)
     ["<a-k>"] = actions.cycle_history_prev,
     ["<c-u>"] = actions.preview_scrolling_up,
     ["<c-d>"] = actions.preview_scrolling_down,
-    ["<a-d>"] = function()
-      local action_state = require("telescope.actions.state")
-      local line = action_state.get_current_line()
-      NeoTelescope("find_files", {
-        prompt_title = Icons.FindHiddens .. "Find files (no hidden)",
-        sorting_strategy = "descending",
-        default_text = line,
-        no_ignore = true,
-        hidden = true,
-      })()
-    end,
+    ["<a-i>"] = find_files_no_ignore,
+    ["<a-h>"] = find_files_with_hidden,
   }
   local NeoDefaults = {
     defaults = {
