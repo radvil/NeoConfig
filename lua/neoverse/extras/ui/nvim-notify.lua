@@ -10,18 +10,18 @@ return {
     "rcarriga/nvim-notify",
     keys = {
       {
-        "<leader>uN",
+        "ZN",
         function()
           require("notify").dismiss({ pending = true, silent = true })
         end,
-        desc = "Notification » Dismiss",
+        desc = "Quit/Dismiss [N]otifications",
       },
       {
-        "<leader>/n",
+        "<leader>/N",
         function()
           require("telescope").extensions.notify.notify()
         end,
-        desc = "telescope » notifications",
+        desc = "telescope » [N]otifications",
       },
     },
     ---@type notify.Config

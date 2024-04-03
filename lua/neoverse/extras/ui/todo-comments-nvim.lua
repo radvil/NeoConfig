@@ -3,29 +3,28 @@ return {
   "folke/todo-comments.nvim",
   cmd = { "TodoTrouble", "TodoTelescope" },
   event = "LazyFile",
-  enabled = true,
-  config = true,
+  opts = {},
   -- stylua: ignore start
   keys = {
     {
       "]t",
       function() require("todo-comments").jump_next() end,
-      desc = "todo » next reference",
+      desc = "goto next [t]odo",
     },
     {
       "[t",
       function() require("todo-comments").jump_prev() end,
-      desc = "todo » prev reference",
+      desc = "goto previous [t]odo",
     },
     {
       "<leader>xt",
       "<cmd>TodoTrouble<Cr>",
-      desc = "diagnostics » todo comments [trouble]",
+      desc = "todo diagnosti[x] (trouble)",
     },
     {
       "<leader>/t",
       "<cmd>TodoTelescope<Cr>",
-      desc = "telescope » find tasks [trouble]",
+      desc = "telescope » [t]asks/[t]odos",
     },
   },
 }

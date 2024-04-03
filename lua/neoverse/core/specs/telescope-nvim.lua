@@ -24,7 +24,7 @@ local Kmap = function(lhs, cmd, desc, mode)
   return {
     lhs,
     cmd,
-    desc = string.format("Telescope » %s", desc):lower(),
+    desc = string.format("Telescope » %s", desc),
     mode = mode or "n",
   }
 end
@@ -177,181 +177,180 @@ M.init = function()
 end
 
 M.keys = {
-  Kmap("<leader>/N", ":NeoNotes<cr>", "Find notes"),
-  Kmap("<leader>/d", ":NeoDotfiles<cr>", "Find dotfiles"),
-  Kmap("<leader>/m", ":Telescope man_pages<cr>", "Find man pages"),
-  Kmap("<leader>/g", ":Telescope git_files<cr>", "Git files"),
-  Kmap("<leader>/b", ":Telescope git_branches<cr>", "Git branches"),
-  Kmap("<leader>/o", ":Telescope vim_options<cr>", "Find vim options"),
-  Kmap("<leader>/:", ":Telescope command_history<cr>", "Command history"),
-  Kmap("<leader>/c", ":Telescope commands<cr>", "Find available commands"),
-  Kmap("<leader>/X", ":Telescope diagnostics<cr>", "Workspace diagnostics"),
-  Kmap("<leader>/x", ":Telescope diagnostics bufnr=0<cr>", "Find diagnostics [cwd]"),
-  Kmap("<leader>/k", NeoTelescope("keymaps", { prompt_title = Icons.FindKeymaps .. "Keymaps" }), "Find keymaps"),
+  Kmap("<leader>/n", ":NeoNotes<cr>", "[n]otes"),
+  Kmap("<leader>/d", ":NeoDotfiles<cr>", "[d]otfiles"),
+  Kmap("<leader>/m", ":Telescope man_pages<cr>", "[m]an pages"),
+  Kmap("<leader>/g", ":Telescope git_files<cr>", "[g]it files"),
+  Kmap("<leader>/b", ":Telescope git_branches<cr>", "git [b]ranches"),
+  Kmap("<leader>/o", ":Telescope vim_options<cr>", "vim [o]ptions"),
+  Kmap("<leader>/:", ":Telescope command_history<cr>", "command h[:]story"),
+  Kmap("<leader>/c", ":Telescope commands<cr>", "[c]ommands"),
+  Kmap("<leader>/X", ":Telescope diagnostics<cr>", "workspace diagnosti[X]"),
+  Kmap("<leader>/x", ":Telescope diagnostics bufnr=0<cr>", "buffer diagnosti[x]"),
+  Kmap("<leader>/k", NeoTelescope("keymaps", { prompt_title = Icons.FindKeymaps .. "Keymaps" }), "[k]eymaps"),
 
   Kmap(
-    "<leader>/H",
-    NeoTelescope("highlights", { prompt_title = Icons.FindHighlights .. "Highlights" }),
-    "Find highlights"
+    "<leader>/h",
+    NeoTelescope("highlights", { prompt_title = Icons.FindHighlights .. "[h]ighlights" }),
+    "[h]ighlights"
   ),
 
-  Kmap("<f1>", NeoTelescope("help_tags", { prompt_title = Icons.FindHelpTags .. " Help tags" }), "Find help tags"),
-  Kmap("<leader>//", NeoTelescope("resume", { prompt_title = Icons.ResumeLast .. "Continue" }), "Continue last action"),
-  Kmap("<c-p>", NeoTelescope("files", { prompt_title = Icons.FindFiles .. "Files" }), "Find files [root]"),
+  Kmap("<f1>", NeoTelescope("help_tags", { prompt_title = Icons.FindHelpTags .. " help tags" }), "help tags"),
+  Kmap("<leader>//", NeoTelescope("resume", { prompt_title = Icons.ResumeLast .. "cont[/]nue action" }), "cont[/]nue action"),
+  Kmap("<c-p>", NeoTelescope("files", { prompt_title = Icons.FindFiles .. "[p]ick file" }), "[p]ick file (root)"),
   Kmap(
     "<leader>/f",
-    NeoTelescope("files", {
-      prompt_title = Icons.FindFiles .. "Files",
-    }),
-    "Find files [root]"
+    NeoTelescope("files", { prompt_title = Icons.FindFiles .. "[f]iles" }),
+    "[f]iles (root)"
   ),
   Kmap(
     "<leader>/F",
     NeoTelescope("files", {
-      prompt_title = Icons.FindFiles .. "Files",
+      prompt_title = Icons.FindFiles .. "[F]iles",
       cwd = vim.uv.cwd(),
     }),
-    "Find files [cwd]"
+    "[F]iles (cwd)"
   ),
 
   Kmap(
     "<leader>/w",
     NeoTelescope("live_grep", {
-      prompt_title = Icons.LiveGrepWords .. "Live grep word",
+      prompt_title = Icons.LiveGrepWords .. "[w]ord grep",
       layout_strategy = "vertical",
     }),
-    "Live grep word [root]"
+    "[w]ord grep (root)"
   ),
 
   Kmap(
     "<leader>/W",
     NeoTelescope("live_grep", {
-      prompt_title = Icons.LiveGrepWords .. "Live grep word",
+      prompt_title = Icons.LiveGrepWords .. "[W]ord grep",
       layout_strategy = "vertical",
       cwd = vim.uv.cwd(),
     }),
-    "Live grep word [cwd]"
+    "[W]ord grep (cwd)"
   ),
 
   Kmap(
     "<leader>/C",
     NeoTelescope("colorscheme", {
-      prompt_title = Icons.FindColorschemes .. "Colorscheme",
+      prompt_title = Icons.FindColorschemes .. "[C]olorscheme",
       enable_preview = true,
     }),
-    "Colorscheme"
+    "[C]olorscheme"
   ),
 
   Kmap(
     "<leader>/p",
     NeoTelescope("find_files", {
-      prompt_title = Icons.FindInstalledPlugins .. "Find installed plugins",
+      prompt_title = Icons.FindInstalledPlugins .. "[p]lugins",
       cwd = vim.fn.stdpath("data"),
     }),
-    "Find installed plugins"
+    "[p]lugins"
   ),
 
   Kmap(
     "<leader>/r",
     NeoTelescope("oldfiles", {
-      prompt_title = Icons.FindRecentFiles .. "Recent files [cwd]",
+      prompt_title = Icons.FindRecentFiles .. "[r]ecent files (cwd)",
       initial_mode = "normal",
       cwd = vim.uv.cwd(),
     }),
-    "Recent files [cwd]"
+    "[r]ecent files (cwd)"
   ),
 
   Kmap(
     "<leader>/R",
     NeoTelescope("oldfiles", {
-      prompt_title = Icons.FindRecentFiles .. "Recent files",
+      prompt_title = Icons.FindRecentFiles .. "[R]ecent files (global)",
       initial_mode = "normal",
       cwd = false,
     }),
-    "Recent Files"
+    "[R]ecent files"
   ),
 
   Kmap(
     "<leader>/s",
     NeoTelescope("grep_string", {
-      prompt_title = Icons.GrepStrings .. "Grep strings",
+      prompt_title = Icons.GrepStrings .. "[s]trings grep",
       layout_strategy = "vertical",
     }),
-    "Grep strings [root]"
+    "[s]trings grep (root)"
   ),
 
   Kmap(
     "<leader>/s",
     NeoTelescope("grep_string", {
-      prompt_title = Icons.GrepStrings .. "Grep selection",
+      prompt_title = Icons.GrepStrings .. "[s]trings grep selection",
       layout_strategy = "vertical",
       mode = "v",
     }),
-    "Grep selection [root]",
+    "[s]trings grep selection (root)",
     "v"
   ),
 
   Kmap(
     "<leader>/S",
     NeoTelescope("grep_string", {
-      prompt_title = Icons.GrepStrings .. "Grep strings",
+      prompt_title = Icons.GrepStrings .. "[S]trings grep",
       layout_strategy = "vertical",
       cwd = vim.uv.cwd(),
     }),
-    "Grep strings [cwd]"
+    "[S]trings grep (cwd)"
   ),
 
   Kmap(
     "<leader>/S",
     NeoTelescope("grep_string", {
-      prompt_title = Icons.GrepStrings .. "Grep selection",
+      prompt_title = Icons.GrepStrings .. "[S]tring grep selection",
       layout_strategy = "vertical",
       cwd = vim.uv.cwd(),
     }),
-    "Grep selection [cwd]",
+    "[S]tring grep selection [cwd]",
     "v"
   ),
 
   Kmap(
     "<leader>'",
     NeoTelescope("marks", {
-      prompt_title = Icons.MarkList .. "Mark list",
+      prompt_title = Icons.MarkList .. "marks[']",
       initial_mode = "normal",
     }),
-    "Mark list"
+    "marks[']"
   ),
 
   Kmap(
     "<leader>;",
     NeoTelescope("jumplist", {
-      prompt_title = Icons.JumpList .. "Jump list",
+      prompt_title = Icons.JumpList .. "[;]umplist",
       initial_mode = "normal",
     }),
-    "Jump list"
+    "[;]umplist"
   ),
 
   Kmap(
     "<leader><tab>",
     NeoTelescope("buffers", {
-      prompt_title = Icons.FindRecentFiles .. "Buffers [cwd]",
+      prompt_title = Icons.FindRecentFiles .. "buffers (cwd)",
       ignore_current_buffer = false,
       initial_mode = "normal",
       cwd = vim.uv.cwd(),
+      sort_mru = true,
     }),
-    "Buffers [cwd]"
+    "buffers (cwd)"
   ),
 
   Kmap(
     "<leader>,",
     NeoTelescope("buffers", {
-      prompt_title = Icons.Buffers .. "Buffers [all]",
+      prompt_title = Icons.Buffers .. "buffers (global)",
       ignore_current_buffer = false,
       initial_mode = "normal",
       sort_lastused = true,
       sort_mru = true,
       cwd = false,
     }),
-    "Buffers [all]"
+    "buffers (global)"
   ),
 }
 
