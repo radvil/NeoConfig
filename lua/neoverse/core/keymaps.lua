@@ -80,8 +80,8 @@ if not Lonard.lazy_has("smart-splits.nvim") then
 end
 
 ---buffers
-Lonard.map("n", "<leader>`", "<cmd>e #<cr>", { desc = "buffer » switch to other" })
-Lonard.map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "buffer » switch to other" })
+Lonard.map("n", "<leader>`", "<cmd>e #<cr>", { desc = "go to recent buffer" })
+Lonard.map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "go to recent [b]uffer" })
 Lonard.map("n", "[b", ":bprevious<cr>", { desc = "buffer » previous" })
 Lonard.map("n", "]b", ":bnext<cr>", { desc = "buffer » next" })
 if not Lonard.lazy_has("bufferline.nvim") then
@@ -107,20 +107,20 @@ local ft = function(cmd, root)
   Lonard.terminal.open(cmd, opt)
 end
 Lonard.map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
-Lonard.map("t", [[<c-\>]], "<cmd>fclose<cr>", { desc = "floating terminal » close [pwd]" })
-Lonard.map("n", [[<c-\>]], function() ft(nil) end, { desc = "floating terminal » open [pwd]" })
-Lonard.map("n", "<leader>fT", function() ft(nil) end, { desc = "floating terminal » open [pwd]" })
-Lonard.map("n", "<leader>ft", function() ft(nil, true) end, { desc = "floating terminal » open [root]" })
-Lonard.map("n", "<leader>tH", function() ft("btop") end, { desc = "floating terminal » open htop/btop" })
-Lonard.map("n", "<leader>tP", function() ft({ "ping", "9.9.9.9" }) end, { desc = "floating terminal » ping test" })
+Lonard.map("n", [[<c-\>]], function() ft(nil) end, { desc = [[open term[\]nal (cwd)]] })
+Lonard.map("t", [[<c-\>]], "<cmd>fclose<cr>", { desc = [[close term[\]nal (cwd)]]})
+Lonard.map("n", "<leader>tN", function() ft(nil) end, { desc = "[N]ew terminal (cwd)" })
+Lonard.map("n", "<leader>tn", function() ft(nil, true) end, { desc = "[n]ew terminal (root)" })
+Lonard.map("n", "<leader>tH", function() ft("btop") end, { desc = "run [H]top" })
+Lonard.map("n", "<leader>tP", function() ft({ "ping", "9.9.9.9" }) end, { desc = "run [P]ing test" })
 
 ---lazygit
-Lonard.map("n", "<leader>gg", function() Lonard.lazygit({ cwd = Lonard.root.git() }) end, { desc = "lazygit <root>" })
-Lonard.map("n", "<leader>gG", function() Lonard.lazygit() end, { desc = "lazygit <cwd>" })
-Lonard.map("n", "<leader>gf", function()
+Lonard.map("n", "<leader>gg", function() Lonard.lazygit({ cwd = Lonard.root.git() }) end, { desc = "open lazy[g]it (root)" })
+Lonard.map("n", "<leader>gG", function() Lonard.lazygit() end, { desc = "lazy[G]it (cwd)" })
+Lonard.map("n", "<leader>gH", function()
   local git_path = vim.api.nvim_buf_get_name(0)
   Lonard.lazygit({ args = { "lazygit", "-f", vim.trim(git_path) } })
-end, { desc = "lazygit current file history" })
+end, { desc = "lazygit file [H]istory" })
 
 --stylua: ignore end
 

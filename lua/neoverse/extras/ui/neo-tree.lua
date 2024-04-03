@@ -23,7 +23,7 @@ return {
           toggle = true,
         })
       end,
-      desc = "neotree » toggle filesystem [root]",
+      desc = "[e]xplore tree (root)",
     },
     {
       "<leader>E",
@@ -34,10 +34,10 @@ return {
           toggle = true,
         })
       end,
-      desc = "neotree » toggle filesystem [cwd]",
+      desc = "[E]xplore tree (cwd)",
     },
     {
-      "<leader><cr>",
+      "<leader>fb",
       function()
         require("neo-tree.command").execute({
           dir = Lonard.root(),
@@ -47,7 +47,7 @@ return {
           toggle = true,
         })
       end,
-      desc = "neotree » toggle buffers [root]",
+      desc = "[b]uffers",
     },
     {
       "<Leader>fp",
@@ -59,7 +59,7 @@ return {
           action = "focus",
         })
       end,
-      desc = "neotree » browse plugins dir",
+      desc = "[p]lugins",
     },
   },
   opts = {

@@ -4,7 +4,7 @@ return {
     optional = true,
     opts = {
       defaults = {
-        ["s"] = { name = "surround" },
+        ["s"] = { name = "[s]urround" },
       },
     },
   },

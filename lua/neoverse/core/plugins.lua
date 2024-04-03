@@ -81,11 +81,6 @@ return {
     lazy = true,
   },
   {
-    "lewis6991/gitsigns.nvim",
-    event = "LazyFile",
-    opts = get("gitsigns-nvim").opts,
-  },
-  {
     "nvimdev/dashboard-nvim",
     opts = get("dashboard-nvim").opts,
     event = "VimEnter",

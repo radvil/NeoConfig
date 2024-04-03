@@ -3,14 +3,14 @@ local M = {}
 -- stylua: ignore
 M.keys = {
   {
-    "<Leader>fe",
+    "<Leader>fo",
     function() require("oil").open() end,
-    desc = "file explorer » open",
+    desc = "[o]pen files",
   },
   {
-    "<Leader>fE",
+    "<Leader>fO",
     function() require("oil").open(vim.uv.cwd()) end,
-    desc = "file explorer » open [cwd]",
+    desc = "[O]pen files (cwd)",
   },
 }
 

@@ -19,7 +19,7 @@ return {
     {
       "<leader>xt",
       "<cmd>TodoTrouble<Cr>",
-      desc = "todo diagnosti[x] (trouble)",
+      desc = "[t]odos diagnosti[x]",
     },
     {
       "<leader>/t",

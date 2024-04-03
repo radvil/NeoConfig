@@ -2,9 +2,9 @@ local M = {}
 
 M.keys = {
   {
-    "<leader>fm",
+    "<leader>mM",
     vim.cmd.Mason,
-    desc = "float » mason",
+    desc = "[M]ason",
   },
 }
 

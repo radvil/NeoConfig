@@ -14,24 +14,24 @@ return {
     opts = { use_diagnostic_signs = true },
     keys = {
       {
-        "<leader>xx",
+        "<leader>xb",
         "<cmd>TroubleToggle document_diagnostics<cr>",
-        desc = "diagnostics » document [trouble]",
+        desc = "[b]uffer diagnosti[x]",
       },
       {
-        "<leader>xX",
+        "<leader>xw",
         "<cmd>TroubleToggle workspace_diagnostics<cr>",
-        desc = "diagnostics » workspace [trouble]",
+        desc = "[w]orkspace diagnosti[x]",
       },
       {
-        "<leader>xL",
+        "<leader>xl",
         "<cmd>TroubleToggle loclist<cr>",
-        desc = "diagnostics » location list [trouble]",
+        desc = "diagnosti[x] [l]oclist",
       },
       {
-        "<leader>xQ",
+        "<leader>xq",
         "<cmd>TroubleToggle quickfix<cr>",
-        desc = "diagnostics » quickfix [trouble]",
+        desc = "diagnosti[x] [q]uickfix",
       },
     },
   },

@@ -7,21 +7,21 @@ return {
       function()
         require("mini.splitjoin").toggle()
       end,
-      desc = "toggle » split/join",
+      desc = "split/[j]oin",
     },
     {
       "gS",
       function()
         require("mini.splitjoin").split()
       end,
-      desc = "split arguments",
+      desc = "[S]plit arguments",
     },
     {
       "gJ",
       function()
         require("mini.splitjoin").join()
       end,
-      desc = "join arguments",
+      desc = "[J]oin arguments",
     },
   },
   opts = {

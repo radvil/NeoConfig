@@ -39,7 +39,7 @@ return {
   keys = {
     Kmap("<a-b>", "Pick", "pick & enter"),
     Kmap("<a-q>", "PickClose", "pick & close"),
-    Kmap("<leader>bx", "PickClose", "pick & close"),
+    Kmap("<leader>bc", "PickClose", "pick & close"),
     Kmap("<a-[>", "CyclePrev", "switch prev"),
     Kmap("<a-]>", "CycleNext", "switch next"),
     Kmap("<a-1>", "GoToBuffer 1", "switch 1st"),

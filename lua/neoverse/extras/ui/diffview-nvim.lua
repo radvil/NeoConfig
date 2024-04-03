@@ -10,13 +10,13 @@ return {
   keys = {
     {
       "<leader>gd",
-      ":DiffviewOpen<cr>",
-      desc = "Git » Open diff view",
+      "<cmd>DiffviewOpen<cr>",
+      desc = "[d]iff view",
     },
     {
       "<leader>gh",
-      ":DiffviewFileHistory<cr>",
-      desc = "Git » Open file history",
+      "<cmd>DiffviewFileHistory<cr>",
+      desc = "file [h]istory",
     },
   },
 
