@@ -12,27 +12,22 @@ return {
     opts = function()
       local Config = require("neoverse.config")
       local defaults = require("outline.config").defaults
+      local filter = Config.kind_filter
       local opts = {
-        symbols = {},
-        symbol_blacklist = {},
+        symbols = {
+          filter = filter,
+          icons = {},
+        },
         outline_window = {
           winhl = "Normal:NormalFloat",
         },
       }
-      local filter = Config.kind_filter or {}
-
       if type(filter) == "table" then
-        filter = filter.default
-        if type(filter) == "table" then
-          for kind, symbol in pairs(defaults.symbols) do
-            opts.symbols[kind] = {
-              icon = Config.icons.kinds[kind] or symbol.icon,
-              hl = symbol.hl,
-            }
-            if not vim.tbl_contains(filter, kind) then
-              table.insert(opts.symbol_blacklist, kind)
-            end
-          end
+        for kind, symbol in pairs(defaults.symbols.icons) do
+          opts.symbols.icons[kind] = {
+            icon = Config.icons.Kinds[kind] or symbol.icon,
+            hl = symbol.hl,
+          }
         end
       end
       return opts
