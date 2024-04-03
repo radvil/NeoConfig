@@ -195,14 +195,12 @@ M.keys = {
     "[h]ighlights"
   ),
 
-  Kmap("<f1>", NeoTelescope("help_tags", { prompt_title = Icons.FindHelpTags .. " help tags" }), "help tags"),
-  Kmap("<leader>//", NeoTelescope("resume", { prompt_title = Icons.ResumeLast .. "cont[/]nue action" }), "cont[/]nue action"),
-  Kmap("<c-p>", NeoTelescope("files", { prompt_title = Icons.FindFiles .. "[p]ick file" }), "[p]ick file (root)"),
   Kmap(
-    "<leader>/f",
-    NeoTelescope("files", { prompt_title = Icons.FindFiles .. "[f]iles" }),
-    "[f]iles (root)"
+    "<leader>//",
+    NeoTelescope("resume", { prompt_title = Icons.ResumeLast .. "cont[/]nue action" }),
+    "cont[/]nue action"
   ),
+  Kmap("<leader>/f", NeoTelescope("files", { prompt_title = Icons.FindFiles .. "[f]iles" }), "[f]iles (root)"),
   Kmap(
     "<leader>/F",
     NeoTelescope("files", {
@@ -211,6 +209,18 @@ M.keys = {
     }),
     "[F]iles (cwd)"
   ),
+
+  {
+    "<c-p>",
+    NeoTelescope("files", { prompt_title = Icons.FindFiles .. "[p]ick file" }),
+    desc = "[p]ick file (root)"
+  },
+
+  {
+    "<f1>",
+    NeoTelescope("help_tags", { prompt_title = Icons.FindHelpTags .. " help tags" }),
+    desc = "<f1>nd tags"
+  },
 
   Kmap(
     "<leader>/w",
@@ -310,25 +320,25 @@ M.keys = {
     "v"
   ),
 
-  Kmap(
+  {
     "<leader>'",
     NeoTelescope("marks", {
       prompt_title = Icons.MarkList .. "marks[']",
       initial_mode = "normal",
     }),
-    "marks[']"
-  ),
+    desc = "marks[']",
+  },
 
-  Kmap(
+  {
     "<leader>;",
     NeoTelescope("jumplist", {
       prompt_title = Icons.JumpList .. "[;]umplist",
       initial_mode = "normal",
     }),
-    "[;]umplist"
-  ),
+    desc = "[;]umplist",
+  },
 
-  Kmap(
+  {
     "<leader><tab>",
     NeoTelescope("buffers", {
       prompt_title = Icons.FindRecentFiles .. "buffers (cwd)",
@@ -337,10 +347,10 @@ M.keys = {
       cwd = vim.uv.cwd(),
       sort_mru = true,
     }),
-    "buffers (cwd)"
-  ),
+    desc = "buffers (cwd)",
+  },
 
-  Kmap(
+  {
     "<leader>,",
     NeoTelescope("buffers", {
       prompt_title = Icons.Buffers .. "buffers (global)",
@@ -350,8 +360,8 @@ M.keys = {
       sort_mru = true,
       cwd = false,
     }),
-    "buffers (global)"
-  ),
+    desc = "buffers (global)",
+  },
 }
 
 return M

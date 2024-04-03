@@ -29,7 +29,7 @@ local append = function()
     })
   else
     -- Get index of file bookmarked previously
-    Lonard.warn("Already in the bookmark as #" .. index , {
+    Lonard.warn("Already in the bookmark as #" .. index, {
       title = feature_name,
     })
   end
@@ -54,12 +54,12 @@ end
 M.keys = {
   {
     "<Leader>ma",
-    desc = "[harpoon] [a]ppend to bottom",
+    desc = "[a]ppend to bookmark",
     append,
   },
   {
     "<Leader>mi",
-    desc = "[harpoon] [i]insert/prepend to top",
+    desc = "[i]insert to bookmark",
     prepend,
   },
   {
@@ -68,57 +68,21 @@ M.keys = {
       local harpoon = require("harpoon")
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end,
-    desc = "[harpoon] toggle quick menu",
+    desc = [[toggle bookmark [\]enu]],
   },
   {
     "<leader>[",
     function()
       require("harpoon"):list():prev()
     end,
-    desc = "[harpoon] goto previous file",
+    desc = "go to prev bookmarked f]le",
   },
   {
     "<leader>]",
     function()
       require("harpoon"):list():next()
     end,
-    desc = "[harpoon] goto next file",
-  },
-
-  {
-    "<leader>1",
-    function()
-      require("harpoon"):list():select(1)
-    end,
-    desc = "[harpoon] goto file #1",
-  },
-  {
-    "<leader>2",
-    function()
-      require("harpoon"):list():select(2)
-    end,
-    desc = "[harpoon] goto file #2",
-  },
-  {
-    "<leader>3",
-    function()
-      require("harpoon"):list():select(3)
-    end,
-    desc = "[harpoon] goto file #3",
-  },
-  {
-    "<leader>4",
-    function()
-      require("harpoon"):list():select(4)
-    end,
-    desc = "[harpoon] goto file #4",
-  },
-  {
-    "<leader>5",
-    function()
-      require("harpoon"):list():select(5)
-    end,
-    desc = "[harpoon] goto file #5",
+    desc = "go to next bookmarked fi]e",
   },
 }
 
@@ -225,6 +189,7 @@ M.init = function()
         require("harpoon"):list():select(i)
       end,
     })
+    Lonard.map("n", "<Leader>" .. i, "<cmd>M" .. "<cr>", { desc = "go to bookmarked file #" .. i })
   end
 
   vim.api.nvim_create_autocmd("FileType", {

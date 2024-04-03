@@ -22,7 +22,7 @@ return {
     optional = true,
     opts = {
       defaults = {
-        ["<leader>n"] = { name = "note[obsidian]" },
+        ["<leader>n"] = { name = "[n]ote/obsidia[n]" },
       },
     },
   },

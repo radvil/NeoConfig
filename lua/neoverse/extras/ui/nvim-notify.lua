@@ -14,7 +14,7 @@ return {
         function()
           require("notify").dismiss({ pending = true, silent = true })
         end,
-        desc = "Quit/Dismiss [N]otifications",
+        desc = "quit/dismiss [N]otifications",
       },
       {
         "<leader>/N",
