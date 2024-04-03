@@ -173,16 +173,16 @@ M.init = function()
 end
 
 M.keys = {
-  Kmap("<leader>/n", ":NeoNotes<cr>", "[n]otes"),
-  Kmap("<leader>/d", ":NeoDotfiles<cr>", "[d]otfiles"),
-  Kmap("<leader>/m", ":Telescope man_pages<cr>", "[m]an pages"),
-  Kmap("<leader>/g", ":Telescope git_files<cr>", "[g]it files"),
-  Kmap("<leader>/b", ":Telescope git_branches<cr>", "git [b]ranches"),
-  Kmap("<leader>/o", ":Telescope vim_options<cr>", "vim [o]ptions"),
-  Kmap("<leader>/:", ":Telescope command_history<cr>", "command h[:]story"),
-  Kmap("<leader>/c", ":Telescope commands<cr>", "[c]ommands"),
-  Kmap("<leader>/X", ":Telescope diagnostics<cr>", "workspace diagnosti[X]"),
-  Kmap("<leader>/x", ":Telescope diagnostics bufnr=0<cr>", "buffer diagnosti[x]"),
+  Kmap("<leader>/n", "<cmd>NeoNotes<cr>", "[n]otes"),
+  Kmap("<leader>/d", "<cmd>NeoDotfiles<cr>", "[d]otfiles"),
+  Kmap("<leader>/m", "<cmd>Telescope man_pages<cr>", "[m]an pages"),
+  Kmap("<leader>/g", "<cmd>Telescope git_files<cr>", "[g]it files"),
+  Kmap("<leader>/b", "<cmd>Telescope git_branches<cr>", "git [b]ranches"),
+  Kmap("<leader>/o", "<cmd>Telescope vim_options<cr>", "vim [o]ptions"),
+  Kmap("<leader>/:", "<cmd>Telescope command_history<cr>", "command h[:]story"),
+  Kmap("<leader>/c", "<cmd>Telescope commands<cr>", "[c]ommands"),
+  Kmap("<leader>/X", "<cmd>Telescope diagnostics<cr>", "workspace diagnosti[X]"),
+  Kmap("<leader>/x", "<cmd>Telescope diagnostics bufnr=0<cr>", "buffer diagnosti[x]"),
   Kmap("<leader>/k", NeoTelescope("keymaps", { prompt_title = Icons.FindKeymaps .. "[k]eymaps" }), "[k]eymaps"),
 
   Kmap(
