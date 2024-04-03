@@ -39,8 +39,8 @@ local prepend = function()
   local harpoon = require("harpoon")
   local item, index = harpoon:list():get_by_display(get_buf_filepath())
   if not item then
-    local list = harpoon:list():prepend()
-    Lonard.info("Prepended to bookmark as #" .. list:length(), {
+    harpoon:list():prepend()
+    Lonard.info("Prepended to bookmark as #1" , {
       title = feature_name,
       icon = "📌",
     })
@@ -189,7 +189,7 @@ M.init = function()
         require("harpoon"):list():select(i)
       end,
     })
-    Lonard.map("n", "<Leader>" .. i, "<cmd>M" .. "<cr>", { desc = "go to bookmarked file #" .. i })
+    Lonard.map("n", "<Leader>" .. i, string.format("<cmd>M%s<cr>", i), { desc = "go to bookmarked file #" .. i })
   end
 
   vim.api.nvim_create_autocmd("FileType", {
