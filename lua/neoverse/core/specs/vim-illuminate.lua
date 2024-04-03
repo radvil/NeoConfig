@@ -40,6 +40,7 @@ M.opts = {
     "neo-tree",
     "Outline",
     "Trouble",
+    "harpoon",
     "prompt",
     "dirbuf",
     "alpha",
@@ -47,6 +48,7 @@ M.opts = {
     "dbui",
     "help",
     "edgy",
+    "oil",
     "qf",
   },
 }
