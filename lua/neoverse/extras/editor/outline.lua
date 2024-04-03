@@ -6,7 +6,7 @@ return {
       {
         "<leader>cs",
         "<cmd>Outline<cr>",
-        desc = "Code » Toggle Outline",
+        desc = "toggle [c]ode [s]ymbols",
       },
     },
     opts = function()
@@ -15,8 +15,10 @@ return {
       local opts = {
         symbols = {},
         symbol_blacklist = {},
+        outline_window = {
+          winhl = "Normal:NormalFloat",
+        },
       }
-      -- TODO: enable custom symbol icons for all configs
       local filter = Config.kind_filter or {}
 
       if type(filter) == "table" then
