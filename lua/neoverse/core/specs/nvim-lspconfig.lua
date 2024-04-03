@@ -15,6 +15,14 @@ M.opts = {
       source = "if_many",
       prefix = "icons",
     },
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = require("neoverse.config").icons.Diagnostics.Error,
+        [vim.diagnostic.severity.WARN] = require("neoverse.config").icons.Diagnostics.Warn,
+        [vim.diagnostic.severity.HINT] = require("neoverse.config").icons.Diagnostics.Hint,
+        [vim.diagnostic.severity.INFO] = require("neoverse.config").icons.Diagnostics.Info,
+      },
+    },
   },
   ---@class NeoLspInlayHintsOpts
   inlay_hints = {
