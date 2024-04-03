@@ -159,7 +159,7 @@ M.init = function()
       prompt_title = "🔧 DOTFILES",
       cwd = os.getenv("DOTFILES"),
     }),
-    { desc = "telescope » open dotfiles" }
+    { desc = "telescope [d]otfiles" }
   )
   ---register custom note trigger
   vim.api.nvim_create_user_command(
@@ -168,7 +168,7 @@ M.init = function()
       prompt_title = Icons.FindNotes .. "Find notes",
       cwd = vim.g.neo_notesdir,
     }),
-    { desc = "telescope » find notes" }
+    { desc = "telescope [n]otes" }
   )
 end
 
@@ -183,7 +183,7 @@ M.keys = {
   Kmap("<leader>/c", ":Telescope commands<cr>", "[c]ommands"),
   Kmap("<leader>/X", ":Telescope diagnostics<cr>", "workspace diagnosti[X]"),
   Kmap("<leader>/x", ":Telescope diagnostics bufnr=0<cr>", "buffer diagnosti[x]"),
-  Kmap("<leader>/k", NeoTelescope("keymaps", { prompt_title = Icons.FindKeymaps .. "Keymaps" }), "[k]eymaps"),
+  Kmap("<leader>/k", NeoTelescope("keymaps", { prompt_title = Icons.FindKeymaps .. "[k]eymaps" }), "[k]eymaps"),
 
   Kmap(
     "<leader>/h",
@@ -225,7 +225,7 @@ M.keys = {
 
   {
     "<f1>",
-    NeoTelescope("help_tags", { prompt_title = Icons.FindHelpTags .. " help tags" }),
+    NeoTelescope("help_tags", { prompt_title = Icons.FindHelpTags .. " <f1>nd tags" }),
     desc = "<f1>nd tags",
   },
 
