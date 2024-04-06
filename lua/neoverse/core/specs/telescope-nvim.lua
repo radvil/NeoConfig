@@ -75,7 +75,7 @@ end
 
 local M = {}
 
-M.config = function(_, opts)
+M.opts = function()
   local actions = require("telescope.actions")
   local find_files_no_ignore = function()
     local action_state = require("telescope.actions.state")
@@ -147,8 +147,8 @@ M.config = function(_, opts)
       "└",
     }
   end
-  opts = vim.tbl_deep_extend("force", NeoDefaults, opts or {})
-  require("telescope").setup(opts)
+
+  return NeoDefaults
 end
 
 M.init = function()

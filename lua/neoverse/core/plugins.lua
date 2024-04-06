@@ -93,7 +93,7 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
-    config = get("telescope-nvim").config,
+    opts = get("telescope-nvim").opts,
     init = get("telescope-nvim").init,
     keys = get("telescope-nvim").keys,
     cmd = "Telescope",
