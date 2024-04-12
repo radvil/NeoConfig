@@ -1,19 +1,25 @@
----@diagnostic disable: param-type-mismatch
+local harpoon = require("harpoon")
 
-local function getcwd()
-  vim.print(vim.fn.getcwd():gsub(os.getenv("HOME"), "~"))
-end
-
-local function is_bun_available()
-  local bunx = vim.fn.executable("bunx")
-  if bunx == 0 then
-    return false
+-- basic telescope configuration
+local conf = require("telescope.config").values
+local function toggle_telescope(harpoon_files)
+  local file_paths = {}
+  for _, item in ipairs(harpoon_files.items) do
+    table.insert(file_paths, item.value)
   end
-  return true
+
+  require("telescope.pickers")
+    .new({}, {
+      prompt_title = "Harpoon",
+      finder = require("telescope.finders").new_table({
+        results = file_paths,
+      }),
+      previewer = conf.file_previewer({}),
+      sorter = conf.generic_sorter({}),
+    })
+    :find()
 end
 
-if is_bun_available() then
-  vim.print(vim.fn.exepath("bun"))
-else
-  vim.print("no")
-end
+local list = harpoon:list()
+toggle_telescope(list)
+-- vim.print(list)
