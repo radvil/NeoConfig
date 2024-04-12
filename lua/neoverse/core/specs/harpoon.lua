@@ -40,7 +40,7 @@ local prepend = function()
   local item, index = harpoon:list():get_by_display(get_buf_filepath())
   if not item then
     harpoon:list():prepend()
-    Lonard.info("Prepended to bookmark as #1" , {
+    Lonard.info("Prepended to bookmark as #1", {
       title = feature_name,
       icon = "📌",
     })
