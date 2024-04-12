@@ -23,6 +23,9 @@ M.config = function(_, opts)
       headlines = true,
       mason = true,
       illuminate = true,
+      mini = {
+        enabled = true,
+      },
       navic = {
         enabled = true,
         custom_bg = transparent and "NONE" or "lualine",
