@@ -142,6 +142,20 @@ M.opts = {
   },
 }
 
+M.config = function(_, opts)
+  local harpoon = require("harpoon")
+  harpoon:setup(opts)
+  harpoon:extend({
+    UI_CREATE = function(ctx)
+      --stylua: ignore start
+      Lonard.map("n", "<C-x>", function() harpoon.ui:select_menu_item({ split = true }) end, { buffer = ctx.bufnr })
+      Lonard.map("n", "<C-v>", function() harpoon.ui:select_menu_item({ vsplit = true }) end, { buffer = ctx.bufnr })
+      Lonard.map("n", "<C-t>", function() harpoon.ui:select_menu_item({ tabedit = true }) end, { buffer = ctx.bufnr })
+      --stylua: ignore end
+    end,
+  })
+end
+
 M.init = function()
   user_cmd("HarpoonShowLogs", {
     desc = "show logs",
@@ -194,8 +208,10 @@ M.init = function()
 
   vim.api.nvim_create_autocmd("FileType", {
     group = Lonard.create_augroup("NeoHarpoon", true),
-    command = "setlocal cursorline",
     pattern = "harpoon",
+    callback = function()
+      vim.cmd("setlocal cursorline")
+    end
   })
 end
 
