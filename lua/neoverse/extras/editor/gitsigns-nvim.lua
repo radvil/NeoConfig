@@ -30,6 +30,7 @@ return {
       Kmap("n", "<leader>guw", gs.toggle_word_diff, "toggle [g]itsigns [w]orddiff")
       Kmap("n", "<leader>gun", gs.toggle_numhl, "toggle [g]itsigns [n]umber")
       Kmap("n", "<leader>guc", gs.toggle_signs, "toggle [g]itsigns [c]olumn")
+      Kmap("n", "<leader>gud", gs.toggle_deleted, "toggle [g]itsigns [d]eleted")
     end,
   },
 }
