@@ -18,7 +18,10 @@ function M.get()
     M._keys =  {
       { "<leader>cl", "<cmd>LspInfo<cr>", desc = "code » lsp info" },
       { "gd", ":Telescope lsp_definitions reuse_win=true<cr>", desc = "code » definitions", has = "definition" },
-      { "gT", ":Telescope lsp_type_definitions reuse_win=true<cr>", desc = "code » type definitions" },
+      { "g<c-v>", ":Telescope lsp_definitions jump_type=vsplit<cr>", desc = "jumps to definition (vsplit)", has = "definition" },
+      { "g<c-x>", ":Telescope lsp_definitions jump_type=split<cr>", desc = "jumps to definition (split)", has = "definition" },
+      { "g<c-t>", ":Telescope lsp_definitions jump_type=tab<cr>", desc = "jumps to definition (tab)", has = "definition" },
+      { "gT", ":Telescope lsp_type_definitions reuse_win=true jump_type=vsplit<cr>", desc = "code » type definitions" },
       { "gI", ":Telescope lsp_implementations reuse_win=true<cr>", desc = "code » implementations" },
       { "gr", ":Telescope lsp_references reuse_win=true<cr>", desc = "code » references" },
       { "gD", vim.lsp.buf.declaration, desc = "code » declaration" },
