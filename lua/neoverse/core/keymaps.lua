@@ -93,6 +93,10 @@ if not Lonard.lazy_has("mini.bufremove") then
   Lonard.map("n", "<Leader>bD", ":bufdo bdelete<cr>", { desc = "buffer » delete all" })
 end
 
+-- quickfix
+Lonard.map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
+Lonard.map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
+
 Lonard.map("n", "<leader>us", function() Lonard.toggle.option("spell") end, { desc = "toggle » spell" })
 Lonard.map("n", "<leader>uw", function() Lonard.toggle.option("wrap") end, { desc = "toggle » word wrap" })
 Lonard.map("n", "<leader>uc", function() Lonard.toggle.option("cursorline") end, { desc = "toggle » cursor line" })
