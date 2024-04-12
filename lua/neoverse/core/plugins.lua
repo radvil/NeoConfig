@@ -44,12 +44,13 @@ return {
   },
   {
     "radvil/harpoon",
+    lazy = true,
     branch = "api/expose-index",
     dependencies = "nvim-lua/plenary.nvim",
-    lazy = true,
     opts = get("harpoon").opts,
     keys = get("harpoon").keys,
     init = get("harpoon").init,
+    config = get("harpoon").config,
   },
   {
     "radvil2/windows.nvim",
