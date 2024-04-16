@@ -125,6 +125,7 @@ Lonard.map("n", "<leader>gH", function()
   local git_path = vim.api.nvim_buf_get_name(0)
   Lonard.lazygit({ args = { "lazygit", "-f", vim.trim(git_path) } })
 end, { desc = "lazygit file [H]istory" })
+Lonard.map("n", "<leader>gb", Lonard.lazygit.blame_line, { desc = "[g]it [b]lame line" })
 
 --stylua: ignore end
 
