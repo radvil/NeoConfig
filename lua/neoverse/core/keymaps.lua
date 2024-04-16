@@ -1,7 +1,7 @@
 ---@diagnostic disable: missing-fields
 -- reset
 Lonard.map({ "n", "x", "v" }, "<nL>", "<nop>")
-Lonard.map("", "<c-z>", ":undo<cr>", { nowait = true })
+-- Lonard.map("", "<c-z>", ":undo<cr>", { nowait = true })
 Lonard.map("n", "Q", "q", { nowait = true, desc = "toggle recording" })
 Lonard.map("n", "<a-q>", "<nop>")
 Lonard.map("n", "q", "<nop>")
