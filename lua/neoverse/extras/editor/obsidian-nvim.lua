@@ -96,7 +96,7 @@ return {
       end,
     },
     config = function(_, opts)
-      require("obsidian").setu(opts)
+      require("obsidian").setup(opts)
       Lonard.map("n", "gf", function()
         if require("obsidian").util.cursor_on_markdown_link() then
           return "<cmd>ObsidianFollowLink<cr>"
