@@ -3,7 +3,7 @@
 Lonard.map({ "n", "x", "v" }, "<nL>", "<nop>")
 -- Lonard.map("", "<c-z>", ":undo<cr>", { nowait = true })
 Lonard.map("n", "Q", "q", { nowait = true, desc = "toggle recording" })
-Lonard.map("n", "<a-q>", "<nop>")
+-- Lonard.map("n", "<a-q>", "<nop>")
 Lonard.map("n", "q", "<nop>")
 
 -- base
@@ -21,6 +21,7 @@ Lonard.map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "clear hlsearch"
 Lonard.map({ "n", "x", "v" }, "ga", "<esc>ggVG", { nowait = true, desc = "select all" })
 Lonard.map({ "n", "x", "o" }, "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "next search result" })
 Lonard.map({ "n", "x", "o" }, "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "prev search result" })
+Lonard.map({ "n", "i", "x", "v", "s", "o", "c" }, "<a-q>", "<esc>", { desc = "[esc]" })
 
 -- stylua: ignore start
 
@@ -102,6 +103,7 @@ Lonard.map("n", "<leader>uw", function() Lonard.toggle.option("wrap") end, { des
 Lonard.map("n", "<leader>uc", function() Lonard.toggle.option("cursorline") end, { desc = "toggle » cursor line" })
 Lonard.map("n", "<leader>un", function() Lonard.toggle.number() end, { desc = "toggle » line numbers" })
 Lonard.map("n", "<leader>ux", function() Lonard.toggle.diagnostics() end, { desc = "toggle » diagnostics" })
+Lonard.map("n", "<leader>ub", function() Lonard.toggle("background", false, { "light", "dark" }) end, { desc = "toggle » background" })
 
 ---floating terminal
 local ft = function(cmd, root)

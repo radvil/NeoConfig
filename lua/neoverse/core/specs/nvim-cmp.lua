@@ -42,7 +42,7 @@ M.opts = function()
       ["<c-u>"] = cmp.mapping.scroll_docs(-4),
       ["<c-d>"] = cmp.mapping.scroll_docs(4),
       ["<c-space>"] = cmp.mapping.complete(),
-      ["<a-q>"] = cmp.mapping.close(),
+      -- ["<a-q>"] = cmp.mapping.close(),
       ["<c-e>"] = cmp.mapping.abort(),
     },
     sorting = defaults.sorting,
