@@ -39,12 +39,12 @@ local diagnostic_goto = function(next, severity)
   end
 end
 Lonard.map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "code » line diagnostics" })
-Lonard.map("n", "]d", diagnostic_goto(true), { desc = "next diagnostic" })
-Lonard.map("n", "[d", diagnostic_goto(false), { desc = "prev diagnostic" })
-Lonard.map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "next error" })
-Lonard.map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "prev error" })
-Lonard.map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "next warning" })
-Lonard.map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "prev warning" })
+Lonard.map({"n", "v", "x"}, "]d", diagnostic_goto(true), { desc = "next diagnostic" })
+Lonard.map({"n", "v", "x"}, "[d", diagnostic_goto(false), { desc = "prev diagnostic" })
+Lonard.map({"n", "v", "x"}, "]e", diagnostic_goto(true, "ERROR"), { desc = "next error" })
+Lonard.map({"n", "v", "x"}, "[e", diagnostic_goto(false, "ERROR"), { desc = "prev error" })
+Lonard.map({"n", "v", "x"}, "]w", diagnostic_goto(true, "WARN"), { desc = "next warning" })
+Lonard.map({"n", "v", "x"}, "[w", diagnostic_goto(false, "WARN"), { desc = "prev warning" })
 
 -- clipboard
 if vim.opt.clipboard ~= "unnamedplus" then
