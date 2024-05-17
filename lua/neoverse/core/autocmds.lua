@@ -49,6 +49,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "neo-tree-popup",
     "spectre_panel",
     "DressingInput",
+    "fugitiveblame",
     "flash_prompt",
     "cmp_menu",
     "NvimTree",

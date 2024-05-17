@@ -90,7 +90,7 @@ return {
     "nvim-lualine/lualine.nvim",
     init = get("lualine-nvim").init,
     opts = get("lualine-nvim").opts,
-    event = "VeryLazy",
+    event = "UIEnter",
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -203,14 +203,6 @@ return {
 
   -- editor
   {
-    "numToStr/Comment.nvim",
-    event = "BufReadPre",
-    opts = {
-      padding = true,
-      sticky = true,
-    },
-  },
-  {
     "echasnovski/mini.bufremove",
     keys = get("mini-bufremove").keys,
     init = get("mini-bufremove").init,
@@ -229,6 +221,8 @@ return {
     event = "LazyFile",
     main = "ibl",
   },
+
+  -- TODO: Use nvim native document highlight
   {
     "RRethy/vim-illuminate",
     config = get("vim-illuminate").config,

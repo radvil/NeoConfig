@@ -37,6 +37,31 @@ return {
       desc = "[E]xplore tree (cwd)",
     },
     {
+      "<Leader>ff",
+      function()
+        require("neo-tree.command").execute({
+          position = "float",
+          dir = Lonard.root(),
+          selector = true,
+          reveal = true,
+          toggle = false,
+        })
+      end,
+      desc = "[f]loat tree (root)",
+    },
+    {
+      "<leader>fF",
+      function()
+        require("neo-tree.command").execute({
+          position = "float",
+          dir = vim.uv.cwd(),
+          selector = true,
+          toggle = false,
+        })
+      end,
+      desc = "[F]loat tree (cwd)",
+    },
+    {
       "<leader>fb",
       function()
         require("neo-tree.command").execute({

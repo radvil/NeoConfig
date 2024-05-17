@@ -35,7 +35,7 @@ end
 return {
   "akinsho/bufferline.nvim",
   dependencies = "mini.bufremove",
-  event = "LazyFile",
+  event = "UIEnter",
   keys = {
     Kmap("<a-b>", "Pick", "pick & enter"),
     Kmap("<a-q>", "PickClose", "pick & close"),

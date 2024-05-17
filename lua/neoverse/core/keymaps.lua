@@ -105,6 +105,10 @@ Lonard.map("n", "<leader>un", function() Lonard.toggle.number() end, { desc = "t
 Lonard.map("n", "<leader>ux", function() Lonard.toggle.diagnostics() end, { desc = "toggle » diagnostics" })
 Lonard.map("n", "<leader>ub", function() Lonard.toggle("background", false, { "light", "dark" }) end, { desc = "toggle » background" })
 
+if vim.lsp.inlay_hint then
+  Lonard.map( "n", "<leader>uh", function() Lonard.toggle.inlay_hints() end, { desc = "toggle » inlay hints" })
+end
+
 ---floating terminal
 local ft = function(cmd, root)
   local label = (type(cmd) == "table" and cmd[1] or cmd) or "Terminal"
@@ -123,11 +127,11 @@ Lonard.map("n", "<leader>tP", function() ft({ "ping", "9.9.9.9" }) end, { desc =
 ---lazygit
 Lonard.map("n", "<leader>gg", function() Lonard.lazygit({ cwd = Lonard.root.git() }) end, { desc = "open lazy[g]it (root)" })
 Lonard.map("n", "<leader>gG", function() Lonard.lazygit() end, { desc = "lazy[G]it (cwd)" })
+Lonard.map("n", "<leader>gb", Lonard.lazygit.blame_line, { desc = "[g]it [b]lame line" })
 Lonard.map("n", "<leader>gH", function()
   local git_path = vim.api.nvim_buf_get_name(0)
   Lonard.lazygit({ args = { "lazygit", "-f", vim.trim(git_path) } })
 end, { desc = "lazygit file [H]istory" })
-Lonard.map("n", "<leader>gb", Lonard.lazygit.blame_line, { desc = "[g]it [b]lame line" })
 
 --stylua: ignore end
 

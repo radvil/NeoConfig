@@ -1,4 +1,4 @@
----@diagnostic disable: inject-field
+---@diagnostic disable: inject-field, undefined-field, duplicate-set-field
 _G.Lonard = require("neoverse.utils")
 
 ---@type NeoVerseOpts
@@ -220,7 +220,6 @@ function M.load(name)
   vim.api.nvim_exec_autocmds("User", { pattern = pattern, modeline = false })
 end
 
----@diagnostic disable-next-line: inject-field
 function M.bootstrap(opts)
   options = vim.tbl_deep_extend("force", defaults, opts or {}) or {}
 
@@ -273,7 +272,6 @@ function M.init()
   M.did_init = true
   local plugin = require("lazy.core.config").spec.plugins.NeoVerse
   if plugin then
-    ---@diagnostic disable-next-line: undefined-field
     vim.opt.rtp:append(plugin.dir)
   end
 
@@ -281,6 +279,11 @@ function M.init()
   -- this is needed to make sure options will be correctly applied
   -- after installing missing plugins
   M.load("options")
+
+  if vim.g.deprecation_warnings == false then
+    vim.deprecate = function() end
+  end
+
   Lonard.plugin.setup()
   M.json.load()
 end
