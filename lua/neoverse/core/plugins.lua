@@ -172,11 +172,11 @@ return {
   },
 
   --- completion
-  {
-    "windwp/nvim-ts-autotag",
-    event = "LazyFile",
-    opts = {},
-  },
+  -- {
+  --   "windwp/nvim-ts-autotag",
+  --   event = "LazyFile",
+  --   opts = {},
+  -- },
   {
     "hrsh7th/nvim-cmp",
     config = get("nvim-cmp").config,

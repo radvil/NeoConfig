@@ -27,9 +27,10 @@ local inlay_hints_settings = {
 return {
   {
     "nvim-treesitter",
+    optional = true,
     opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, {
+      if type(opts.ensure_install) == "table" then
+        vim.list_extend(opts.ensure_install, {
           "javascript",
           "typescript",
           "tsx",
