@@ -17,6 +17,7 @@ return {
       "<Leader>e",
       function()
         require("neo-tree.command").execute({
+          position = "left",
           dir = Lonard.root(),
           selector = true,
           reveal = true,
@@ -29,6 +30,7 @@ return {
       "<leader>E",
       function()
         require("neo-tree.command").execute({
+          position = "left",
           dir = vim.uv.cwd(),
           selector = true,
           toggle = true,
