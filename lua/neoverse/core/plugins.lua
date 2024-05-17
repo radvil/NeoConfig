@@ -172,11 +172,6 @@ return {
   },
 
   --- completion
-  -- {
-  --   "windwp/nvim-ts-autotag",
-  --   event = "LazyFile",
-  --   opts = {},
-  -- },
   {
     "hrsh7th/nvim-cmp",
     config = get("nvim-cmp").config,
@@ -192,13 +187,12 @@ return {
   -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    config = get("nvim-treesitter").config,
     opts = get("nvim-treesitter").opts,
-    keys = get("nvim-treesitter").keys,
-    init = get("nvim-treesitter").init,
-    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+    config = get("nvim-treesitter").config,
     event = { "LazyFile", "VeryLazy" },
     build = ":TSUpdate",
+    version = false,
+    branch = "main",
   },
 
   -- editor
@@ -220,16 +214,6 @@ return {
     keys = get("indent-blankline").keys,
     event = "LazyFile",
     main = "ibl",
-  },
-
-  -- TODO: Use nvim native document highlight
-  {
-    "RRethy/vim-illuminate",
-    config = get("vim-illuminate").config,
-    opts = get("vim-illuminate").opts,
-    init = get("vim-illuminate").init,
-    keys = get("vim-illuminate").keys,
-    event = "LazyFile",
   },
 
   -- misc

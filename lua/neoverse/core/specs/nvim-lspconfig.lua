@@ -35,6 +35,10 @@ M.opts = {
   codelens = {
     enabled = false,
   },
+  -- Enable lsp cursor word highlighting
+  document_highlight = {
+    enabled = true,
+  },
   servers = {
     bashls = {},
     html = {
@@ -80,8 +84,8 @@ M.opts = {
       settings = {
         Lua = {
           workspace = { checkThirdParty = false },
-          codeLens = { enable = true },
           completion = { callSnippet = "Replace" },
+          codeLens = { enable = true },
           hint = {
             enable = true,
             setType = true,
@@ -116,8 +120,8 @@ M.config = function(_, opts)
 
   require("neoverse.core.lsp.autocmds").setup()
 
-  -- register formatter along with autoformat
   Lonard.format.register(Lonard.lsp.formatter())
+  Lonard.lsp.words.setup(opts.document_highlight)
 
   require("neoverse.core.lsp.keymaps").setup()
   require("neoverse.core.lsp.diagnostics").setup(opts.diagnostics)
