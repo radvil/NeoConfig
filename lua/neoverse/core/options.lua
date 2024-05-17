@@ -70,6 +70,7 @@ vim.opt.shortmess:append({
   c = true,
 })
 
+
 vim.opt.sessionoptions = {
   "tabpages",
   "buffers",
