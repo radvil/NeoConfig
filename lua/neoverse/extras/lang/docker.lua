@@ -2,8 +2,8 @@ return {
   desc = "Docker language language integration",
   recommended = function()
     return Lonard.extras.wants({
-      ft = { "Dockerfile" },
-      root = { "Dockerfile" },
+      ft = "dockerfile",
+      root = { "Dockerfile", "docker-compose.yml", "compose.yml", "docker-compose.yaml", "compose.yaml" },
     })
   end,
 

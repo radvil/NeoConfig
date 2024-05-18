@@ -1,13 +1,17 @@
 return {
-  desc = "Tailwindcss LSP configuration",
+  desc = "Tailwindcss LSP integration",
   recommended = function()
     return Lonard.extras.wants({
-      ft = {
-        "css",
-        "html",
-        "scss",
+      root = {
+        "tailwind.config.js",
+        "tailwind.config.cjs",
+        "tailwind.config.mjs",
+        "tailwind.config.ts",
+        "postcss.config.js",
+        "postcss.config.cjs",
+        "postcss.config.mjs",
+        "postcss.config.ts",
       },
-      root = { "tailwind.config.js" },
     })
   end,
 

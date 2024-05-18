@@ -1,4 +1,12 @@
 return {
+  desc = "Markdown language integration",
+  recommended = function()
+    return Lonard.extras.wants({
+      ft = "markdown",
+      root = "README.md",
+    })
+  end,
+
   {
     "nvim-treesitter",
     optional = true,

@@ -1,4 +1,12 @@
 return {
+  desc = "Rust language integration",
+  recommended = function()
+    return Lonard.extras.wants({
+      ft = "rust",
+      root = { "Cargo.toml", "rust-project.json" },
+    })
+  end,
+
   -- completion
   {
     "hrsh7th/nvim-cmp",
