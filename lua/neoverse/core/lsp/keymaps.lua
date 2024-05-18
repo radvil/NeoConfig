@@ -14,64 +14,84 @@ function M.get()
   if M._keys then
     return M._keys
   end
-    -- stylua: ignore
-    M._keys =  {
-      { "<leader>cl", "<cmd>LspInfo<cr>", desc = "code » lsp info" },
-      { "gd", ":Telescope lsp_definitions reuse_win=true<cr>", desc = "code » definitions", has = "definition" },
-      { "g<c-v>", ":Telescope lsp_definitions jump_type=vsplit<cr>", desc = "jumps to definition (vsplit)", has = "definition" },
-      { "g<c-x>", ":Telescope lsp_definitions jump_type=split<cr>", desc = "jumps to definition (split)", has = "definition" },
-      { "g<c-t>", ":Telescope lsp_definitions jump_type=tab<cr>", desc = "jumps to definition (tab)", has = "definition" },
-      { "gT", ":Telescope lsp_type_definitions reuse_win=true jump_type=vsplit<cr>", desc = "code » type definitions" },
-      { "gI", ":Telescope lsp_implementations reuse_win=true<cr>", desc = "code » implementations" },
-      { "gr", ":Telescope lsp_references reuse_win=true<cr>", desc = "code » references" },
-      { "gD", vim.lsp.buf.declaration, desc = "code » declaration" },
-      {
-        "K",
-        function()
-          local ufo = Lonard.call("ufo")
-          if ufo then
-            return Lonard.call("ufo").peekFoldedLinesUnderCursor() or vim.lsp.buf.hover()
-          else
-            return vim.lsp.buf.hover()
-          end
-        end,
-        desc = "Hover",
-        has = "hover",
-      },
-      {
-        "gK",
-        vim.lsp.buf.signature_help,
-        desc = "Code » Signature help",
-        has = "signatureHelp",
-      },
-      {
-        "<leader>ca",
-        vim.lsp.buf.code_action,
-        desc = "code » code action",
-        mode = { "n", "v" },
-        has = "codeAction"
-      },
-      {
-        "<leader>cx",
-        vim.diagnostic.open_float,
-        desc = "code » diagnostic open float"
-      },
-      {
-        "<leader>cA",
-        function()
-          vim.lsp.buf.code_action({
-            context = {
-              only = { "source" },
-              diagnostics = {},
-            },
-          })
-        end,
-        desc = "code » source action",
-        has = "codeAction",
-      },
-      -- { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
-      -- { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
+  --stylua: ignore start
+  M._keys =  {
+    { "<leader>cl", "<cmd>LspInfo<cr>", desc = "code » lsp info" },
+    { "gd", ":Telescope lsp_definitions reuse_win=true<cr>", desc = "code » definitions", has = "definition" },
+    { "g<c-v>", ":Telescope lsp_definitions jump_type=vsplit<cr>", desc = "jumps to definition (vsplit)", has = "definition" },
+    { "g<c-x>", ":Telescope lsp_definitions jump_type=split<cr>", desc = "jumps to definition (split)", has = "definition" },
+    { "g<c-t>", ":Telescope lsp_definitions jump_type=tab<cr>", desc = "jumps to definition (tab)", has = "definition" },
+    { "gT", ":Telescope lsp_type_definitions reuse_win=true jump_type=vsplit<cr>", desc = "code » type definitions" },
+    { "gI", ":Telescope lsp_implementations reuse_win=true<cr>", desc = "code » implementations" },
+    { "gr", ":Telescope lsp_references reuse_win=true<cr>", desc = "code » references" },
+    { "gD", vim.lsp.buf.declaration, desc = "code » declaration" },
+    {
+      "K",
+      function()
+        local ufo = Lonard.call("ufo")
+        if ufo then
+          return Lonard.call("ufo").peekFoldedLinesUnderCursor() or vim.lsp.buf.hover()
+        else
+          return vim.lsp.buf.hover()
+        end
+      end,
+      desc = "Hover",
+      has = "hover",
+    },
+    {
+      "gK",
+      vim.lsp.buf.signature_help,
+      desc = "Code » Signature help",
+      has = "signatureHelp",
+    },
+    {
+      "<leader>ca",
+      vim.lsp.buf.code_action,
+      desc = "code » code action",
+      mode = { "n", "v" },
+      has = "codeAction"
+    },
+    {
+      "<leader>cx",
+      vim.diagnostic.open_float,
+      desc = "code » diagnostic open float"
+    },
+    {
+      "<leader>cA",
+      function()
+        vim.lsp.buf.code_action({
+          context = {
+            only = { "source" },
+            diagnostics = {},
+          },
+        })
+      end,
+      desc = "code » source action",
+      has = "codeAction",
+    },
+    -- { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
+    -- { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
+
+    {
+      "<a-n>",
+      function()
+        Lonard.lsp.words.jump(vim.v.count1)
+      end,
+      has = "documentHighlight",
+      desc = "Next Reference",
+      mode = { "n", "x", "o" },
+    },
+
+    {
+      "<a-p>",
+      function()
+        Lonard.lsp.words.jump(-vim.v.count1)
+      end,
+      has = "documentHighlight",
+      desc = "Next Reference",
+      mode = { "n", "x", "o" },
     }
+  }
   if Lonard.lazy_has("inc-rename.nvim") then
     M._keys[#M._keys + 1] = {
       "<leader>cr",
