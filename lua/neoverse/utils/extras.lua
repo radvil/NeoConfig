@@ -1,4 +1,4 @@
----@diagnostic disable: inject-field
+---@diagnostic disable: inject-field, missing-fields, param-type-mismatch
 
 local Config = require("neoverse.config")
 local LazyFloat = require("lazy.view.float")
@@ -18,12 +18,15 @@ local LazyText = require("lazy.view.text")
 ---@field desc? string
 ---@field enabled boolean
 ---@field managed boolean
+---@field recommended? boolean
 ---@field row? number
+---@field section? string
 ---@field plugins string[]
 ---@field optional string[]
 
 ---@class neoverse.utils.extras
 local M = {}
+M.buf = 0
 
 ---@type NeoExtraSource[]
 M.sources = {
@@ -35,6 +38,24 @@ M.ns = vim.api.nvim_create_namespace("neoverse.extras")
 ---@type string[]
 M.state = nil
 
+---@param opts {ft?: string|string[], root?: string|string[]}
+---@return boolean
+function M.wants(opts)
+  if opts.ft then
+    opts.ft = type(opts.ft) == "string" and { opts.ft } or opts.ft
+    for _, f in ipairs(opts.ft) do
+      if vim.bo[M.buf].filetype == f then
+        return true
+      end
+    end
+  end
+  if opts.root then
+    opts.root = type(opts.root) == "string" and { opts.root } or opts.root
+    return #Lonard.root.detectors.pattern(M.buf, opts.root) > 0
+  end
+  return false
+end
+
 ---@return NeoExtra[]
 function M.get()
   M.state = M.state or LazyConfig.spec.modules
@@ -43,13 +64,12 @@ function M.get()
     local root = Lonard.find_root(source.module)
     if root then
       Lonard.walk(root, function(path, name, type)
-        if type == "file" and name:match("%.lua$") then
+        if (type == "file" or type == "link") and name:match("%.lua$") then
           name = path:sub(#root + 2, -5):gsub("/", ".")
-          extras[#extras + 1] = M.get_extras(source, source.module .. "." .. name)
-          -- local ok, extra = pcall(M.get_extra, source, source.module .. "." .. name)
-          -- if ok then
-          --   extras[#extras + 1] = extra
-          -- end
+          local ok, extra = pcall(M.get_extra, source, source.module .. "." .. name)
+          if ok then
+            extras[#extras + 1] = extra
+          end
         end
       end)
     end
@@ -62,7 +82,7 @@ end
 
 ---@param modname string
 ---@param source NeoExtraSource
-function M.get_extras(source, modname)
+function M.get_extra(source, modname)
   local enabled = vim.tbl_contains(M.state, modname)
   local spec = LazyPlugin.Spec.new({ import = modname }, { optional = true })
   local plugins = {} ---@type string[]
@@ -76,7 +96,11 @@ function M.get_extras(source, modname)
   end
   table.sort(plugins)
   table.sort(optional)
-
+  ---@type boolean|(fun():boolean?)|nil
+  local recommended = require(modname).recommended or false
+  if type(recommended) == "function" then
+    recommended = recommended() or false
+  end
   ---@type NeoExtra
   return {
     source = source,
@@ -84,6 +108,7 @@ function M.get_extras(source, modname)
     module = modname,
     enabled = enabled,
     desc = require(modname).desc,
+    recommended = recommended,
     managed = vim.tbl_contains(Config.json.data.extras, modname) or not enabled,
     plugins = plugins,
     optional = optional,
@@ -101,7 +126,6 @@ function M.get_specs_by_prios(prios)
     used[extra] = true
     return true
   end, Config.json.data.extras)
-
   table.sort(Config.json.data.extras, function(a, b)
     local pa = prios[a] or 10
     local pb = prios[b] or 10
@@ -126,10 +150,7 @@ local V = {}
 ---@return NeoPluginView
 function V.new()
   local self = setmetatable({}, { __index = V })
-  self.float = LazyFloat.new({
-    title = "NeoVerse Extras",
-    border = vim.g.neo_winborder,
-  })
+  self.float = LazyFloat.new({ title = "NeoVerse Extras", border = vim.g.neo_winborder })
   self.float:on_key("x", function()
     self:toggle()
   end, "Toggle extra")
@@ -218,8 +239,14 @@ function V:render()
     :append("<x>", "LazySpecial")
     :append(" key", "LazyComment")
     :nl()
+  for _, extra in ipairs(self.extras) do
+    extra.section = nil
+  end
   self:section({ enabled = true, title = "Enabled" })
-  self:section({ enabled = false, title = "Disabled" })
+  self:section({ recommended = true, include = "^lang%.", title = "Recommended Languages", empty = false })
+  self:section({ recommended = true, title = "Recommended Plugins", empty = false })
+  self:section({ title = "Plugins", exclude = "^lang%." })
+  self:section({ title = "Languages" })
 end
 
 ---@param extra NeoExtra
@@ -238,6 +265,9 @@ function V:extra(extra)
     self.text:append("  " .. LazyConfig.options.ui.icons.not_loaded .. " ", hl)
   end
   self.text:append(extra.name)
+  if extra.recommended then
+    self.text:append(" "):append(LazyConfig.options.ui.icons.favorite or " ", "LazyCommit")
+  end
   if extra.source.name ~= "NeoVerse" then
     self.text:append(" "):append(LazyConfig.options.ui.icons.event .. " " .. extra.source.name, "LazyReasonEvent")
   end
@@ -253,16 +283,23 @@ function V:extra(extra)
   self.text:nl()
 end
 
----@param opts {enabled?:boolean, title?:string}
+---@param opts {enabled?:boolean, title:string, recommended?:boolean, include?:string, exclude?:string, empty?:boolean}
 function V:section(opts)
   opts = opts or {}
   ---@type NeoExtra[]
-  local extras = vim.tbl_filter(function(extras)
-    return opts.enabled == nil or extras.enabled == opts.enabled
+  local extras = vim.tbl_filter(function(extra)
+    return extra.section == nil
+      and (opts.enabled == nil or extra.enabled == opts.enabled)
+      and (opts.recommended == nil or extra.recommended == opts.recommended)
+      and (opts.include == nil or extra.name:find(opts.include))
+      and (opts.exclude == nil or not extra.name:find(opts.exclude))
   end, self.extras)
-
+  if opts.empty == false and #extras == 0 then
+    return
+  end
   self.text:nl():append(opts.title .. ":", "LazyH2"):append(" (" .. #extras .. ")", "LazyComment"):nl()
   for _, extra in ipairs(extras) do
+    extra.section = opts.title
     self:extra(extra)
   end
 end

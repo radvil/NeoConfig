@@ -3,6 +3,8 @@ return {
   name = "tokyonight",
   priority = 9999,
   lazy = false,
+  recommended = true,
+  desc = "Folke based colorscheme",
   config = function(_, opts)
     local transparent = vim.g.neo_transparent
     local NeoDefaults = {

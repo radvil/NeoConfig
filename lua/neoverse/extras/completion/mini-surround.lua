@@ -1,4 +1,6 @@
 return {
+  desc = "Text surround motion",
+  recommended = true,
   {
     "which-key.nvim",
     optional = true,
