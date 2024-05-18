@@ -11,13 +11,7 @@ return {
       { "rafamadriz/friendly-snippets" },
       {
         "garymjr/nvim-snippets",
-        opts = {
-          friendly_snippets = true,
-          search_paths = {
-            os.getenv("DOTFILES") .. "/nvim/assets/snippets/all",
-            os.getenv("DOTFILES") .. "/nvim/assets/snippets/angular",
-          },
-        },
+        opts = { friendly_snippets = true },
       },
     },
     opts = function(_, opts)
