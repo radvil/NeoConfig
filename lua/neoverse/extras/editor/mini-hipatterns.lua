@@ -5,6 +5,8 @@ M.hl = {}
 
 M.plugin = {
   "echasnovski/mini.hipatterns",
+  desc = "Highlight colors in your code. Also includes Tailwind CSS support.",
+  recommended = true,
   event = "LazyFile",
   opts = function()
     local hi = require("mini.hipatterns")
