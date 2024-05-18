@@ -1,4 +1,16 @@
 return {
+  desc = "Tailwindcss LSP configuration",
+  recommended = function()
+    return Lonard.extras.wants({
+      ft = {
+        "css",
+        "html",
+        "scss",
+      },
+      root = { "tailwind.config.js" },
+    })
+  end,
+
   {
     "neovim/nvim-lspconfig",
     ---@type NeoLspOpts

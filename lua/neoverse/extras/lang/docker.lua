@@ -1,4 +1,12 @@
 return {
+  desc = "Docker language language integration",
+  recommended = function()
+    return Lonard.extras.wants({
+      ft = { "Dockerfile" },
+      root = { "Dockerfile" },
+    })
+  end,
+
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)

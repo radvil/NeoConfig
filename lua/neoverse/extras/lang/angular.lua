@@ -48,6 +48,18 @@ end
 -- end
 
 return {
+  desc = "Angular LSP configuration",
+  recommended = function()
+    return Lonard.extras.wants({
+      ft = {
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+      },
+      root = { "tsconfig.json", "package.json", "angular.json" },
+    })
+  end,
+
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)

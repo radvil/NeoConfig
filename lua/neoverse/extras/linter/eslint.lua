@@ -1,4 +1,20 @@
+---@diagnostic disable: missing-fields
 return {
+  desc = "Eslint LSP configuration",
+  recommended = function()
+    return Lonard.extras.wants({
+      ft = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+      },
+      root = { "package.json", ".eslintrc.json" },
+    })
+  end,
+
   "neovim/nvim-lspconfig",
   -- other settings removed for brevity
   opts = {

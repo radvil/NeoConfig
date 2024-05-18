@@ -25,6 +25,21 @@ local inlay_hints_settings = {
 
 ---@type LazySpec[]
 return {
+  desc = "Typescript LSP configuration",
+  recommended = function()
+    return Lonard.extras.wants({
+      ft = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+      },
+      root = { "tsconfig.json", "package.json", "jsconfig.json" },
+    })
+  end,
+
   {
     "nvim-treesitter",
     optional = true,

@@ -55,6 +55,9 @@ local telescope_pick = function(prompt_bufnr)
 end
 
 return {
+  desc = "Jumps like folke",
+  recommended = true,
+
   {
     "nvim-telescope/telescope.nvim",
     optional = true,
