@@ -39,6 +39,9 @@ M.opts = function()
       ["<c-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<c-y>"] = cmp.mapping.confirm({ select = true }),
+      ["<CR>"] = Lonard.cmp.confirm(),
+      -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ["<S-CR>"] = Lonard.cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace }),
       ["<c-u>"] = cmp.mapping.scroll_docs(-4),
       ["<c-d>"] = cmp.mapping.scroll_docs(4),
       ["<c-space>"] = cmp.mapping.complete(),
@@ -61,6 +64,9 @@ M.config = function(_, opts)
     }
   end
   cmp.setup(opts)
+  cmp.event:on("menu_opened", function(event)
+    Lonard.cmp.add_missing_snippet_docs(event.window)
+  end)
 end
 
 return M

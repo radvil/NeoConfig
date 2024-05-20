@@ -18,7 +18,7 @@ return {
       table.insert(opts.sources, { name = "snippets" })
       opts.snippet = {
         expand = function(args)
-          vim.snippet.expand(args.body)
+          return Lonard.cmp.expand(args.body)
         end,
       }
     end,
@@ -26,38 +26,16 @@ return {
       {
         "<Tab>",
         function()
-          if vim.snippet.active({ direction = 1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(1)
-            end)
-            return
-          end
-          return "<Tab>"
+          return vim.snippet.active({ direction = 1 }) and "<cmd>lua vim.snippet.jump(1)<cr>" or "<Tab>"
         end,
         expr = true,
         silent = true,
-        mode = "i",
-      },
-      {
-        "<Tab>",
-        function()
-          vim.schedule(function()
-            vim.snippet.jump(1)
-          end)
-        end,
-        silent = true,
-        mode = "s",
+        mode = { "i", "s" },
       },
       {
         "<S-Tab>",
         function()
-          if vim.snippet.active({ direction = -1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(-1)
-            end)
-            return
-          end
-          return "<a-p>"
+          return vim.snippet.active({ direction = -1 }) and "<cmd>lua vim.snippet.jump(-1)<cr>" or "<Tab>"
         end,
         expr = true,
         silent = true,
