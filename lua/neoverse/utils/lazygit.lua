@@ -48,16 +48,23 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- Opens lazygit
 ---@param opts? NeoTermOpts | {args?: string[]}
 function M.open(opts)
+  if vim.g.lazygit_theme ~= nil then
+    Lonard.deprecate("vim.g.lazygit_theme", "vim.g.lazygit_config")
+  end
+
   opts = vim.tbl_deep_extend("force", {}, {
     esc_esc = false,
     ctrl_hjkl = false,
   }, opts or {})
+
   local cmd = { "lazygit" }
   vim.list_extend(cmd, opts.args or {})
+
   if vim.g.lazygit_config then
     if M.dirty then
       M.update_config()
     end
+
     if not M.config_dir then
       local Process = require("lazy.manage.process")
       local ok, lines = pcall(Process.exec, { "lazygit", "-cd" })
@@ -74,6 +81,7 @@ function M.open(opts)
       end
     end
   end
+
   return Lonard.terminal(cmd, opts)
 end
 
@@ -98,8 +106,9 @@ function M.get_color(v)
 end
 
 function M.update_config()
-  --@type table<string, string[]>
+  ---@type table<string, string[]>
   local theme = {}
+
   for k, v in pairs(M.theme) do
     if type(k) == "number" then
       local color = M.get_color(v)
@@ -110,6 +119,7 @@ function M.update_config()
       theme[k] = M.get_color(v)
     end
   end
+
   local config = [[
 os:
   editPreset: "nvim-remote"
@@ -117,10 +127,9 @@ gui:
   nerdFontsVersion: 3
   theme:
 ]]
+
   ---@type string[]
   local lines = {}
-  lines[#lines + 1] = "gui:"
-  lines[#lines + 1] = " theme:"
   for k, v in pairs(theme) do
     lines[#lines + 1] = ("   %s:"):format(k)
     for _, c in ipairs(v) do
@@ -144,7 +153,7 @@ function M.blame_line(opts)
     border = "rounded",
   }, opts or {})
   local cursor = vim.api.nvim_win_get_cursor(0)
-  local line = cursor[1] - 1
+  local line = cursor[1]
   local file = vim.api.nvim_buf_get_name(0)
   local cmd = { "git", "log", "-n", opts.count, "-u", "-L", line .. ",+1:" .. file }
   return require("lazy.util").float_cmd(cmd, opts)
