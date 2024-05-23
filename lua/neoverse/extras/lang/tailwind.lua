@@ -1,5 +1,5 @@
 return {
-  desc = "Tailwindcss LSP integration",
+  -- desc = "Tailwindcss LSP integration",
   recommended = function()
     return Lonard.extras.wants({
       root = {

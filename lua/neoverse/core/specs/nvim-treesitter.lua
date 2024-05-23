@@ -1,10 +1,24 @@
----@type LazySpec
 local M = {}
 
+M.keys = {
+  {
+    "<c-space>",
+    desc = "Treesitter » Init/increase node selection",
+    mode = { "n", "x" },
+  },
+  {
+    "<bs>",
+    desc = "Treesitter » Decrease node selection",
+    mode = "x",
+  },
+}
+
+---@type TSConfig
+---@diagnostic disable-next-line: missing-fields
 M.opts = {
   highlight = { enable = true },
   indent = { enable = true },
-  ensure_install = {
+  ensure_installed = {
     "bash",
     "c",
     "diff",
@@ -29,30 +43,32 @@ M.opts = {
     "xml",
     "yaml",
   },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<C-space>",
+      node_incremental = "<C-space>",
+      scope_incremental = false,
+      node_decremental = "<bs>",
+    },
+  },
 }
 
----@param opts TSConfig
 M.config = function(_, opts)
-  ---@return string[]
-  local function norm(ensure)
-    return ensure == nil and {} or type(ensure) == "string" and { ensure } or ensure
+  if type(opts.ensure_installed) == "table" then
+    opts.ensure_installed = Lonard.dedup(opts.ensure_installed)
   end
-  opts.ensure_install = Lonard.dedup(norm(opts.ensure_install))
-  require("nvim-treesitter").setup(opts)
+  require("nvim-treesitter.configs").setup(opts)
+end
 
-  -- backwards compatibility with the old treesitter config for indent
-  if vim.tbl_get(opts, "indent", "enable") then
-    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-  end
-
-  -- backwards compatibility with the old treesitter config for highlight
-  if vim.tbl_get(opts, "highlight", "enable") then
-    vim.api.nvim_create_autocmd("FileType", {
-      callback = function()
-        pcall(vim.treesitter.start)
-      end,
-    })
-  end
+M.init = function(plugin)
+  -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
+  -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
+  -- no longer trigger the **nvim-treesitter** module to be loaded in time.
+  -- Luckily, the only things that those plugins need are the custom queries, which we make available
+  -- during startup.
+  require("lazy.core.loader").add_to_rtp(plugin)
+  require("nvim-treesitter.query_predicates")
 end
 
 return M

@@ -136,17 +136,18 @@ return {
     opts = get("nvim-lspconfig").opts,
     config = get("nvim-lspconfig").config,
     dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-      "williamboman/mason.nvim",
       {
         "folke/neoconf.nvim",
         cmd = "Neoconf",
         config = false,
+        dependencies = { "nvim-lspconfig" },
       },
       {
         "folke/neodev.nvim",
         opts = {},
       },
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
     },
   },
   {
@@ -190,9 +191,12 @@ return {
     opts = get("nvim-treesitter").opts,
     config = get("nvim-treesitter").config,
     event = { "LazyFile", "VeryLazy" },
+    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
     build = ":TSUpdate",
+    -- load treesitter early when opening a file from the cmdline
+    lazy = vim.fn.argc(-1) == 0,
     version = false,
-    branch = "main",
+    -- branch = "main",
   },
 
   -- editor

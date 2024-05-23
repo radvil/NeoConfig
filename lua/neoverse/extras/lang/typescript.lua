@@ -25,7 +25,7 @@ local inlay_hints_settings = {
 
 ---@type LazySpec[]
 return {
-  desc = "Typescript LSP configuration",
+  -- desc = "Typescript LSP configuration",
   recommended = function()
     return Lonard.extras.wants({
       ft = {

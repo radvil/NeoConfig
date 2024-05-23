@@ -1,4 +1,3 @@
----@diagnostic disable: duplicate-set-field
 ---@class neoverse.utils.lualine
 local M = {}
 

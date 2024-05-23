@@ -1,4 +1,3 @@
----@diagnostic disable: missing-fields, param-type-mismatch
 ---@class neoverse.utils.root
 ---@overload fun(): string
 local M = setmetatable({}, {

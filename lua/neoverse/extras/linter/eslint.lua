@@ -1,6 +1,6 @@
 ---@diagnostic disable: missing-fields
 return {
-  desc = "Eslint LSP configuration",
+  -- desc = "Eslint LSP configuration",
   recommended = function()
     return Lonard.extras.wants({
       ft = {
@@ -58,7 +58,7 @@ return {
           end
         end
 
-        -- register the formatter with LazyVim
+        -- register the formatter with NeoVerse
         Lonard.format.register(formatter)
       end,
     },

@@ -48,7 +48,7 @@ end
 -- end
 
 return {
-  desc = "Angular LSP configuration",
+  -- desc = "Angular LSP configuration",
   recommended = function()
     return Lonard.extras.wants({
       ft = {

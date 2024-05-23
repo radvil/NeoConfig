@@ -111,7 +111,7 @@ end
 function M.extra_idx(name)
   local Config = require("lazy.core.config")
   for i, extra in ipairs(Config.spec.modules) do
-    if extra == "lazyvim.plugins.extras." .. name then
+    if extra == "neoverse.extras." .. name then
       return i
     end
   end

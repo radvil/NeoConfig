@@ -1,5 +1,5 @@
 return {
-  desc = "Go language integration",
+  -- desc = "Go language integration",
   recommended = function()
     return Lonard.extras.wants({
       ft = { "go", "gomod", "gowork", "gotmpl" },

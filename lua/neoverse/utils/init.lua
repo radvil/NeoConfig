@@ -1,8 +1,7 @@
----@diagnostic disable: inject-field
-
 local LazyUtil = require("lazy.core.util")
 
 ---@class neoverse.utils: LazyUtilCore
+---@field config NeoVerseConfig
 ---@field terminal neoverse.utils.terminal
 ---@field lazygit neoverse.utils.lazygit
 ---@field lualine neoverse.utils.lualine
@@ -19,11 +18,33 @@ local LazyUtil = require("lazy.core.util")
 
 local M = {}
 
+---@type table<string, string|string[]>
+local deprecated = {
+  get_clients = "lsp",
+  on_attach = "lsp",
+  on_rename = "lsp",
+  root_patterns = { "root", "patterns" },
+  get_root = { "root", "get" },
+  float_term = { "terminal", "open" },
+  toggle_diagnostics = { "toggle", "diagnostics" },
+  toggle_number = { "toggle", "number" },
+  fg = "ui",
+}
+
 setmetatable(M, {
   __index = function(t, k)
     if LazyUtil[k] then
       return LazyUtil[k]
     end
+    local dep = deprecated[k]
+    if dep then
+      local mod = type(dep) == "table" and dep[1] or dep
+      local key = type(dep) == "table" and dep[2] or k
+      M.deprecate([[Lonard.]] .. k, [[Lonard.]] .. mod .. "." .. key)
+      t[mod] = require("neoverse.utils." .. mod) -- load here to prevent loops
+      return t[mod][key]
+    end
+    ---@diagnostic disable-next-line: no-unknown
     t[k] = require("neoverse.utils." .. k)
     return t[k]
   end,
@@ -159,14 +180,6 @@ function M.warn(msg, opts)
   opts = opts or {}
   opts.level = vim.log.levels.WARN
   M.notify(msg, opts)
-end
-
-function M.debug(msg)
-  if not require("neoverse.config").dev then
-    return
-  end
-  local title = string.format("[%s]", "DEBUG")
-  vim.notify(msg, vim.log.levels.INFO, { title })
 end
 
 ---@param plugin string

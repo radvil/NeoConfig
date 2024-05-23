@@ -1,4 +1,5 @@
----@diagnostic disable: undefined-doc-name, undefined-field
+---@diagnostic disable: undefined-doc-name, undefined-field, duplicate-set-field
+
 ---@class neoverse.utils.lsp
 local M = {}
 
@@ -29,6 +30,89 @@ function M.on_attach(on_attach)
       local buffer = args.buf ---@type number
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       on_attach(client, buffer)
+    end,
+  })
+end
+
+---@type table<string, table<vim.lsp.Client, table<number, boolean>>>
+M._supports_method = {}
+
+function M.setup()
+  local register_capability = vim.lsp.handlers["client/registerCapability"]
+  vim.lsp.handlers["client/registerCapability"] = function(err, res, ctx)
+    ---@diagnostic disable-next-line: no-unknown
+    local ret = register_capability(err, res, ctx)
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    if client then
+      for buffer in ipairs(client.attached_buffers) do
+        vim.api.nvim_exec_autocmds("User", {
+          pattern = "LspDynamicCapability",
+          data = { client_id = client.id, buffer = buffer },
+        })
+      end
+    end
+    return ret
+  end
+  M.on_attach(M._check_methods)
+  M.on_dynamic_capability(M._check_methods)
+end
+
+---@param client vim.lsp.Client
+function M._check_methods(client, buffer)
+  -- don't trigger on invalid buffers
+  if not vim.api.nvim_buf_is_valid(buffer) then
+    return
+  end
+  -- don't trigger on non-listed buffers
+  if not vim.bo[buffer].buflisted then
+    return
+  end
+  -- don't trigger on nofile buffers
+  if vim.bo[buffer].buftype == "nofile" then
+    return
+  end
+  for method, clients in pairs(M._supports_method) do
+    clients[client] = clients[client] or {}
+    if not clients[client][buffer] then
+      if client.supports_method and client.supports_method(method, { bufnr = buffer }) then
+        clients[client][buffer] = true
+        vim.api.nvim_exec_autocmds("User", {
+          pattern = "LspSupportsMethod",
+          data = { client_id = client.id, buffer = buffer, method = method },
+        })
+      end
+    end
+  end
+end
+
+---@param fn fun(client:vim.lsp.Client, buffer):boolean?
+---@param opts? {group?: integer}
+function M.on_dynamic_capability(fn, opts)
+  return vim.api.nvim_create_autocmd("User", {
+    pattern = "LspDynamicCapability",
+    group = opts and opts.group or nil,
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      local buffer = args.data.buffer ---@type number
+      if client then
+        return fn(client, buffer)
+      end
+    end,
+  })
+end
+
+---@param method string
+---@param fn fun(client:vim.lsp.Client, buffer)
+function M.on_supports_method(method, fn)
+  M._supports_method[method] = M._supports_method[method] or setmetatable({}, { __mode = "k" })
+  return vim.api.nvim_create_autocmd("User", {
+    pattern = "LspSupportsMethod",
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      local buffer = args.data.buffer ---@type number
+      if client and method == args.data.method then
+        return fn(client, buffer)
+      end
     end,
   })
 end
@@ -108,35 +192,22 @@ end
 
 ---@param opts? lsp.Client.format
 function M.format(opts)
-  opts = vim.tbl_deep_extend("force", {}, opts or {}, Lonard.opts("nvim-lspconfig").format or {})
+  opts = vim.tbl_deep_extend(
+    "force",
+    {},
+    opts or {},
+    Lonard.opts("nvim-lspconfig").format or {},
+    Lonard.opts("conform.nvim").format or {}
+  )
   local ok, conform = pcall(require, "conform")
   -- use conform for formatting with LSP when available,
   -- since it has better format diffing
   if ok then
     opts.formatters = {}
-    opts.lsp_fallback = true
     conform.format(opts)
   else
     vim.lsp.buf.format(opts)
   end
-end
-
--- TODO: LspConfig with bunx
--- may be do not need mason to handle servers installation
-function M.has_bun_installed()
-  local bunx = vim.fn.executable("bunx")
-  if bunx == 0 then
-    return false
-  end
-  return true
-end
-
-function M.get_global_bun_modules()
-  return os.getenv("BUN_INSTALL") .. "/global/node_modules"
-end
-
-function M.get_local_node_modules()
-  return vim.fn.getcwd() .. "/node_modules"
 end
 
 ---@alias LspWord {from:{[1]:number, [2]:number}, to:{[1]:number, [2]:number}, current?:boolean} 1-0 indexed
@@ -156,23 +227,20 @@ function M.words.setup(opts)
     end
     return handler(err, result, ctx, config)
   end
-
-  M.on_attach(function(client, buf)
-    if client.supports_method("textDocument/documentHighlight") then
-      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" }, {
-        group = vim.api.nvim_create_augroup("lsp_word_" .. buf, { clear = true }),
-        buffer = buf,
-        callback = function(ev)
-          if not M.words.at() then
-            if ev.event:find("CursorMoved") then
-              vim.lsp.buf.clear_references()
-            else
-              vim.lsp.buf.document_highlight()
-            end
+  M.on_supports_method("textDocument/documentHighlight", function(_, buf)
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" }, {
+      group = vim.api.nvim_create_augroup("lsp_word_" .. buf, { clear = true }),
+      buffer = buf,
+      callback = function(ev)
+        if not M.words.at() then
+          if ev.event:find("CursorMoved") then
+            vim.lsp.buf.clear_references()
+          else
+            vim.lsp.buf.document_highlight()
           end
-        end,
-      })
-    end
+        end
+      end,
+    })
   end)
 end
 

@@ -1,5 +1,5 @@
 return {
-  desc = "Docker language language integration",
+  -- desc = "Docker language language integration",
   recommended = function()
     return Lonard.extras.wants({
       ft = "dockerfile",

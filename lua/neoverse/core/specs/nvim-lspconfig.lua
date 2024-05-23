@@ -17,10 +17,10 @@ M.opts = {
     },
     signs = {
       text = {
-        [vim.diagnostic.severity.ERROR] = require("neoverse.config").icons.Diagnostics.Error,
-        [vim.diagnostic.severity.WARN] = require("neoverse.config").icons.Diagnostics.Warn,
-        [vim.diagnostic.severity.HINT] = require("neoverse.config").icons.Diagnostics.Hint,
-        [vim.diagnostic.severity.INFO] = require("neoverse.config").icons.Diagnostics.Info,
+        [vim.diagnostic.severity.ERROR] = Lonard.config.icons.Diagnostics.Error,
+        [vim.diagnostic.severity.WARN] = Lonard.config.icons.Diagnostics.Warn,
+        [vim.diagnostic.severity.HINT] = Lonard.config.icons.Diagnostics.Hint,
+        [vim.diagnostic.severity.INFO] = Lonard.config.icons.Diagnostics.Info,
       },
     },
   },
@@ -110,20 +110,24 @@ M.opts = {
 }
 
 M.config = function(_, opts)
+  if Lonard.lazy_has("neoconf.nvim") then
+    require("neoconf").setup(Lonard.opts("neoconf.nvim"))
+  end
+
   local border = vim.g.neo_winborder
   require("lspconfig.ui.windows").default_options.border = border
 
-  if Lonard.lazy_has("neoconf.nvim") then
-    local plugin = require("lazy.core.config").spec.plugins["neoconf.nvim"]
-    require("neoconf").setup(require("lazy.core.plugin").values(plugin, "opts", false))
-  end
-
   require("neoverse.core.lsp.autocmds").setup()
 
+  -- setup for autoformat
   Lonard.format.register(Lonard.lsp.formatter())
+
+  -- setup default keymaps for all lsp
+  Lonard.lsp.on_attach(require("neoverse.core.lsp.keymaps").on_attach)
+  Lonard.lsp.setup()
+  Lonard.lsp.on_dynamic_capability(require("neoverse.core.lsp.keymaps").on_attach)
   Lonard.lsp.words.setup(opts.document_highlight)
 
-  require("neoverse.core.lsp.keymaps").setup()
   require("neoverse.core.lsp.diagnostics").setup(opts.diagnostics)
   require("neoverse.core.lsp.inlay-hints").setup(opts.inlay_hints)
   require("neoverse.core.lsp.codelens").setup(opts.codelens)

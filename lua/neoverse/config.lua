@@ -1,8 +1,11 @@
 ---@diagnostic disable: inject-field, undefined-field, duplicate-set-field
+
 _G.Lonard = require("neoverse.utils")
 
----@type NeoVerseOpts
+---@class NeoVerseConfig: NeoVerseOpts
 local M = {}
+
+Lonard.config = M
 
 ---@class NeoVerseOpts
 local defaults = {
@@ -293,7 +296,7 @@ setmetatable(M, {
     if options == nil then
       return vim.deepcopy(defaults)[key]
     end
-    ---@cast options NeoVerseOpts
+    ---@cast options NeoVerseConfig
     return options[key]
   end,
 })

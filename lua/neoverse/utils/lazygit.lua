@@ -1,4 +1,3 @@
----@diagnostic disable: missing-fields
 ---@class neoverse.utils.lazygit
 ---@field config_dir? string
 ---@overload fun(cmd: string|string[], opts: NeoTermOpts): LazyFloat

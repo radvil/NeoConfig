@@ -1,4 +1,3 @@
----@diagnostic disable: missing-fields, undefined-field
 ---@class neoverse.utils.toggle
 local M = {}
 

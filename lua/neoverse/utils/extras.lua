@@ -1,5 +1,3 @@
----@diagnostic disable: inject-field, missing-fields, param-type-mismatch
-
 local Config = require("neoverse.config")
 local LazyFloat = require("lazy.view.float")
 local LazyConfig = require("lazy.core.config")

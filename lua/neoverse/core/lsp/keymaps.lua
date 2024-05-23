@@ -1,4 +1,4 @@
----@diagnostic disable: inject-field
+---@diagnostic disable: inject-field, param-type-mismatch, duplicate-set-field
 local M = {}
 
 ---@type NeoKeysLspSpec[]|nil
@@ -154,26 +154,6 @@ function M.on_attach(_, buffer)
       vim.keymap.set(keys.mode or "n", keys.lhs, keys.rhs, opts)
     end
   end
-end
-
-function M.setup()
-  if M._loaded then
-    return
-  end
-
-  Lonard.lsp.on_attach(function(client, buffer)
-    M.on_attach(client, buffer)
-  end)
-  local register_capability = vim.lsp.handlers["client/registerCapability"]
-  vim.lsp.handlers["client/registerCapability"] = function(err, res, ctx)
-    local ret = register_capability(err, res, ctx)
-    local client = vim.lsp.get_client_by_id(ctx.client_id)
-    local buffer = vim.api.nvim_get_current_buf()
-    M.on_attach(client, buffer)
-    return ret
-  end
-
-  M._loaded = true
 end
 
 return M

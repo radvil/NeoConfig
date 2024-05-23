@@ -1,5 +1,5 @@
 return {
-  desc = "Rust language integration",
+  -- desc = "Rust language integration",
   recommended = function()
     return Lonard.extras.wants({
       ft = "rust",
