@@ -26,9 +26,16 @@ return {
         separate_diagnostic_server = false,
         expose_as_code_action = "all",
         tsserver_file_preferences = {
-          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHints = "literal",
           includeCompletionsForModuleExports = true,
           quotePreference = "auto",
+
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = false,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
         },
         tsserver_format_options = {
           allowIncompleteCompletions = false,
@@ -51,7 +58,6 @@ return {
       Kmap("<leader>cm", "AddMissingImports", "add missing imports")
       Kmap("<leader>co", "OrganizeImports", "organize imports")
       Kmap("<leader>cc", "RemoveUnusedImports", "clear imports")
-      Kmap("<leader>cR", "RenameFile", "rename file")
     end,
   },
 }

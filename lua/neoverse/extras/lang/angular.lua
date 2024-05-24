@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 local goToTemplateFile = function()
   local params = vim.lsp.util.make_position_params(0)
   vim.lsp.buf_request(0, "angular/getTemplateLocationForComponent", params, function(_, result)
@@ -76,16 +77,15 @@ return {
       servers = {
         angularls = {
           -- mason = false,
-          single_file_support = true,
+          -- single_file_support = true,
           -- on_new_config = function(new_config, new_root_dir)
           --   new_config.cmd = getNgCmd(new_root_dir)
           -- end,
           root_dir = function(fname)
-            local util = require("lspconfig").util
+            local util = require("lspconfig.util")
             local original = util.root_pattern("angular.json", "project.json")(fname)
             local nx_fallback = util.root_pattern("nx.json", "workspace.json")(fname)
-            local git_fallback = util.root_pattern(".git")(fname)
-            return original or nx_fallback or git_fallback
+            return original or nx_fallback
           end,
         },
       },
