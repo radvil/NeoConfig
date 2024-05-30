@@ -1,28 +1,5 @@
 ---@diagnostic disable: missing-fields
 
-local invoke = function(name)
-  return function()
-    vim.lsp.buf.code_action({
-      apply = true,
-      context = {
-        only = { string.format("source.%s.ts", name) },
-        diagnostics = {},
-      },
-    })
-  end
-end
-
-local inlay_hints_settings = {
-  includeInlayParameterNameHints = "all",
-  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-  includeInlayFunctionParameterTypeHints = true,
-  includeInlayVariableTypeHints = true,
-  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-  includeInlayPropertyDeclarationTypeHints = true,
-  includeInlayFunctionLikeReturnTypeHints = true,
-  includeInlayEnumMemberValueHints = true,
-}
-
 ---@type LazySpec[]
 return {
   -- desc = "Typescript LSP configuration",
