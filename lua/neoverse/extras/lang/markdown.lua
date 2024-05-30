@@ -11,8 +11,8 @@ return {
     "nvim-treesitter",
     optional = true,
     opts = function(_, opts)
-      if type(opts.ensure_install) == "table" then
-        vim.list_extend(opts.ensure_install, { "markdown", "markdown_inline" })
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "markdown", "markdown_inline" })
       end
     end,
   },

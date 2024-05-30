@@ -83,12 +83,21 @@ M.opts = {
       mason = true,
       settings = {
         Lua = {
-          workspace = { checkThirdParty = false },
-          completion = { callSnippet = "Replace" },
-          codeLens = { enable = true },
+          workspace = {
+            checkThirdParty = false,
+          },
+          codeLens = {
+            enable = true,
+          },
+          completion = {
+            callSnippet = "Replace",
+          },
+          doc = {
+            privateName = { "^_" },
+          },
           hint = {
             enable = true,
-            setType = true,
+            setType = false,
             paramType = true,
             paramName = "Disable",
             semicolon = "Disable",
@@ -164,23 +173,14 @@ M.config = function(_, opts)
   local function setup(server)
     local server_opts = vim.tbl_deep_extend("force", {
       capabilities = vim.deepcopy(capabilities),
-      -- handlers = {
-      --   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-      -- },
     }, opts.servers[server] or {})
-    -- local coq = Utils.call("coq")
-    -- if coq then
-    --   server_opts = coq.lsp_ensure_capabilities(server_opts)
-    -- end
-    if opts.standalone_setups then
-      if opts.standalone_setups[server] then
-        if opts.standalone_setups[server](server, server_opts) then
-          return
-        end
-      elseif opts.standalone_setups["*"] then
-        if opts.standalone_setups["*"](server, server_opts) then
-          return
-        end
+    if opts.standalone_setups[server] then
+      if opts.standalone_setups[server](server, server_opts) then
+        return
+      end
+    elseif opts.standalone_setups["*"] then
+      if opts.standalone_setups["*"](server, server_opts) then
+        return
       end
     end
     require("lspconfig")[server].setup(server_opts)
@@ -195,29 +195,36 @@ M.config = function(_, opts)
     mlsp_servers = vim.tbl_keys(server_pairs.lspconfig_to_package)
   end
 
-  for name, options in pairs(opts.servers) do
-    if options then
-      options = options == true and {} or options
-      if options.mason == false or not vim.tbl_contains(mlsp_servers, name) then
-        setup(name)
-      else
-        ensure_installed[#ensure_installed + 1] = name
+  for server, server_opts in pairs(opts.servers) do
+    if server_opts then
+      server_opts = server_opts == true and {} or server_opts
+      if server_opts.enabled ~= false then
+        -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
+        if server_opts.mason == false or not vim.tbl_contains(mlsp_servers, server) then
+          setup(server)
+        else
+          ensure_installed[#ensure_installed + 1] = server
+        end
       end
     end
   end
 
   if mason_lspconfig then
     mason_lspconfig.setup({
-      ensure_installed = ensure_installed,
+      ensure_installed = vim.tbl_deep_extend(
+        "force",
+        ensure_installed,
+        Lonard.opts("mason-lspconfig.nvim").ensure_installed or {}
+      ),
       handlers = {
         setup,
       },
     })
   end
 
-  if Lonard.lsp.get_config("denols") and Lonard.lsp.get_config("tsserver") then
+  if Lonard.lsp.is_enabled("denols") and Lonard.lsp.is_enabled("vtsls") then
     local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
-    Lonard.lsp.disable("tsserver", is_deno)
+    Lonard.lsp.disable("vtsls", is_deno)
     Lonard.lsp.disable("denols", function(root_dir)
       return not is_deno(root_dir)
     end)
