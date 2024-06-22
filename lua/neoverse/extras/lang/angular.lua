@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-field
 local goToTemplateFile = function()
   local params = vim.lsp.util.make_position_params(0)
   vim.lsp.buf_request(0, "angular/getTemplateLocationForComponent", params, function(_, result)
@@ -28,36 +27,22 @@ end
 ---@param id string
 ---@param cmd string | function
 ---@param desc string
-local cmd = function(id, cmd, desc)
+local create_command = function(id, cmd, desc)
   vim.api.nvim_create_user_command(string.format("A%s", id), cmd, {
     desc = string.format("Angular » %s", desc),
   })
 end
 
--- ---@param root_dir? string
--- local getNgCmd = function(root_dir)
---   local bun = os.getenv("HOME") .. "/.bun"
---   local bun_libs = string.format("%s/install/global/node_modules", bun)
---   return {
---     bun .. "/bin/ngserver",
---     "--stdio",
---     "--tsProbeLocations",
---     root_dir .. "," .. bun_libs,
---     "--ngProbeLocations",
---     root_dir .. "," .. bun_libs .. "/@angular/language-server/node_modules",
---   }
--- end
+local angular_root_pattern = { "angular.json", "project.json" }
+
+local get_root_dir = function(root_dir)
+  return require("lspconfig.util").root_pattern(unpack(angular_root_pattern))(root_dir)
+end
 
 return {
-  -- desc = "Angular LSP configuration",
   recommended = function()
     return Lonard.extras.wants({
-      ft = {
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx",
-      },
-      root = { "tsconfig.json", "package.json", "angular.json" },
+      root = angular_root_pattern,
     })
   end,
 
@@ -65,41 +50,49 @@ return {
     "nvim-treesitter",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "angular", "scss" })
+        vim.list_extend(opts.ensure_installed, { "angular", "html", "scss" })
       end
+      vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+        pattern = { "*.html", "*.svg" },
+        callback = function(ev)
+          if not not get_root_dir(ev.match) then
+            vim.treesitter.start(ev.buf, "angular")
+          end
+        end,
+      })
     end,
   },
 
+  -- depends on the typescript extra
+  { import = "neoverse.extras.lang.typescript" },
+
+  -- LSP Servers
   {
-    "nvim-lspconfig",
-    ---@type NeoLspOpts
+    "neovim/nvim-lspconfig",
     opts = {
       servers = {
+        html = {},
         angularls = {
-          -- mason = false,
-          -- single_file_support = true,
-          -- on_new_config = function(new_config, new_root_dir)
-          --   new_config.cmd = getNgCmd(new_root_dir)
-          -- end,
-          root_dir = function(fname)
-            local util = require("lspconfig.util")
-            local original = util.root_pattern("angular.json", "project.json")(fname)
-            local nx_fallback = util.root_pattern("nx.json", "workspace.json")(fname)
-            return original or nx_fallback
-          end,
+          root_dir = get_root_dir,
+          keys = {
+            {
+              "<leader>cr",
+              function()
+                vim.lsp.buf.rename(nil, {
+                  filter = function(client)
+                    return client.name == "angularls"
+                  end,
+                })
+              end,
+              desc = "Rename",
+            },
+          },
         },
       },
       standalone_setups = {
         angularls = function()
-          ---@param client lsp.Client
-          Lonard.lsp.on_attach(function(client)
-            if client.name == "angularls" then
-              client.server_capabilities.renameProvider = false
-              cmd("c", goToComponentFile, "Go to component file")
-              cmd("t", goToTemplateFile, "Go to template file")
-            end
-          end)
-          return false
+          create_command("c", goToComponentFile, "Go to component file")
+          create_command("t", goToTemplateFile, "Go to template file")
         end,
       },
     },

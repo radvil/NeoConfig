@@ -125,7 +125,6 @@ return {
       },
       standalone_setups = {
         vtsls = function(_, opts)
-          -- copy typescript settings to javascript
           opts.settings.javascript =
             vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
           local plugins = vim.tbl_get(opts.settings, "vtsls", "tsserver", "globalPlugins")
